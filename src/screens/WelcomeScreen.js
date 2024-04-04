@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 
+
 const { width, height } = Dimensions.get("window");
 
 const slides = [
@@ -32,7 +33,7 @@ const slides = [
   },
 ];
 
-const WelcomeScreen = () => {
+const WelcomeScreen = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollViewRef = useRef();
 
@@ -50,7 +51,7 @@ const WelcomeScreen = () => {
         animated: true,
       });
     } else {
-      // TODO: navigate to the next screen after the last slide
+      navigation.navigate('ChooseSign');
     }
   };
 
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
     marginTop: "15%",
   },
   subtitle: {
-    color: "#fff", // Texto branco
+    color: "#AAB8C2", // Texto branco
     fontSize: 20, // Tamanho do texto para o subtítulo
     textAlign: "center", // Texto centralizado horizontalmente
   },
@@ -165,8 +166,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32, // Espaço horizontal interno do botão
     borderRadius: 12, // Borda arredondada do botão
     alignSelf: "center", // Centraliza o botão horizontalmente
+    justifyContent: 'center',
     width: width - 50,
-    height: 50,
+    height: 60,
   },
   buttonText: {
     color: "#fff", // Texto branco
