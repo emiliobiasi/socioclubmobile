@@ -1,5 +1,4 @@
-// ChooseSign.js
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   Text,
@@ -8,10 +7,23 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import CientsService from "../services/ClientsService";
 
 const { width, height } = Dimensions.get("window");
 
 const ChooseSign = ({ navigation }) => {
+  useEffect(() => {
+    CientsService.listarClients().then(
+      (response) => {
+        alert(response.data);
+        console.log(response.data);
+      },
+      (error) => {
+        console.log("erro: ", error);
+      }
+    );
+  }, []);
+
   const handleSignUpPress = () => {
     navigation.navigate("SignUp");
   };

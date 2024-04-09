@@ -1,5 +1,5 @@
-// SetupProfileScreen.js
-import React from "react";
+import React, { useState } from "react";
+import { API_URL, useAuth } from "../context/AuthContext";
 import {
   View,
   Text,
@@ -11,7 +11,53 @@ import {
 } from "react-native";
 
 const SignUp = ({ navigation }) => {
-  // Adicione o estado e as funções necessárias para lidar com a entrada de dados e upload de imagem aqui
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setUsername] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const { onRegister } = useAuth();
+
+  const login = async () => {
+    try {
+      const result = await onLogin(email, password);
+      if (result && !result.error) {
+        navigation.navigate("Loading");
+      } else {
+        alert(result.msg);
+      }
+    } catch (e) {
+      alert("Falha ao realizar login. Por favor, tente novamente.");
+    }
+  };
+
+  // Automatically call the login after a successful registration
+  const register = async () => {
+    if (!name || !email || !password || !confirmPassword) {
+      alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("As senhas não coincidem.");
+      return;
+    }
+
+    try {
+      const result = await onRegister(name, email, password);
+      if (result && result.error) {
+        // Se a API retornar uma mensagem de erro específica, ela será exibida aqui.
+        alert(result.msg);
+      } else {
+        // Se o registro for bem-sucedido, você pode direcionar o usuário para a tela de login ou qualquer outra tela.
+        alert("Registro concluído com sucesso! Por favor, faça o login.");
+        navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro
+      }
+    } catch (e) {
+      console.log("erro: ", e)
+      alert("Ocorreu um erro durante o registro. Tente novamente.");
+    }
+  };
+
   const handleBackButtonPress = () => {
     navigation.navigate("ChooseSign");
   };
@@ -39,29 +85,38 @@ const SignUp = ({ navigation }) => {
       {/* Campos de entrada de texto */}
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder="Username"
+          placeholder="Nome"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
-          // Adicione mais props para lidar com a entrada de texto
+          value={name}
+          onChangeText={setUsername} // Atualiza o estado username com o texto inserido
         />
         <TextInput
           placeholder="Email"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
+          value={email}
+          onChangeText={setEmail} // Atualiza o estado email com o texto inserido
         />
         <TextInput
           placeholder="Senha"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
+          value={password}
+          onChangeText={setPassword} // Atualiza o estado password com o texto inserido
+          secureTextEntry // Esconde o texto da senha
         />
         <TextInput
           placeholder="Confirmar senha"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
+          value={confirmPassword}
+          onChangeText={setConfirmPassword} // Atualiza o estado confirmPassword com o texto inserido
+          secureTextEntry // Esconde o texto da senha
         />
       </View>
 
-      <TouchableOpacity style={styles.concluirButton}>
+      <TouchableOpacity style={styles.concluirButton} onPress={register}>
         <Text style={styles.concluirButtonText}>Concluir</Text>
       </TouchableOpacity>
     </ScrollView>

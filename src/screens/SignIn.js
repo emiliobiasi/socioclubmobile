@@ -1,5 +1,4 @@
-// SetupProfileScreen.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,9 +8,34 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { API_URL, useAuth } from "../context/AuthContext";
 
 const SignIn = ({ navigation }) => {
-  // Adicione o estado e as funções necessárias para lidar com a entrada de dados e upload de imagem aqui
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { onLogin } = useAuth();
+
+  useEffect(() => {
+    const testCall = async () => {
+      const result = await axios.get(`${API_URL}/users`);
+      console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
+    };
+    testCall();
+  }, []);
+
+  const login = async () => {
+    try {
+      const result = await onLogin(email, password);
+      if (result && !result.error) {
+        navigation.navigate("Loading");
+      } else {
+        alert(result.msg);
+      }
+    } catch (e) {
+      alert("Falha ao realizar login. Por favor, tente novamente.");
+    }
+  };
+
   const handleBackButtonPress = () => {
     navigation.navigate("ChooseSign");
   };
@@ -38,16 +62,24 @@ const SignIn = ({ navigation }) => {
           placeholder="Email"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
+          value={email}
+          onChangeText={setEmail} // Atualiza o estado email com o texto inserido
+          keyboardType="email-address" // Define o teclado para entrada de e-mail
+          autoCapitalize="none" // Desativa a capitalização automática
         />
         <TextInput
           placeholder="Senha"
           placeholderTextColor="#AAB8C2"
           style={styles.input}
+          value={password}
+          onChangeText={setPassword} // Atualiza o estado password com o texto inserido
+          secureTextEntry // Esconde o texto da senha
+          autoCapitalize="none" // Desativa a capitalização automática
         />
       </View>
 
-      <TouchableOpacity style={styles.concluirButton}>
-        <Text style={styles.concluirButtonText}>Concluir</Text>
+      <TouchableOpacity style={styles.entrarButton} onPress={login}>
+        <Text style={styles.entrarButtonText}>Entrar</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -110,13 +142,13 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 10,
   },
-  concluirButton: {
+  entrarButton: {
     backgroundColor: "#1D9BF0",
     padding: 15,
     borderRadius: 10,
     alignItems: "center",
   },
-  concluirButtonText: {
+  entrarButtonText: {
     color: "#fff",
     fontSize: 18,
     fontWeight: "bold",

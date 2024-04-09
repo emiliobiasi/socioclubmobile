@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -37,6 +37,7 @@ const WelcomeScreen = ({ navigation }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollViewRef = useRef();
 
+  
   const onScroll = (event) => {
     const slideSize = event.nativeEvent.layoutMeasurement.width;
     const index = event.nativeEvent.contentOffset.x / slideSize;
@@ -51,7 +52,7 @@ const WelcomeScreen = ({ navigation }) => {
         animated: true,
       });
     } else {
-      navigation.navigate('ChooseSign');
+      navigation.navigate("ChooseSign");
     }
   };
 
@@ -106,8 +107,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around", // Distribui o espaço verticalmente
   },
   logo: {
-    width: 300, // Tamanho do logotipo
-    height: 300, // Tamanho do logotipo
+    width: width * 0.8,
+    height: height * 0.3,
     resizeMode: "contain", // Assegura que o logotipo não seja cortado
   },
   textContainer: {
@@ -166,7 +167,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32, // Espaço horizontal interno do botão
     borderRadius: 12, // Borda arredondada do botão
     alignSelf: "center", // Centraliza o botão horizontalmente
-    justifyContent: 'center',
+    justifyContent: "center",
     width: width - 50,
     height: 60,
   },
@@ -176,5 +177,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold", // Texto do botão em negrito
     textAlign: "center", // Texto do botão centralizado
   },
-})
+});
 export default WelcomeScreen;
