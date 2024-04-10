@@ -8,21 +8,22 @@ import {
   Dimensions,
 } from "react-native";
 import CientsService from "../services/ClientsService";
+import { AntDesign } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
 const ChooseSign = ({ navigation }) => {
-  useEffect(() => {
-    CientsService.listarClients().then(
-      (response) => {
-        alert(response.data);
-        console.log(response.data);
-      },
-      (error) => {
-        console.log("erro: ", error);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   CientsService.listarClients().then(
+  //     (response) => {
+  //       alert(response.data);
+  //       console.log(response.data);
+  //     },
+  //     (error) => {
+  //       console.log("erro: ", error);
+  //     }
+  //   );
+  // }, []);
 
   const handleSignUpPress = () => {
     navigation.navigate("SignUp");
@@ -57,7 +58,12 @@ const ChooseSign = ({ navigation }) => {
           style={styles.nextButton}
           onPress={handleNextButtonPress}
         >
-          <Text style={styles.nextButtonText}>{">"}</Text>
+          <AntDesign
+            name="right"
+            size={24}
+            color="white"
+            onPress={handleNextButtonPress}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -130,12 +136,7 @@ const styles = StyleSheet.create({
     width: "25%",
     borderRadius: 10,
     height: 60,
-  },
-  nextButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    alignSelf: "center",
+    alignItems: "center",
   },
 });
 

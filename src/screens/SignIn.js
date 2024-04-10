@@ -7,8 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import { API_URL, useAuth } from "../context/AuthContext";
+import { AntDesign } from "@expo/vector-icons";
+
+const { width, height } = Dimensions.get("window");
 
 const SignIn = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -42,12 +46,12 @@ const SignIn = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.topBar}>
-        <TouchableOpacity
-          style={styles.backButton}
+        <AntDesign
+          name="left"
+          size={36}
+          color="white"
           onPress={handleBackButtonPress}
-        >
-          <Text style={styles.backButtonText}>{"<"}</Text>
-        </TouchableOpacity>
+        />
         <Text style={styles.header}>Login</Text>
       </View>
 
@@ -93,26 +97,11 @@ const styles = StyleSheet.create({
   },
   topBar: {
     flexDirection: "row",
-    //justifyContent: "center", // Centraliza os botões horizontalmente
+    justifyContent: "space-between", // Isso empurrará o header para o meio e o botão para a esquerda
     alignItems: "center",
     width: "100%",
-  },
-  backButton: {
-    borderWidth: 2,
-    borderColor: "#fff",
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    paddingVertical: 12,
-    marginLeft: 10, // Distância entre os botões
-    width: "25%",
-    borderRadius: 10,
-    height: 60,
-  },
-  backButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    alignSelf: "center",
+    paddingHorizontal: 10, // Adicione um pouco de padding horizontal para garantir que nada fique grudado nas bordas
+    height: "25%",
   },
   header: {
     fontSize: 24,
@@ -120,6 +109,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     alignSelf: "center",
     marginVertical: 20,
+    marginRight: "40%",
   },
   label: {
     color: "#fff",
@@ -127,9 +117,10 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   logo: {
-    width: 300, // Tamanho do logotipo
-    height: 300, // Tamanho do logotipo
+    width: width * 0.8,
+    height: height * 0.3,
     resizeMode: "contain", // Assegura que o logotipo não seja cortado
+    alignSelf: "center",
   },
   inputContainer: {
     marginVertical: 20,
@@ -140,7 +131,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     padding: 15,
-    marginBottom: 10,
+    marginBottom: 30,
   },
   entrarButton: {
     backgroundColor: "#1D9BF0",

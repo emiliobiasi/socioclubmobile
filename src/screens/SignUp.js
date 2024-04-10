@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import ClientsService from "../services/ClientsService";
+import { AntDesign } from "@expo/vector-icons";
 
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -24,37 +25,25 @@ const SignUp = ({ navigation }) => {
       if (result && !result.error) {
         navigation.navigate("Loading");
       } else {
-        
         alert(result.msg);
       }
     } catch (e) {
       alert("Falha ao realizar login. Por favor, tente novamente.");
     }
   };
-
   // Automatically call the login after a successful registration
   const register = async () => {
     if (!name || !email || !password || !confirmPassword) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
-
     if (password !== confirmPassword) {
       alert("As senhas não coincidem.");
       return;
     }
-
     try {
-      //const result = await onRegister(name, email, password);
-      
-      const result = await ClientsService.registrarClient(name, password, email);
-
+      const result = await onRegister(name, email, password);
       if (result && result.error) {
-        // Se a API retornar uma mensagem de erro específica, ela será exibida aqui.
-        
-        console.log(result)
-        console.log(result.error)
-
         alert(result.msg);
       } else {
         // Se o registro for bem-sucedido, você pode direcionar o usuário para a tela de login ou qualquer outra tela.
@@ -62,9 +51,7 @@ const SignUp = ({ navigation }) => {
         navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro
       }
     } catch (e) {
-      
-      console.log("erro: ", e)
-
+      console.log("erro: ", e);
       alert("Ocorreu um erro durante o registro. Tente novamente.");
     }
   };
@@ -75,24 +62,18 @@ const SignUp = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.topBar}>
-        <TouchableOpacity
-          style={styles.backButton}
+        <AntDesign
+          name="left"
+          size={36}
+          color="white"
           onPress={handleBackButtonPress}
-        >
-          <Text style={styles.backButtonText}>{"<"}</Text>
-        </TouchableOpacity>
+        />
         <Text style={styles.header}>Perfil</Text>
       </View>
-
-      <Text style={styles.label}>Adicione uma Imagem</Text>
       <Image
         source={require("../../assets/images/socioclublogo.png")}
         style={styles.profileImage}
       />
-      <TouchableOpacity style={styles.uploadButton}>
-        <Text style={styles.uploadButtonText}>Upload Profile</Text>
-      </TouchableOpacity>
-
       {/* Campos de entrada de texto */}
       <View style={styles.inputContainer}>
         <TextInput
@@ -142,26 +123,11 @@ const styles = StyleSheet.create({
   },
   topBar: {
     flexDirection: "row",
-    //justifyContent: "center", // Centraliza os botões horizontalmente
+    justifyContent: "space-between", // Isso empurrará o header para o meio e o botão para a esquerda
     alignItems: "center",
     width: "100%",
-  },
-  backButton: {
-    borderWidth: 2,
-    borderColor: "#fff",
-    backgroundColor: "transparent",
-    justifyContent: "center",
-    paddingVertical: 12,
-    marginLeft: 10, // Distância entre os botões
-    width: "25%",
-    borderRadius: 10,
-    height: 60,
-  },
-  backButtonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-    alignSelf: "center",
+    paddingHorizontal: 10, // Adicione um pouco de padding horizontal para garantir que nada fique grudado nas bordas
+    height: "25%",
   },
   header: {
     fontSize: 24,
@@ -169,6 +135,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     alignSelf: "center",
     marginVertical: 20,
+    marginRight: "40%",
   },
   label: {
     color: "#fff",
@@ -207,7 +174,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     padding: 15,
-    marginBottom: 10,
+    marginBottom: 30,
   },
   concluirButton: {
     backgroundColor: "#1D9BF0",
