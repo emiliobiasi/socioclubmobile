@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import ClientsService from "../services/ClientsService";
 
 const SignUp = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -23,6 +24,7 @@ const SignUp = ({ navigation }) => {
       if (result && !result.error) {
         navigation.navigate("Loading");
       } else {
+        
         alert(result.msg);
       }
     } catch (e) {
@@ -43,9 +45,16 @@ const SignUp = ({ navigation }) => {
     }
 
     try {
-      const result = await onRegister(name, email, password);
+      //const result = await onRegister(name, email, password);
+      
+      const result = await ClientsService.registrarClient(name, password, email);
+
       if (result && result.error) {
         // Se a API retornar uma mensagem de erro específica, ela será exibida aqui.
+        
+        console.log(result)
+        console.log(result.error)
+
         alert(result.msg);
       } else {
         // Se o registro for bem-sucedido, você pode direcionar o usuário para a tela de login ou qualquer outra tela.
@@ -53,7 +62,9 @@ const SignUp = ({ navigation }) => {
         navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro
       }
     } catch (e) {
+      
       console.log("erro: ", e)
+
       alert("Ocorreu um erro durante o registro. Tente novamente.");
     }
   };

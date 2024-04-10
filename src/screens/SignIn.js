@@ -17,7 +17,7 @@ const SignIn = ({ navigation }) => {
 
   useEffect(() => {
     const testCall = async () => {
-      const result = await axios.get(`${API_URL}/users`);
+      const result = await axios.get(`${API_URL}/clients`);
       console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
     };
     testCall();
