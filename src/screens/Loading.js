@@ -1,14 +1,14 @@
 // Loading.js
 import React from "react";
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
-import { API_URL } from "../context/AuthContext";
+import { API_URL } from "@env";
 
 const { width, height } = Dimensions.get("window");
 
 const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
     const testCall = async () => {
-      const result = await axios.get(`${API_URL}/users`);
+      const result = await axios.get(`${process.env.API_URL}/clients`);
       console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
     };
     testCall();

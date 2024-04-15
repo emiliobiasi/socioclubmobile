@@ -4,6 +4,7 @@ import WelcomeScreen from "../screens/WelcomeScreen";
 import ChooseSign from "../screens/ChooseSign";
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
+import Loading from "../screens/Loading";
 import { AuthProvider, useAuth } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -28,6 +29,11 @@ export const Layout = () => {
         <Stack.Screen
           name="SignUp"
           component={SignUp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
           options={{ headerShown: false }}
         />
         {authState?.authenticated ? (

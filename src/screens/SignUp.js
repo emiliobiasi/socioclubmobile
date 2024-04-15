@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_URL, useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import {
   View,
   Text,

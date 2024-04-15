@@ -9,7 +9,8 @@ import {
   ScrollView,
   Dimensions,
 } from "react-native";
-import { API_URL, useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
+import { API_URL } from "@env";
 import { AntDesign } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
@@ -21,7 +22,7 @@ const SignIn = ({ navigation }) => {
 
   useEffect(() => {
     const testCall = async () => {
-      const result = await axios.get(`${API_URL}/clients`);
+      const result = await axios.get(`${process.env.API_URL}/clients`);
       console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
     };
     testCall();

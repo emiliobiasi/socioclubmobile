@@ -2,10 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import ClientsService from "../services/ClientsService";
-//require("dotevn").config();
+import { API_URL } from "@env";
 
 const TOKEN_KEY = "my-jwt";
-export const API_URL = "http://172.16.228.221:8000";
 const AuthContext = createContext({});
 
 export const useAuth = () => {
@@ -46,7 +45,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const result = await axios.post(`${API_URL}/auth`, { email, password });
+      const result = await axios.post(`${process.env.API_URL}/login`, {
+        email,
+        password,
+      });
 
       console.log("🚀 ~ file: AuthContext.js: ~ login ~ result:", result);
 

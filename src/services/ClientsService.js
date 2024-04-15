@@ -1,14 +1,17 @@
 import axios from "axios";
-
-const API_URL = "http://172.16.228.221:8000";
+import { API_URL } from "@env";
 
 const listarClients = () => {
-  return axios.get(API_URL + "/clients");
+  return axios.get(process.env.API_URL + "/clients");
 };
 
 const registrarClient = async (name, email, password) => {
   try {
-    return await axios.post(API_URL + "/register", { name, email, password });
+    return await axios.post(process.env.API_URL + "/register", {
+      name,
+      email,
+      password,
+    });
   } catch (e) {
     console.log(e);
   }
