@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import ClientsService from "../services/ClientsService";
-import { API_URL } from "@env";
 
 const TOKEN_KEY = "my-jwt";
 const AuthContext = createContext({});
@@ -45,22 +44,25 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const result = await axios.post(`${process.env.API_URL}/login`, {
-        email,
-        password,
-      });
+      const result = await axios.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       console.log("🚀 ~ file: AuthContext.js: ~ login ~ result:", result);
 
       setAuthState({
-        token: result.data.token,
+        token: result.data.access_token,
         authenticated: true,
       });
 
       axios.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${result.data.token}`;
-      await SecureStore.setItemAsync(TOKEN_KEY, result.data.token);
+      ] = `Bearer ${result.data.access_token}`;
+      await SecureStore.setItemAsync(TOKEN_KEY, result.data.access_token);
 
       return result;
     } catch (e) {

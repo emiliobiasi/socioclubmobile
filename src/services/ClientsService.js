@@ -1,13 +1,12 @@
 import axios from "axios";
-import { API_URL } from "@env";
 
 const listarClients = () => {
-  return axios.get(process.env.API_URL + "/clients");
+  return axios.get(process.env.EXPO_PUBLIC_API_URL + "/clients");
 };
 
 const registrarClient = async (name, email, password) => {
   try {
-    return await axios.post(process.env.API_URL + "/register", {
+    return await axios.post(process.env.EXPO_PUBLIC_API_URL + "/register", {
       name,
       email,
       password,

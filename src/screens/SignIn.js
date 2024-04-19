@@ -20,14 +20,6 @@ const SignIn = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const { onLogin } = useAuth();
 
-  useEffect(() => {
-    const testCall = async () => {
-      const result = await axios.get(`${process.env.API_URL}/clients`);
-      console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
-    };
-    testCall();
-  }, []);
-
   const login = async () => {
     try {
       const result = await onLogin(email, password);

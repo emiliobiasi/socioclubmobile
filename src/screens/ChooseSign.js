@@ -9,21 +9,20 @@ import {
 } from "react-native";
 import CientsService from "../services/ClientsService";
 import { AntDesign } from "@expo/vector-icons";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
 const ChooseSign = ({ navigation }) => {
-  // useEffect(() => {
-  //   CientsService.listarClients().then(
-  //     (response) => {
-  //       alert(response.data);
-  //       console.log(response.data);
-  //     },
-  //     (error) => {
-  //       console.log("erro: ", error);
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    const testCall = async () => {
+      const result = await axios.get(
+        `${process.env.EXPO_PUBLIC_API_URL}/clients`
+      );
+      console.log("🚀 ~ file: ChooseSign.tsx:22 ~ testCall ~ result:", result);
+    };
+    testCall();
+  }, []);
 
   const handleSignUpPress = () => {
     navigation.navigate("SignUp");

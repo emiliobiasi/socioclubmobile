@@ -1,18 +1,46 @@
 // Loading.js
-import React from "react";
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
-import { API_URL } from "@env";
+import React, { useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
 
 const LoadingScreen = ({ navigation }) => {
+  const { onLogout } = useAuth();
+
   useEffect(() => {
     const testCall = async () => {
-      const result = await axios.get(`${process.env.API_URL}/clients`);
-      console.log("🚀 ~ file: Login.tsx:16 ~ testCall ~ result:", result);
+      const result = await axios.get(
+        `${process.env.EXPO_PUBLIC_API_URL}/clients`
+      );
+      console.log(
+        "🚀 ~ file: LoadingScreen.tsx:21 ~ testCall ~ result:",
+        result
+      );
     };
     testCall();
   }, []);
+
+  const logout = async () => {
+    try {
+      const result = await onLogout();
+      if (result && !result.error) {
+        navigation.navigate("Loading");
+      } else {
+        alert(result.msg);
+      }
+    } catch (e) {
+      alert("Falha ao realizar login. Por favor, tente novamente.");
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -21,7 +49,7 @@ const LoadingScreen = ({ navigation }) => {
         style={styles.logo}
       />
       <Text style={styles.header}>Olá!</Text>
-      <Text style={styles.header}>Bem-Vindo</Text>
+      <Text style={styles.header}> Bem-Vindo</Text>
       <Text style={styles.subtext}>
         Escolha seu time do coração e viva toda a experiência SocioClub!
       </Text>
