@@ -8,7 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
 
 const { width, height } = Dimensions.get("window");
@@ -45,7 +45,7 @@ const LoadingScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/images/socioclublogodark.png")} // Substitua pelo caminho correto para sua imagem do logo
+        source={require("../../../assets/images/socioclublogodark.png")} // Substitua pelo caminho correto para sua imagem do logo
         style={styles.logo}
       />
       <Text style={styles.header}>Olá!</Text>

@@ -3,15 +3,21 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "../screens/WelcomeScreen";
 import ChooseSign from "../screens/ChooseSign";
 import SignUp from "../screens/SignUp";
-import LoadingScreen from "../screens/LoadingScreen";
+import LoadingScreen from "../screens/private/LoadingScreen";
 import SignIn from "../screens/SignIn";
 import { AuthProvider, useAuth } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
+import MapScreen from "../screens/MapScreen";
 
 const Stack = createStackNavigator();
 
 const PublicNavigator = () => (
-  <Stack.Navigator initialRouteName="Welcome">
+  <Stack.Navigator initialRouteName="MapScreen">
+    <Stack.Screen
+      name="MapScreen"
+      component={MapScreen}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen
       name="Welcome"
       component={WelcomeScreen}
