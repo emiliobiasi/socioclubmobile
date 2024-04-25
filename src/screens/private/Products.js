@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const News = () => {
+const Products = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Notícias</Text>
+      <Text style={styles.title}>Produtos</Text>
     </View>
   );
 };
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default News;
+export default Products;

@@ -37,7 +37,12 @@ const MapScreen = ({ navigation }) => {
       >
         <Text style={styles.option}>Loading</Text>
       </TouchableOpacity>
-      {/* Adicione mais opções conforme necessário */}
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => navigation.navigate("Main")}
+      >
+        <Text style={styles.option}>Main</Text>
+      </TouchableOpacity>
     </View>
   );
 };

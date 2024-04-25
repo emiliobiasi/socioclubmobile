@@ -8,6 +8,7 @@ import SignIn from "../screens/SignIn";
 import { AuthProvider, useAuth } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 import MapScreen from "../screens/MapScreen";
+import Main from "../screens/private/Main";
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,11 @@ const PublicNavigator = () => (
     <Stack.Screen
       name="SignIn"
       component={SignIn}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Main"
+      component={Main}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
