@@ -9,6 +9,7 @@ import { AuthProvider, useAuth } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 import MapScreen from "../screens/MapScreen";
 import Main from "../screens/private/Main";
+import ClubSearch from "../screens/private/ClubSearch";
 
 const Stack = createStackNavigator();
 
@@ -42,6 +43,11 @@ const PublicNavigator = () => (
     <Stack.Screen
       name="Main"
       component={Main}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ClubSearch"
+      component={ClubSearch}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>

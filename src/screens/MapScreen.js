@@ -43,6 +43,12 @@ const MapScreen = ({ navigation }) => {
       >
         <Text style={styles.option}>Main</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => navigation.navigate("ClubSearch")}
+      >
+        <Text style={styles.option}>ClubSearch</Text>
+      </TouchableOpacity>
     </View>
   );
 };
