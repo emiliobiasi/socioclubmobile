@@ -8,35 +8,41 @@ import Plans from "./Plans";
 import Tickets from "./Tickets";
 
 const Tab = createBottomTabNavigator();
-
+const colorScheme = {
+  title: "#fff",
+  background: "#15202B",
+  primary: "#253341",
+  icons: "#AAB8C2",
+  div: "",
+  text: "#AAB8C2",
+  secondaryText: "",
+  button: "#1D9BF0",
+};
 export default function Main({ navigation }) {
-  const colorScheme = {
-    title: "",
-    background: "",
-    primary: "",
-    icons: "",
-    div: "",
-    text: "",
-    secondaryText: "",
-  };
   return (
     <Tab.Navigator
       screenOptions={{
         headerTitle: "Vasco",
         headerTitleStyle: styles.headerTitle,
-        headerStyle: styles.header, // Ajusta a altura do cabeçalho e padding
+        headerStyle: styles.header,
+        tabBarStyle: styles.tabBar, // Estilo para a barra de navegação
+        tabBarActiveTintColor: colorScheme.button, // Cor para ícones ativos
+        tabBarInactiveTintColor: colorScheme.text, // Cor para ícones inativos
+        tabBarIcon: ({ color, size }) => ({ color: colorScheme.icons }), // Cor dos ícones
         headerLeft: () => (
-          <Image
-            source={require("../../../../assets/images/vascoicon.png")}
-            style={styles.iconImage} // Estilo para a imagem do ícone
-          />
+          <View style={styles.iconImageView}>
+            <Image
+              source={require("../../../../assets/images/vascoicon.png")}
+              style={styles.iconImage}
+            />
+          </View>
         ),
         headerRight: () => (
           <TouchableOpacity
             style={styles.profileIcon}
             onPress={() => navigation.navigate("Profile")}
           >
-            <FontAwesome6 name="user" size={24} color={styles.iconColor} />
+            <FontAwesome6 name="user" size={24} color={colorScheme.icons} />
           </TouchableOpacity>
         ),
       }}
@@ -46,7 +52,7 @@ export default function Main({ navigation }) {
         component={News}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={24} color={styles.iconColor} />
+            <Entypo name="home" size={34} color={colorScheme.icons} />
           ),
         }}
       />
@@ -57,8 +63,8 @@ export default function Main({ navigation }) {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome6
               name="bag-shopping"
-              size={24}
-              color={styles.iconColor}
+              size={34}
+              color={colorScheme.icons}
             />
           ),
         }}
@@ -68,7 +74,7 @@ export default function Main({ navigation }) {
         component={Tickets}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="ticket" size={24} color={styles.iconColor} />
+            <Entypo name="ticket" size={34} color={colorScheme.icons} />
           ),
         }}
       />
@@ -77,37 +83,41 @@ export default function Main({ navigation }) {
         component={Plans}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="diamond" size={24} color={styles.iconColor} />
+            <Ionicons name="diamond" size={34} color={colorScheme.icons} />
           ),
         }}
       />
     </Tab.Navigator>
   );
 }
-
 const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
+    color: colorScheme.title, // Cor do título
   },
   header: {
     height: 110,
-    backgroundColor: "white",
-    borderBottomWidth: 1, // Borda inferior do cabeçalho
-    borderBottomColor: "gray", // Cor da borda inferior
+    backgroundColor: colorScheme.background, // Cor de fundo
+    borderBottomWidth: 1,
+    borderBottomColor: colorScheme.div, // Cor da borda inferior
+  },
+  tabBar: {
+    backgroundColor: colorScheme.background, // Cor de fundo da barra de navegação
   },
   iconImage: {
-    width: 60, // Tamanho da imagem do ícone
-    height: 60, // Tamanho da imagem do ícone
-    borderRadius: 40, // Tornar a imagem redonda
-    borderWidth: 2, // Borda ao redor do ícone
-    borderColor: "#fff", // Cor da borda
+    width: "100%", // Tamanho do ícone
+    height: "100%",
+    borderRadius: 40,
+    borderWidth: 2,
+  },
+  iconImageView: {
+    width: 60,
+    height: 60,
     marginLeft: "15%",
+    marginTop: "5%",
   },
   profileIcon: {
     paddingRight: "15%",
-  },
-  iconColor: {
-    color: "black",
   },
 });
