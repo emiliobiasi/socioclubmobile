@@ -49,6 +49,18 @@ const MapScreen = ({ navigation }) => {
       >
         <Text style={styles.option}>ClubSearch</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => navigation.navigate("Profile")}
+      >
+        <Text style={styles.option}>Profile</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.optionContainer}
+        onPress={() => navigation.navigate("ProfileEdit")}
+      >
+        <Text style={styles.option}>ProfileEdit</Text>
+      </TouchableOpacity>
     </View>
   );
 };

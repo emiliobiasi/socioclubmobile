@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 
-const H2Title = ({ text }) => {
-  return <Text style={styles.h2}>{text}</Text>; // Título com estilo h2
+const H2Title = ({ text, marginVertical = 0 }) => {
+  return <Text style={[styles.h2, { marginVertical }]}>{text}</Text>; // Título com estilo h2 e margem vertical opcional
 };
 
 const styles = StyleSheet.create({

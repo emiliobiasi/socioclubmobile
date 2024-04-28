@@ -1,40 +1,99 @@
-import React from "react";
-import { View, Text, StyleSheet, Image, ImageBackground } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Modal,
+  Dimensions,
+  TouchableWithoutFeedback,
+} from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const ClubSelectCard = ({ backgroundImageSource, iconImageSource, title }) => {
+const { width, height } = Dimensions.get("window");
+
+const ClubSelectCard = ({
+  backgroundImageSource,
+  iconImageSource,
+  title,
+  navigation,
+}) => {
+  // Estado para controlar a visibilidade do modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const openModal = () => setModalVisible(true); // Função para abrir o modal
+  const closeModal = () => setModalVisible(false); // Função para fechar o modal
+  const navigateToMain = () => {
+    setModalVisible(false);
+    navigation.navigate("Main");
+  };
   return (
-    <View style={styles.card}>
-      <ImageBackground
-        source={backgroundImageSource} // Imagem de fundo do card
-        style={styles.imageBackground} // Estilo da imagem de fundo
-        imageStyle={styles.imageStyle} // Estilo para manter a borda do card
+    <View>
+      <TouchableOpacity style={styles.card} onPress={openModal}>
+        <ImageBackground
+          source={backgroundImageSource} // Imagem de fundo do card
+          style={styles.imageBackground} // Estilo da imagem de fundo
+          imageStyle={styles.imageStyle} // Estilo para manter a borda do card
+        >
+          <Image
+            source={iconImageSource} // Ícone do clube (circular)
+            style={styles.iconImage} // Estilo para a imagem do ícone
+          />
+          <Text style={styles.title}>{title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
+      <Modal
+        visible={modalVisible}
+        transparent={true} // Fundo do modal translúcido
+        animationType="slide" // Animação do modal
+        onRequestClose={closeModal} // Fecha o modal ao pressionar fora
       >
-        <Image
-          source={iconImageSource} // Ícone do clube (circular)
-          style={styles.iconImage} // Estilo para a imagem do ícone
-        />
-        <Text style={styles.title}>{title}</Text>
-      </ImageBackground>
+        <TouchableWithoutFeedback onPress={closeModal}>
+          <View style={styles.modalContainer}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalContent}>
+                <ImageBackground
+                  source={backgroundImageSource} // Usa a mesma imagem de fundo do card
+                  style={styles.modalImageBackground}
+                  imageStyle={styles.modalImageStyle}
+                >
+                  <Image
+                    source={iconImageSource} // Ícone centralizado
+                    style={styles.modalIconImage}
+                  />
+                  <Text style={styles.modalTitle}>{title}</Text>
+                  <TouchableOpacity
+                    style={styles.modalButton}
+                    onPress={navigateToMain}
+                  >
+                    <Text style={styles.modalButtonText}>Ver Clube</Text>
+                  </TouchableOpacity>
+                </ImageBackground>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    width: 200, // Largura do card
+    width: width / 2.4, // Largura do card
     height: 150, // Altura do card
     borderRadius: 15, // Borda arredondada para o card
     overflow: "hidden", // Garante que a imagem de fundo não saia do card
     backgroundColor: "#253341", // Cor de fundo do card
-    margin: 10, // Espaçamento entre cards
+    marginVertical: 10,
   },
   imageBackground: {
     flex: 1, // Preenche todo o card
-    justifyContent: "center", // Centraliza verticalmente
     alignItems: "center", // Centraliza horizontalmente
+    height: "60%",
   },
   imageStyle: {
-    borderRadius: 15, // Mantém a borda arredondada para a imagem de fundo
+    borderRadius: 0, // Mantém a borda arredondada para a imagem de fundo
   },
   iconImage: {
     width: 80, // Tamanho da imagem do ícone
@@ -42,13 +101,65 @@ const styles = StyleSheet.create({
     borderRadius: 40, // Tornar a imagem redonda
     borderWidth: 2, // Borda ao redor do ícone
     borderColor: "#fff", // Cor da borda
+    marginTop: 20,
   },
   title: {
     color: "#fff", // Cor do texto
     fontSize: 18, // Tamanho do texto para destaque
     fontWeight: "bold", // Negrito para ênfase
     position: "absolute", // Mantém o texto na parte inferior
-    bottom: 10, // Espaçamento a partir da parte inferior do card
+    bottom: 15, // Espaçamento a partir da parte inferior do card
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // Fundo translúcido
+  },
+  modalContent: {
+    width: "75%",
+    backgroundColor: "#253341",
+    borderRadius: 15,
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#fff",
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: "#1D9BF0",
+    justifyContent: "center",
+    borderRadius: 12,
+    width: "40%",
+    height: 60,
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  modalButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  modalImageBackground: {
+    height: "40%",
+  },
+  modalImageStyle: {
+    height: "100%",
+    width: "100%",
+    borderTopLeftRadius: 15,
+    borderTopEndRadius: 15,
+  },
+  modalIconImage: {
+    width: 120, // Tamanho da imagem do ícone
+    height: 120, // Tamanho da imagem do ícone
+    borderRadius: 80, // Tornar a imagem redonda
+    borderWidth: 2, // Borda ao redor do ícone
+    borderColor: "#fff", // Cor da borda
+    marginTop: 80,
+    marginBottom: 20,
+    alignSelf: "center",
   },
 });
 

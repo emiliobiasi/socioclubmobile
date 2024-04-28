@@ -8,8 +8,10 @@ import SignIn from "../screens/SignIn";
 import { AuthProvider, useAuth } from "../context/AuthContext";
 import { NavigationContainer } from "@react-navigation/native";
 import MapScreen from "../screens/MapScreen";
-import Main from "../screens/private/Main";
+import Main from "../screens/private/Main/Main";
 import ClubSearch from "../screens/private/ClubSearch";
+import Profile from "../screens/private/Profile/Profile";
+import ProfileEdit from "../screens/private/Profile/ProfileEdit";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +50,16 @@ const PublicNavigator = () => (
     <Stack.Screen
       name="ClubSearch"
       component={ClubSearch}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={Profile}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ProfileEdit"
+      component={ProfileEdit}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
