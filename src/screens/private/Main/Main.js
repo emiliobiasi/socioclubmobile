@@ -7,42 +7,34 @@ import News from "./News";
 import Products from "./Products";
 import Plans from "./Plans";
 import Tickets from "./Tickets";
+import { useClub } from "../../../context/ClubContext";
 
 const { width, height } = Dimensions.get("window");
 
 const Tab = createBottomTabNavigator();
-const colorScheme = {
-  title: "#fff",
-  background: "#15202B",
-  primary: "#253341",
-  icons: "#fff",
-  div: "",
-  text: "#AAB8C2",
-  secondaryText: "",
-  button: "#1D9BF0",
-};
 export default function Main({ navigation }) {
+  const { clubInfo } = useClub(); // Primeiro, obtenha clubInfo
+  const { name, colorScheme } = clubInfo; // Depois desestruture name e colorScheme de clubInfo
   return (
     <Tab.Navigator
       screenOptions={{
-        headerTitle: "Vasco",
-        headerTitleStyle: styles.headerTitle,
-        headerStyle: styles.header,
-        tabBarStyle: styles.tabBar, // Estilo para a barra de navegação
-        tabBarActiveTintColor: colorScheme.button, // Cor para ícones ativos
-        tabBarInactiveTintColor: colorScheme.text, // Cor para ícones inativos
-        tabBarIcon: ({ color, size }) => ({ color: colorScheme.icons }), // Cor dos ícones
+        headerTitle: name, // Use o nome do clube aqui
+        headerTitleStyle: styles(colorScheme).headerTitle,
+        headerStyle: styles(colorScheme).header,
+        tabBarStyle: styles(colorScheme).tabBar,
+        tabBarActiveTintColor: colorScheme.button,
+        tabBarInactiveTintColor: colorScheme.text,
         headerLeft: () => (
-          <View style={styles.iconImageView}>
+          <View style={styles(colorScheme).iconImageView}>
             <Image
               source={require("../../../../assets/images/vascoicon.png")}
-              style={styles.iconImage}
+              style={styles(colorScheme).iconImage}
             />
           </View>
         ),
         headerRight: () => (
           <TouchableOpacity
-            style={styles.profileIcon}
+            style={styles(colorScheme).profileIcon}
             onPress={() => navigation.navigate("Profile")}
           >
             <MaterialIcons
@@ -97,34 +89,35 @@ export default function Main({ navigation }) {
     </Tab.Navigator>
   );
 }
-const styles = StyleSheet.create({
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: colorScheme.title, // Cor do título
-  },
-  header: {
-    height: height / 7,
-    backgroundColor: colorScheme.background, // Cor de fundo
-    borderBottomWidth: 1,
-    borderBottomColor: colorScheme.div, // Cor da borda inferior
-  },
-  tabBar: {
-    backgroundColor: colorScheme.background, // Cor de fundo da barra de navegação
-  },
-  iconImage: {
-    width: "100%", // Tamanho do ícone
-    height: "100%",
-    borderRadius: 40,
-    borderWidth: 2,
-  },
-  iconImageView: {
-    width: 60,
-    height: 60,
-    marginLeft: "15%",
-    marginTop: "5%",
-  },
-  profileIcon: {
-    paddingRight: "15%",
-  },
-});
+const styles = (colorScheme) =>
+  StyleSheet.create({
+    headerTitle: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: colorScheme.title,
+    },
+    header: {
+      height: height / 7,
+      backgroundColor: colorScheme.background,
+      borderBottomWidth: 1,
+      borderBottomColor: colorScheme.div,
+    },
+    tabBar: {
+      backgroundColor: colorScheme.background,
+    },
+    iconImage: {
+      width: "100%",
+      height: "100%",
+      borderRadius: 40,
+      borderWidth: 2,
+    },
+    iconImageView: {
+      width: 60,
+      height: 60,
+      marginLeft: "15%",
+      marginTop: "5%",
+    },
+    profileIcon: {
+      paddingRight: "15%",
+    },
+  });

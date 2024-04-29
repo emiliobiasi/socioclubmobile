@@ -12,57 +12,60 @@ import Main from "../screens/private/Main/Main";
 import ClubSearch from "../screens/private/ClubSearch";
 import Profile from "../screens/private/Profile/Profile";
 import ProfileEdit from "../screens/private/Profile/ProfileEdit";
+import { ClubProvider } from "../context/ClubContext"; // Certifique-se que o caminho está correto
 
 const Stack = createStackNavigator();
 
 const PublicNavigator = () => (
-  <Stack.Navigator initialRouteName="MapScreen">
-    <Stack.Screen
-      name="MapScreen"
-      component={MapScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Welcome"
-      component={WelcomeScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="ChooseSign"
-      component={ChooseSign}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="SignUp"
-      component={SignUp}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="SignIn"
-      component={SignIn}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Main"
-      component={Main}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="ClubSearch"
-      component={ClubSearch}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="Profile"
-      component={Profile}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen
-      name="ProfileEdit"
-      component={ProfileEdit}
-      options={{ headerShown: false }}
-    />
-  </Stack.Navigator>
+  <ClubProvider>
+    <Stack.Navigator initialRouteName="MapScreen">
+      <Stack.Screen
+        name="MapScreen"
+        component={MapScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={WelcomeScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChooseSign"
+        component={ChooseSign}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUp}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignIn"
+        component={SignIn}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={Main}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ClubSearch"
+        component={ClubSearch}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProfileEdit"
+        component={ProfileEdit}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  </ClubProvider>
 );
 
 const PrivateNavigator = () => (

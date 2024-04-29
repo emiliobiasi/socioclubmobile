@@ -10,20 +10,25 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useClub } from "../context/ClubContext"; // Ajuste o caminho conforme necessário
 
 const { width, height } = Dimensions.get("window");
 
 const ClubSelectCard = ({
+  club_id,
   backgroundImageSource,
   iconImageSource,
   title,
   navigation,
 }) => {
   // Estado para controlar a visibilidade do modal
+  const { updateClubInfo } = useClub();
   const [modalVisible, setModalVisible] = useState(false);
+
   const openModal = () => setModalVisible(true); // Função para abrir o modal
   const closeModal = () => setModalVisible(false); // Função para fechar o modal
   const navigateToMain = () => {
+    updateClubInfo(club_id); // Atualiza o contexto com o clube selecionado
     setModalVisible(false);
     navigation.navigate("Main");
   };

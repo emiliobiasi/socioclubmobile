@@ -11,27 +11,60 @@ const ClubSearch = ({ navigation }) => {
   const clubes = [
     {
       id: "1",
+      club_id: "",
       backgroundImageSource: require("../../../assets/images/vascobandeira.png"),
       iconImageSource: require("../../../assets/images/vascoicon.png"),
       title: "Vasco",
     },
     {
       id: "2",
+      club_id: "",
       backgroundImageSource: "",
       iconImageSource: "",
       title: "CyberBrokers",
     },
     {
       id: "3",
+      club_id: "",
       backgroundImageSource: "",
       iconImageSource: "",
       title: "BoredApeYachtClub",
     },
-    { id: "4", backgroundImageSource: "", iconImageSource: "", title: "Azuki" },
-    { id: "5", backgroundImageSource: "", iconImageSource: "", title: "Azuki" },
-    { id: "6", backgroundImageSource: "", iconImageSource: "", title: "Azuki" },
-    { id: "7", backgroundImageSource: "", iconImageSource: "", title: "Azuki" },
-    { id: "8", backgroundImageSource: "", iconImageSource: "", title: "Azuki" },
+    {
+      id: "4",
+      club_id: "",
+      backgroundImageSource: "",
+      iconImageSource: "",
+      title: "Azuki",
+    },
+    {
+      id: "5",
+      club_id: "",
+      backgroundImageSource: "",
+      iconImageSource: "",
+      title: "Azuki",
+    },
+    {
+      id: "6",
+      club_id: "",
+      backgroundImageSource: "",
+      iconImageSource: "",
+      title: "Azuki",
+    },
+    {
+      id: "7",
+      club_id: "",
+      backgroundImageSource: "",
+      iconImageSource: "",
+      title: "Azuki",
+    },
+    {
+      id: "8",
+      club_id: "",
+      backgroundImageSource: "",
+      iconImageSource: "",
+      title: "Azuki",
+    },
   ];
 
   const categorias = [
@@ -99,6 +132,7 @@ const ClubSearch = ({ navigation }) => {
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
                 <ClubSelectCard
+                  club_id={item.club_id}
                   backgroundImageSource={item.backgroundImageSource}
                   iconImageSource={item.iconImageSource}
                   title={item.title}
