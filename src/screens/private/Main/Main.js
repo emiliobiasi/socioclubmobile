@@ -1,18 +1,21 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome6, Entypo, Ionicons } from "@expo/vector-icons";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, View, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { MaterialIcons } from "@expo/vector-icons";
 import News from "./News";
 import Products from "./Products";
 import Plans from "./Plans";
 import Tickets from "./Tickets";
+
+const { width, height } = Dimensions.get("window");
 
 const Tab = createBottomTabNavigator();
 const colorScheme = {
   title: "#fff",
   background: "#15202B",
   primary: "#253341",
-  icons: "#AAB8C2",
+  icons: "#fff",
   div: "",
   text: "#AAB8C2",
   secondaryText: "",
@@ -42,7 +45,11 @@ export default function Main({ navigation }) {
             style={styles.profileIcon}
             onPress={() => navigation.navigate("Profile")}
           >
-            <FontAwesome6 name="user" size={24} color={colorScheme.icons} />
+            <MaterialIcons
+              name="account-circle"
+              size={36}
+              color={colorScheme.icons}
+            />
           </TouchableOpacity>
         ),
       }}
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
     color: colorScheme.title, // Cor do título
   },
   header: {
-    height: 110,
+    height: height / 7,
     backgroundColor: colorScheme.background, // Cor de fundo
     borderBottomWidth: 1,
     borderBottomColor: colorScheme.div, // Cor da borda inferior
