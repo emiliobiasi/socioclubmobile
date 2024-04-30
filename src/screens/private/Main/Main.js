@@ -27,7 +27,7 @@ export default function Main({ navigation }) {
         headerLeft: () => (
           <View style={styles(colorScheme).iconImageView}>
             <Image
-              source={require("../../../../assets/images/vascoicon.png")}
+              source={clubInfo.icon}
               style={styles(colorScheme).iconImage}
             />
           </View>
@@ -39,7 +39,7 @@ export default function Main({ navigation }) {
           >
             <MaterialIcons
               name="account-circle"
-              size={36}
+              size={44}
               color={colorScheme.icons}
             />
           </TouchableOpacity>

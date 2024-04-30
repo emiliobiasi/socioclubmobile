@@ -10,60 +10,61 @@ import ClubSelectCard from "../../components/ClubSelectCard";
 const ClubSearch = ({ navigation }) => {
   const clubes = [
     {
-      id: "1",
+      id: "",
       club_id: "",
-      backgroundImageSource: require("../../../assets/images/vascobandeira.png"),
-      iconImageSource: require("../../../assets/images/vascoicon.png"),
-      title: "Vasco",
+      name: "Vasco",
+      icon: require("../../../assets/images/vascoicon.png"),
+      background: require("../../../assets/images/vascobandeira.png"),
+      description: "Descrição do Clube do Vasco",
+      categoy: "",
+      colorScheme: {
+        title: "#fff",
+        background: "#15202B",
+        primary: "#253341",
+        icons: "#fff",
+        div: "",
+        text: "#AAB8C2",
+        secondaryText: "",
+        button: "#1D9BF0",
+      },
     },
     {
       id: "2",
       club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "CyberBrokers",
+      name: "São Paulo",
+      icon: require("../../../assets/images/saopauloicon.png"),
+      background: require("../../../assets/images/saopaulobandeira.jpeg"),
+      description: "Descrição do Clube São Paulo",
+      categoy: "",
+      colorScheme: {
+        title: "#FFFFFF", // White for titles to stand out against darker backgrounds
+        background: "#FF0000", // Red as the primary background color
+        primary: "#000000", // Black as a secondary or primary color
+        icons: "#FFFFFF", // White for icons to ensure visibility on darker backgrounds
+        div: "#FFFFFF", // White dividers can be used for separating sections or elements
+        text: "#FFFFFF", // White text to provide contrast against the red and black backgrounds
+        secondaryText: "#BBBBBB", // Light grey for less prominent text that still needs to stand out
+        button: "#000000", // Black buttons with white text
+      },
     },
     {
       id: "3",
       club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "BoredApeYachtClub",
-    },
-    {
-      id: "4",
-      club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "Azuki",
-    },
-    {
-      id: "5",
-      club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "Azuki",
-    },
-    {
-      id: "6",
-      club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "Azuki",
-    },
-    {
-      id: "7",
-      club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "Azuki",
-    },
-    {
-      id: "8",
-      club_id: "",
-      backgroundImageSource: "",
-      iconImageSource: "",
-      title: "Azuki",
+      name: "Clube da Luta",
+      icon: require("../../../assets/images/vascoicon.png"),
+      background: require("../../../assets/images/vascobandeira.png"),
+      description: "Descrição do Clube da Luta",
+      categoy: "",
+      colorScheme: {
+        title: "#fff",
+        background: "#15202B",
+        primary: "#253341",
+        icons: "#fff",
+        div: "",
+        text: "#AAB8C2",
+        secondaryText: "",
+        button: "#1D9BF0",
+      },
     },
   ];
 
@@ -131,13 +132,7 @@ const ClubSearch = ({ navigation }) => {
               numColumns={2}
               keyExtractor={(item) => item.id}
               renderItem={({ item }) => (
-                <ClubSelectCard
-                  club_id={item.club_id}
-                  backgroundImageSource={item.backgroundImageSource}
-                  iconImageSource={item.iconImageSource}
-                  title={item.title}
-                  navigation={navigation}
-                />
+                <ClubSelectCard club={item} navigation={navigation} />
               )}
               columnWrapperStyle={styles.clubRow} // Para adicionar espaço entre as colunas
             />

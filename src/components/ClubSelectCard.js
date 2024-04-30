@@ -14,13 +14,7 @@ import { useClub } from "../context/ClubContext"; // Ajuste o caminho conforme n
 
 const { width, height } = Dimensions.get("window");
 
-const ClubSelectCard = ({
-  club_id,
-  backgroundImageSource,
-  iconImageSource,
-  title,
-  navigation,
-}) => {
+const ClubSelectCard = ({ club, navigation }) => {
   // Estado para controlar a visibilidade do modal
   const { updateClubInfo } = useClub();
   const [modalVisible, setModalVisible] = useState(false);
@@ -28,7 +22,7 @@ const ClubSelectCard = ({
   const openModal = () => setModalVisible(true); // Função para abrir o modal
   const closeModal = () => setModalVisible(false); // Função para fechar o modal
   const navigateToMain = () => {
-    updateClubInfo(club_id); // Atualiza o contexto com o clube selecionado
+    updateClubInfo(club); // Atualiza o contexto com o clube selecionado
     setModalVisible(false);
     navigation.navigate("Main");
   };
@@ -36,15 +30,15 @@ const ClubSelectCard = ({
     <View>
       <TouchableOpacity style={styles.card} onPress={openModal}>
         <ImageBackground
-          source={backgroundImageSource} // Imagem de fundo do card
+          source={club.background} // Imagem de fundo do card
           style={styles.imageBackground} // Estilo da imagem de fundo
           imageStyle={styles.imageStyle} // Estilo para manter a borda do card
         >
           <Image
-            source={iconImageSource} // Ícone do clube (circular)
+            source={club.icon} // Ícone do clube (circular)
             style={styles.iconImage} // Estilo para a imagem do ícone
           />
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>{club.name}</Text>
         </ImageBackground>
       </TouchableOpacity>
       <Modal
@@ -58,15 +52,15 @@ const ClubSelectCard = ({
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <ImageBackground
-                  source={backgroundImageSource} // Usa a mesma imagem de fundo do card
+                  source={club.background} // Usa a mesma imagem de fundo do card
                   style={styles.modalImageBackground}
                   imageStyle={styles.modalImageStyle}
                 >
                   <Image
-                    source={iconImageSource} // Ícone centralizado
+                    source={club.icon} // Ícone centralizado
                     style={styles.modalIconImage}
                   />
-                  <Text style={styles.modalTitle}>{title}</Text>
+                  <Text style={styles.modalTitle}>{club.name}</Text>
                   <TouchableOpacity
                     style={styles.modalButton}
                     onPress={navigateToMain}
