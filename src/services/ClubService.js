@@ -1,10 +1,13 @@
 import axios from "axios";
 
-const listarClients = () => {
-  return axios.get(process.env.EXPO_PUBLIC_API_URL + "/clubs", );
+const listarClubs = () => {
+  const options = {
+    timeout: 10000,
+  };
+  return axios.get(`${process.env.EXPO_PUBLIC_API_URL}/clubs`, options);
 };
 
-const ClientsService = {
+const ClubService = {
   listarClubs,
 };
 

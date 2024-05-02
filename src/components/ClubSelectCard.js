@@ -26,6 +26,14 @@ const ClubSelectCard = ({ club, navigation }) => {
     setModalVisible(false);
     navigation.navigate("Main");
   };
+  let binary = "";
+  const binaryString = new Uint8Array(club.icon);
+  const len = binaryString.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(binaryString[i]);
+  }
+  // Criar a URL de dados para uso no componente Image
+  const imageSource = `data:image/jpeg;base64,${binary}`;
   return (
     <View>
       <TouchableOpacity style={styles.card} onPress={openModal}>
@@ -35,7 +43,7 @@ const ClubSelectCard = ({ club, navigation }) => {
           imageStyle={styles.imageStyle} // Estilo para manter a borda do card
         >
           <Image
-            source={club.icon} // Ícone do clube (circular)
+            source={club.logo} // Ícone do clube (circular)
             style={styles.iconImage} // Estilo para a imagem do ícone
           />
           <Text style={styles.title}>{club.name}</Text>
@@ -57,7 +65,7 @@ const ClubSelectCard = ({ club, navigation }) => {
                   imageStyle={styles.modalImageStyle}
                 >
                   <Image
-                    source={club.icon} // Ícone centralizado
+                    source={{ uri: imageSource }} // Ícone centralizado
                     style={styles.modalIconImage}
                   />
                   <Text style={styles.modalTitle}>{club.name}</Text>

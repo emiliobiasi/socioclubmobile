@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList } from "react-native";
 import H1Title from "../../components/Texts/H1Title";
 import Subtitle from "../../components/Texts/Subtitle";
@@ -6,67 +6,84 @@ import SearchBar from "../../components/SearchBar";
 import H2Title from "../../components/Texts/H2Title";
 import ClubCategory from "../../components/ClubCategory";
 import ClubSelectCard from "../../components/ClubSelectCard";
+import ClubService from "../../services/ClubService"; // Ajuste o caminho conforme necessário
 
 const ClubSearch = ({ navigation }) => {
-  const clubes = [
-    {
-      id: "",
-      club_id: "",
-      name: "Vasco",
-      icon: require("../../../assets/images/vascoicon.png"),
-      background: require("../../../assets/images/vascobandeira.png"),
-      description: "Descrição do Clube do Vasco",
-      categoy: "",
-      colorScheme: {
-        title: "#fff",
-        background: "#15202B",
-        primary: "#253341",
-        icons: "#fff",
-        div: "",
-        text: "#AAB8C2",
-        secondaryText: "",
-        button: "#1D9BF0",
-      },
-    },
-    {
-      id: "2",
-      club_id: "",
-      name: "São Paulo",
-      icon: require("../../../assets/images/saopauloicon.png"),
-      background: require("../../../assets/images/saopaulobandeira.jpeg"),
-      description: "Descrição do Clube São Paulo",
-      categoy: "",
-      colorScheme: {
-        title: "#FFFFFF", // White for titles to stand out against darker backgrounds
-        background: "#FF0000", // Red as the primary background color
-        primary: "#000000", // Black as a secondary or primary color
-        icons: "#FFFFFF", // White for icons to ensure visibility on darker backgrounds
-        div: "#FFFFFF", // White dividers can be used for separating sections or elements
-        text: "#FFFFFF", // White text to provide contrast against the red and black backgrounds
-        secondaryText: "#BBBBBB", // Light grey for less prominent text that still needs to stand out
-        button: "#000000", // Black buttons with white text
-      },
-    },
-    {
-      id: "3",
-      club_id: "",
-      name: "Clube da Luta",
-      icon: require("../../../assets/images/vascoicon.png"),
-      background: require("../../../assets/images/vascobandeira.png"),
-      description: "Descrição do Clube da Luta",
-      categoy: "",
-      colorScheme: {
-        title: "#fff",
-        background: "#15202B",
-        primary: "#253341",
-        icons: "#fff",
-        div: "",
-        text: "#AAB8C2",
-        secondaryText: "",
-        button: "#1D9BF0",
-      },
-    },
-  ];
+  const [clubes, setClubes] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        console.log("Chamando listarClubs");
+        const response = await ClubService.listarClubs();
+        console.log("Clubes recebidos:", response.data.clubs);
+        setClubes(response.data.clubs);
+      } catch (error) {
+        console.error("Erro ao buscar clubes:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
+  // const clubes1 = [
+  //   {
+  //     id: "",
+  //     club_id: "",
+  //     name: "Vasco",
+  //     icon: require("../../../assets/images/vascoicon.png"),
+  //     background: require("../../../assets/images/vascobandeira.png"),
+  //     description: "Descrição do Clube do Vasco",
+  //     categoy: "",
+  //     colorScheme: {
+  //       title: "#fff",
+  //       background: "#15202B",
+  //       primary: "#253341",
+  //       icons: "#fff",
+  //       div: "",
+  //       text: "#AAB8C2",
+  //       secondaryText: "",
+  //       button: "#1D9BF0",
+  //     },
+  //   },
+  //   {
+  //     id: "2",
+  //     club_id: "",
+  //     name: "São Paulo",
+  //     icon: require("../../../assets/images/saopauloicon.png"),
+  //     background: require("../../../assets/images/saopaulobandeira.jpeg"),
+  //     description: "Descrição do Clube São Paulo",
+  //     categoy: "",
+  //     colorScheme: {
+  //       title: "#FFFFFF", // White for titles to stand out against darker backgrounds
+  //       background: "#FF0000", // Red as the primary background color
+  //       primary: "#000000", // Black as a secondary or primary color
+  //       icons: "#FFFFFF", // White for icons to ensure visibility on darker backgrounds
+  //       div: "#FFFFFF", // White dividers can be used for separating sections or elements
+  //       text: "#FFFFFF", // White text to provide contrast against the red and black backgrounds
+  //       secondaryText: "#BBBBBB", // Light grey for less prominent text that still needs to stand out
+  //       button: "#000000", // Black buttons with white text
+  //     },
+  //   },
+  //   {
+  //     id: "3",
+  //     club_id: "",
+  //     name: "Clube da Luta",
+  //     icon: require("../../../assets/images/vascoicon.png"),
+  //     background: require("../../../assets/images/vascobandeira.png"),
+  //     description: "Descrição do Clube da Luta",
+  //     categoy: "",
+  //     colorScheme: {
+  //       title: "#fff",
+  //       background: "#15202B",
+  //       primary: "#253341",
+  //       icons: "#fff",
+  //       div: "",
+  //       text: "#AAB8C2",
+  //       secondaryText: "",
+  //       button: "#1D9BF0",
+  //     },
+  //   },
+  // ];
 
   const categorias = [
     {
