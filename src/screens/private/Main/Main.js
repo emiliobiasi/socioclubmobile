@@ -15,6 +15,14 @@ const Tab = createBottomTabNavigator();
 export default function Main({ navigation }) {
   const { clubInfo } = useClub(); // Primeiro, obtenha clubInfo
   const { name, colorScheme } = clubInfo; // Depois desestruture name e colorScheme de clubInfo
+  // colorScheme: {
+  //   titles_color: "#FFFFFF",
+  //   subtitles_color: "#AAB8C2",
+  //   buttons_color: "#1D9BF0",
+  //   palette_1: "#15202B",
+  //   palette_2: "#253341",
+  //   palette_3: "#0C111B",
+  // },
   return (
     <Tab.Navigator
       screenOptions={{
@@ -22,8 +30,8 @@ export default function Main({ navigation }) {
         headerTitleStyle: styles(colorScheme).headerTitle,
         headerStyle: styles(colorScheme).header,
         tabBarStyle: styles(colorScheme).tabBar,
-        tabBarActiveTintColor: colorScheme.button,
-        tabBarInactiveTintColor: colorScheme.text,
+        tabBarActiveTintColor: colorScheme.titles_color,
+        tabBarInactiveTintColor: colorScheme.subtitles_color,
         headerLeft: () => (
           <View style={styles(colorScheme).iconImageView}>
             <Image
@@ -40,7 +48,7 @@ export default function Main({ navigation }) {
             <MaterialIcons
               name="account-circle"
               size={44}
-              color={colorScheme.icons}
+              color={colorScheme.titles_color}
             />
           </TouchableOpacity>
         ),
@@ -48,13 +56,14 @@ export default function Main({ navigation }) {
     >
       <Tab.Screen
         name="Notícias"
-        component={News}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={34} color={colorScheme.icons} />
+            <Entypo name="home" size={34} color={colorScheme.titles_color} />
           ),
         }}
-      />
+      >
+        {() => <News colorScheme={colorScheme} />}
+      </Tab.Screen>
       <Tab.Screen
         name="Produtos"
         component={Products}
@@ -63,7 +72,7 @@ export default function Main({ navigation }) {
             <FontAwesome6
               name="bag-shopping"
               size={34}
-              color={colorScheme.icons}
+              color={colorScheme.titles_color}
             />
           ),
         }}
@@ -73,7 +82,7 @@ export default function Main({ navigation }) {
         component={Tickets}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="ticket" size={34} color={colorScheme.icons} />
+            <Entypo name="ticket" size={34} color={colorScheme.titles_color} />
           ),
         }}
       />
@@ -82,7 +91,11 @@ export default function Main({ navigation }) {
         component={Plans}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="diamond" size={34} color={colorScheme.icons} />
+            <Ionicons
+              name="diamond"
+              size={34}
+              color={colorScheme.titles_color}
+            />
           ),
         }}
       />
@@ -94,16 +107,14 @@ const styles = (colorScheme) =>
     headerTitle: {
       fontSize: 24,
       fontWeight: "bold",
-      color: colorScheme.title,
+      color: colorScheme.titles_color,
     },
     header: {
       height: height / 7,
-      backgroundColor: colorScheme.background,
-      borderBottomWidth: 1,
-      borderBottomColor: colorScheme.div,
+      backgroundColor: colorScheme.palette_1,
     },
     tabBar: {
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.palette_2,
     },
     iconImage: {
       width: "100%",

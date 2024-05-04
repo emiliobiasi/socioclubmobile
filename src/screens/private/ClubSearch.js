@@ -33,16 +33,14 @@ const ClubSearch = ({ navigation }) => {
   //     icon: require("../../../assets/images/vascoicon.png"),
   //     background: require("../../../assets/images/vascobandeira.png"),
   //     description: "Descrição do Clube do Vasco",
-  //     categoy: "",
+  //     category: "",
   //     colorScheme: {
-  //       title: "#fff",
-  //       background: "#15202B",
-  //       primary: "#253341",
-  //       icons: "#fff",
-  //       div: "",
-  //       text: "#AAB8C2",
-  //       secondaryText: "",
-  //       button: "#1D9BF0",
+  //       titles_color: "#FFFFFF",
+  //       subtitles_color: "#FFFFFF",
+  //       buttons_color: "#000000",
+  //       palette_1: "#FF0000",
+  //       palette_2: "#FF0000",
+  //       palette_3: "#FF0000",
   //     },
   //   },
   //   {
@@ -52,16 +50,14 @@ const ClubSearch = ({ navigation }) => {
   //     icon: require("../../../assets/images/saopauloicon.png"),
   //     background: require("../../../assets/images/saopaulobandeira.jpeg"),
   //     description: "Descrição do Clube São Paulo",
-  //     categoy: "",
+  //     category: "",
   //     colorScheme: {
-  //       title: "#FFFFFF", // White for titles to stand out against darker backgrounds
-  //       background: "#FF0000", // Red as the primary background color
-  //       primary: "#000000", // Black as a secondary or primary color
-  //       icons: "#FFFFFF", // White for icons to ensure visibility on darker backgrounds
-  //       div: "#FFFFFF", // White dividers can be used for separating sections or elements
-  //       text: "#FFFFFF", // White text to provide contrast against the red and black backgrounds
-  //       secondaryText: "#BBBBBB", // Light grey for less prominent text that still needs to stand out
-  //       button: "#000000", // Black buttons with white text
+  //       titles_color: "#000000",
+  //       subtitles_color: "#000000",
+  //       buttons_color: "#FFFFFF",
+  //       palette_1: "#ee4242",
+  //       palette_2: "#fd7b7b",
+  //       palette_3: "#ee0e0e",
   //     },
   //   },
   //   {
@@ -71,16 +67,14 @@ const ClubSearch = ({ navigation }) => {
   //     icon: require("../../../assets/images/vascoicon.png"),
   //     background: require("../../../assets/images/vascobandeira.png"),
   //     description: "Descrição do Clube da Luta",
-  //     categoy: "",
+  //     category: "",
   //     colorScheme: {
-  //       title: "#fff",
-  //       background: "#15202B",
-  //       primary: "#253341",
-  //       icons: "#fff",
-  //       div: "",
-  //       text: "#AAB8C2",
-  //       secondaryText: "",
-  //       button: "#1D9BF0",
+  //       titles_color: "#FFFFFF",
+  //       subtitles_color: "#AAB8C2",
+  //       buttons_color: "#1D9BF0",
+  //       palette_1: "#15202B",
+  //       palette_2: "#253341",
+  //       palette_3: "#0C111B",
   //     },
   //   },
   // ];
