@@ -62,7 +62,7 @@ export default function Main({ navigation }) {
           ),
         }}
       >
-        {() => <News colorScheme={colorScheme} />}
+        {() => <News colorScheme={colorScheme} navigation={navigation} />}
       </Tab.Screen>
       <Tab.Screen
         name="Produtos"

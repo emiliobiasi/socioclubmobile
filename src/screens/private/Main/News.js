@@ -10,7 +10,7 @@ const news = [
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
     author: "Thiago Lima",
     date: "04/05/24",
-    text: "",
+    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ const news = [
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
     author: "Emílio Biasi",
     date: "04/05/24",
-    text: "",
+    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
   },
   {
     id: "3",
@@ -28,11 +28,11 @@ const news = [
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
     author: "Thiago Lima",
     date: "04/05/24",
-    text: "",
+    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
   },
 ];
 
-const News = ({ colorScheme }) => {
+const News = ({ colorScheme, navigation }) => {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -55,7 +55,12 @@ const News = ({ colorScheme }) => {
       <Text style={styles.title}>Notícias</Text>
       <ScrollView style={styles.scrollView}>
         {news.map((item) => (
-          <NewsCard key={item.id} news={item} colorScheme={colorScheme} />
+          <NewsCard
+            key={item.id}
+            news={item}
+            colorScheme={colorScheme}
+            navigation={navigation}
+          />
         ))}
       </ScrollView>
     </View>
