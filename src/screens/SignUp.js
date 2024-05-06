@@ -13,6 +13,7 @@ import ClientsService from "../services/ClientsService";
 import { AntDesign } from "@expo/vector-icons";
 
 const SignUp = ({ navigation }) => {
+  const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setUsername] = useState("");
@@ -33,7 +34,7 @@ const SignUp = ({ navigation }) => {
   };
   // Automatically call the login after a successful registration
   const register = async () => {
-    if (!name || !email || !password || !confirmPassword) {
+    if (!cpf || !name || !email || !password || !confirmPassword) {
       alert("Por favor, preencha todos os campos.");
       return;
     }
@@ -42,7 +43,7 @@ const SignUp = ({ navigation }) => {
       return;
     }
     try {
-      const result = await onRegister(name, email, password);
+      const result = await onRegister(cpf, name, email, password);
       if (result && result.error) {
         alert(result.msg);
       } else {
@@ -76,6 +77,13 @@ const SignUp = ({ navigation }) => {
       />
       {/* Campos de entrada de texto */}
       <View style={styles.inputContainer}>
+        <TextInput
+          placeholder="CPF"
+          placeholderTextColor="#AAB8C2"
+          style={styles.input}
+          value={cpf}
+          onChangeText={setCpf} // Atualiza o estado username com o texto inserido
+        />
         <TextInput
           placeholder="Nome"
           placeholderTextColor="#AAB8C2"

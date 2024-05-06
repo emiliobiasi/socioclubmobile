@@ -3,11 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import ProfileEdit from "./ProfileEdit";
+import { useUser } from "../../../context/UserContext";
 
 export default function Profile() {
   const navigation = useNavigation();
-
+  const { userInfo } = useUser();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,10 +23,10 @@ export default function Profile() {
       </View>
 
       <View style={styles.profileInfo}>
-        <Text style={styles.name}>Kevin Silva Dev</Text>
-        <Text style={styles.email}>kevin@hotmail.com</Text>
+        <Text style={styles.name}>{userInfo.name}</Text>
+        <Text style={styles.email}>{userInfo.email}</Text>
         <Text style={styles.hidden}>Senha: ******</Text>
-        <Text style={styles.hidden}>CPF: ***.***.***-**</Text>
+        <Text style={styles.hidden}>CPF: {userInfo.cpf}</Text>
         <TouchableOpacity
           style={styles.editButton}
           onPress={() => navigation.navigate("ProfileEdit")}
@@ -49,8 +49,6 @@ export default function Profile() {
       </View>
 
       <View style={styles.optionsSection}>
-        <Text style={styles.optionsTitle}>Opções</Text>
-
         <TouchableOpacity style={styles.optionItem}>
           <Text style={styles.optionText}>Meus Ingressos</Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
@@ -61,7 +59,10 @@ export default function Profile() {
           <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.optionItem}>
+        <TouchableOpacity
+          style={styles.optionItem}
+          onPress={() => navigation.navigate("ClubSearch")}
+        >
           <Text style={styles.optionText}>Alterar Clube</Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
         </TouchableOpacity>
@@ -69,6 +70,11 @@ export default function Profile() {
         <TouchableOpacity style={styles.optionItem}>
           <Text style={styles.optionText}>Histórico de Clubes</Text>
           <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.logout}>
+          <Text style={styles.optionText}>Sair</Text>
+          <MaterialIcons name="logout" size={24} color="white" />
         </TouchableOpacity>
       </View>
     </View>
@@ -155,6 +161,7 @@ const styles = StyleSheet.create({
   tabTextActive: {
     color: "#fff",
     fontWeight: "bold",
+    fontSize: 24,
   },
   optionsSection: {
     padding: 16,
@@ -176,5 +183,15 @@ const styles = StyleSheet.create({
   optionText: {
     color: "white",
     fontSize: 16,
+  },
+  logout: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#83110c",
+    padding: 12,
+    borderRadius: 8,
+    marginVertical: 8,
+    marginHorizontal: "2%",
   },
 });

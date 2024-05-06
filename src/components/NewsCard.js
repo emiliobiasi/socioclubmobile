@@ -5,7 +5,7 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
       flex: 1,
-      marginBottom: 20,
+      marginBottom: 10,
       backgroundColor: colorScheme.palette_2,
     },
     image: {
@@ -18,19 +18,28 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
     },
     title: {
       fontWeight: "bold",
-      fontSize: 18,
+      fontSize: 22,
       color: colorScheme.titles_color,
+      paddingVertical: "2%",
+    },
+    authorDateContainer: {
+      flexDirection: "row",
+      marginBottom: "3%",
     },
     author: {
+      fontSize: 16,
+      color: colorScheme.subtitles_color,
+    },
+    separator: {
+      fontSize: 14,
+      color: colorScheme.subtitles_color,
+      paddingHorizontal: "3%",
+    },
+    date: {
       fontSize: 14,
       color: colorScheme.subtitles_color,
     },
   });
-
-  // const handlePress = () => {
-  //   // Navegar para a tela NewsContent passando o news como parâmetro
-  //   navigation.navigate("NewsContent", { news, colorScheme });
-  // };
 
   return (
     <TouchableOpacity
@@ -40,8 +49,11 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
         <Image source={{ uri: news.image }} style={styles.image} />
         <View style={styles.textContainer}>
           <Text style={styles.title}>{news.title}</Text>
-          <Text style={styles.author}>{news.author}</Text>
-          <Text style={styles.author}>{news.date}</Text>
+          <View style={styles.authorDateContainer}>
+            <Text style={styles.author}>{news.author}</Text>
+            <Text style={styles.separator}>·</Text>
+            <Text style={styles.date}>{news.date}</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

@@ -10,13 +10,14 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import H1Title from "../../../components/Texts/H1Title";
 import Subtitle from "../../../components/Texts/Subtitle";
+import { useUser } from "../../../context/UserContext";
 
 export default function ProfileEdit() {
   const navigation = useNavigation();
-
-  const [username, setUsername] = useState("kevin");
-  const [email, setEmail] = useState("Luke36@rocketmail.com");
-  const [cpf, setCpf] = useState("***.***.***-**");
+  const { userInfo } = useUser();
+  const [username, setUsername] = useState(userInfo.name);
+  const [email, setEmail] = useState(userInfo.email);
+  const [cpf, setCpf] = useState(userInfo.cpf);
 
   return (
     <View style={styles.container}>
@@ -76,12 +77,15 @@ const styles = StyleSheet.create({
   saveButton: {
     backgroundColor: "#1D9BF0",
     color: "white",
-    padding: 10,
+    paddingHorizontal: "10%",
+    paddingVertical: 12,
     borderRadius: 10,
     textAlign: "center",
   },
   saveButtonText: {
     color: "white",
+    fontWeight: "bold",
+    fontSize: 15,
   },
   content: {
     padding: 16,

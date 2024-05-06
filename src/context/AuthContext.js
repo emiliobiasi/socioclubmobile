@@ -34,9 +34,9 @@ export const AuthProvider = ({ children }) => {
     loadToken();
   }, []);
 
-  const register = async (name, email, password) => {
+  const register = async (cpf, name, email, password) => {
     try {
-      return ClientsService.registrarClient(name, email, password);
+      return ClientsService.registrarClient(cpf, name, email, password);
     } catch (e) {
       return { error: true, msg: e.response.data.msg };
     }
@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }) => {
         "Authorization"
       ] = `Bearer ${result.data.access_token}`;
       await SecureStore.setItemAsync(TOKEN_KEY, result.data.access_token);
+      // Atualizar UserContext ao logar
 
       return result;
     } catch (e) {

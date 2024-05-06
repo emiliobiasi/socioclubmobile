@@ -3,6 +3,7 @@ import { FontAwesome6, Entypo, Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, View, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import News from "./News";
 import Products from "./Products";
 import Plans from "./Plans";
@@ -30,8 +31,10 @@ export default function Main({ navigation }) {
         headerTitleStyle: styles(colorScheme).headerTitle,
         headerStyle: styles(colorScheme).header,
         tabBarStyle: styles(colorScheme).tabBar,
+        headerShadowVisible: false,
         tabBarActiveTintColor: colorScheme.titles_color,
         tabBarInactiveTintColor: colorScheme.subtitles_color,
+        tabBarLabel: () => null,
         headerLeft: () => (
           <View style={styles(colorScheme).iconImageView}>
             <Image
@@ -57,8 +60,14 @@ export default function Main({ navigation }) {
       <Tab.Screen
         name="Notícias"
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Entypo name="home" size={34} color={colorScheme.titles_color} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <Entypo
+              name="home"
+              size={34}
+              color={
+                focused ? colorScheme.buttons_color : colorScheme.titles_color
+              }
+            />
           ),
         }}
       >
@@ -66,39 +75,52 @@ export default function Main({ navigation }) {
       </Tab.Screen>
       <Tab.Screen
         name="Produtos"
-        component={Products}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <FontAwesome6
-              name="bag-shopping"
+          tabBarIcon: ({ color, size, focused }) => (
+            <Entypo
+              name="shop"
               size={34}
-              color={colorScheme.titles_color}
+              color={
+                focused ? colorScheme.buttons_color : colorScheme.titles_color
+              }
             />
           ),
         }}
-      />
+      >
+        {() => <Products colorScheme={colorScheme} navigation={navigation} />}
+      </Tab.Screen>
       <Tab.Screen
         name="Ingressos"
-        component={Tickets}
         options={{
-          tabBarIcon: ({ color, size }) => (
-            <Entypo name="ticket" size={34} color={colorScheme.titles_color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Planos"
-        component={Plans}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="diamond"
+          tabBarIcon: ({ color, size, focused }) => (
+            <Entypo
+              name="ticket"
               size={34}
-              color={colorScheme.titles_color}
+              color={
+                focused ? colorScheme.buttons_color : colorScheme.titles_color
+              }
             />
           ),
         }}
-      />
+      >
+        {() => <Tickets colorScheme={colorScheme} navigation={navigation} />}
+      </Tab.Screen>
+      <Tab.Screen
+        name="Planos"
+        options={{
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name="diamond"
+              size={34}
+              color={
+                focused ? colorScheme.buttons_color : colorScheme.titles_color
+              }
+            />
+          ),
+        }}
+      >
+        {() => <Plans colorScheme={colorScheme} navigation={navigation} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -111,22 +133,23 @@ const styles = (colorScheme) =>
     },
     header: {
       height: height / 7,
-      backgroundColor: colorScheme.palette_1,
+      backgroundColor: colorScheme.palette_2,
+      borderBottomWidth: 0,
     },
     tabBar: {
       backgroundColor: colorScheme.palette_2,
+      height: "10%", // Ajuste a altura da tabBar conforme desejado
+      borderTopWidth: 0,
     },
     iconImage: {
       width: "100%",
       height: "100%",
       borderRadius: 40,
-      borderWidth: 2,
     },
     iconImageView: {
       width: 60,
       height: 60,
       marginLeft: "15%",
-      marginTop: "5%",
     },
     profileIcon: {
       paddingRight: "15%",
