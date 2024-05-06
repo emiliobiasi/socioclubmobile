@@ -16,14 +16,7 @@ const Tab = createBottomTabNavigator();
 export default function Main({ navigation }) {
   const { clubInfo } = useClub(); // Primeiro, obtenha clubInfo
   const { name, colorScheme } = clubInfo; // Depois desestruture name e colorScheme de clubInfo
-  // colorScheme: {
-  //   titles_color: "#FFFFFF",
-  //   subtitles_color: "#AAB8C2",
-  //   buttons_color: "#1D9BF0",
-  //   palette_1: "#15202B",
-  //   palette_2: "#253341",
-  //   palette_3: "#0C111B",
-  // },
+  console.log("clubInfo na MAIN: ", clubInfo);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -38,7 +31,7 @@ export default function Main({ navigation }) {
         headerLeft: () => (
           <View style={styles(colorScheme).iconImageView}>
             <Image
-              source={clubInfo.icon}
+              source={{ uri: clubInfo.logo }}
               style={styles(colorScheme).iconImage}
             />
           </View>
@@ -71,7 +64,13 @@ export default function Main({ navigation }) {
           ),
         }}
       >
-        {() => <News colorScheme={colorScheme} navigation={navigation} />}
+        {() => (
+          <News
+            clubInfo={clubInfo}
+            colorScheme={colorScheme}
+            navigation={navigation}
+          />
+        )}
       </Tab.Screen>
       <Tab.Screen
         name="Produtos"

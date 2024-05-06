@@ -45,8 +45,11 @@ const SignUp = ({ navigation }) => {
     try {
       const result = await onRegister(cpf, name, email, password);
       if (result && result.error) {
+        console.log("result: ", result);
         alert(result.msg);
       } else {
+        console.log("result deu BOM: ", result);
+
         // Se o registro for bem-sucedido, você pode direcionar o usuário para a tela de login ou qualquer outra tela.
         alert("Registro concluído com sucesso! Por favor, faça o login.");
         navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro

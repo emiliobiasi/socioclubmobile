@@ -4,9 +4,10 @@ const listarClients = () => {
   return axios.get(process.env.EXPO_PUBLIC_API_URL + "/clients");
 };
 
-const registrarClient = async (name, email, password) => {
+const registrarClient = async (cpf, name, email, password) => {
   try {
     return await axios.post(process.env.EXPO_PUBLIC_API_URL + "/register", {
+      cpf,
       name,
       email,
       password,

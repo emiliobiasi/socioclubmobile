@@ -1,38 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import NewsCard from "../../../components/NewsCard";
+import NewsService from "../../../services/NewsService";
 
-const news = [
-  {
-    id: "1",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-  },
-  {
-    id: "2",
-    news_id: "",
-    title: "Notícia do São Paulo",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    author: "Emílio Biasi",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-  },
-  {
-    id: "3",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-  },
-];
+// const news = [
+//   {
+//     id: "1",
+//     news_id: "",
+//     title: "Notícia do Vasco",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     author: "Thiago Lima",
+//     date: "04/05/24",
+//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+//   },
+//   {
+//     id: "2",
+//     news_id: "",
+//     title: "Notícia do São Paulo",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     author: "Emílio Biasi",
+//     date: "04/05/24",
+//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+//   },
+//   {
+//     id: "3",
+//     news_id: "",
+//     title: "Notícia do Vasco",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     author: "Thiago Lima",
+//     date: "04/05/24",
+//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+//   },
+// ];
 
-const News = ({ colorScheme, navigation }) => {
+const News = ({ clubInfo, colorScheme, navigation }) => {
+  const [news, setNews] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await NewsService.listarNewsByClubId(clubInfo.id);
+        setNews(response.data.news);
+      } catch (error) {
+        console.error("Erro ao buscar clubes:", error);
+      }
+    }
+
+    fetchData();
+  }, []);
   const styles = StyleSheet.create({
     container: {
       flex: 1,

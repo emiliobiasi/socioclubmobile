@@ -38,12 +38,12 @@ const ClubSelectCard = ({ club, navigation }) => {
     <View>
       <TouchableOpacity style={styles.card} onPress={openModal}>
         <ImageBackground
-          source={club.background} // Imagem de fundo do card
+          source={{ uri: club.background }} // Imagem de fundo do card
           style={styles.imageBackground} // Estilo da imagem de fundo
           imageStyle={styles.imageStyle} // Estilo para manter a borda do card
         >
           <Image
-            source={club.logo} // Ícone do clube (circular)
+            source={{ uri: club.logo }} // Ícone do clube (circular)
             style={styles.iconImage} // Estilo para a imagem do ícone
           />
           <Text style={styles.title}>{club.name}</Text>
@@ -60,12 +60,12 @@ const ClubSelectCard = ({ club, navigation }) => {
             <TouchableWithoutFeedback>
               <View style={styles.modalContent}>
                 <ImageBackground
-                  source={club.background} // Usa a mesma imagem de fundo do card
+                  source={{ uri: club.background }} // Usa a mesma imagem de fundo do card
                   style={styles.modalImageBackground}
                   imageStyle={styles.modalImageStyle}
                 >
                   <Image
-                    source={{ uri: imageSource }} // Ícone centralizado
+                    source={{ uri: club.logo }} // Ícone centralizado
                     style={styles.modalIconImage}
                   />
                   <Text style={styles.modalTitle}>{club.name}</Text>

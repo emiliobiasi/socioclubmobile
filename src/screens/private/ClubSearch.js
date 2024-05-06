@@ -16,7 +16,6 @@ const ClubSearch = ({ navigation }) => {
       try {
         console.log("Chamando listarClubs");
         const response = await ClubService.listarClubs();
-        console.log("Clubes recebidos:", response.data.clubs);
         setClubes(response.data.clubs);
       } catch (error) {
         console.error("Erro ao buscar clubes:", error);
