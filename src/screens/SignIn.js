@@ -10,7 +10,6 @@ import {
   Dimensions,
 } from "react-native";
 import { useAuth } from "../context/AuthContext";
-import { API_URL } from "@env";
 import { AntDesign } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");

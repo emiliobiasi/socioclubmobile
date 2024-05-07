@@ -44,13 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const result = await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const result = ClientsService.logarClient(email, password);
 
       console.log("🚀 ~ file: AuthContext.js: ~ login ~ result:", result);
 
@@ -64,7 +58,6 @@ export const AuthProvider = ({ children }) => {
       ] = `Bearer ${result.data.access_token}`;
       await SecureStore.setItemAsync(TOKEN_KEY, result.data.access_token);
       // Atualizar UserContext ao logar
-
       return result;
     } catch (e) {
       return { error: true, msg: e.response.data.msg };

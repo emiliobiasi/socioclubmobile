@@ -18,7 +18,7 @@ const SignUp = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [name, setUsername] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { onRegister } = useAuth();
+  const { onRegister, onLogin } = useAuth();
 
   const login = async () => {
     try {
@@ -52,7 +52,8 @@ const SignUp = ({ navigation }) => {
 
         // Se o registro for bem-sucedido, você pode direcionar o usuário para a tela de login ou qualquer outra tela.
         alert("Registro concluído com sucesso! Por favor, faça o login.");
-        navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro
+        login();
+        //navigation.navigate("SignIn"); // Ajuste para a sua tela de login ou tela inicial pós-registro
       }
     } catch (e) {
       console.log("erro: ", e);

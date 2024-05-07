@@ -17,9 +17,21 @@ const registrarClient = async (cpf, name, email, password) => {
   }
 };
 
+const logarClient = async (email, password) => {
+  try {
+    return await axios.post(process.env.EXPO_PUBLIC_API_URL + "/login", {
+      email,
+      password,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const ClientsService = {
   listarClients,
   registrarClient,
+  logarClient,
 };
 
 export default ClientsService;
