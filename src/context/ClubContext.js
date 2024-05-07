@@ -21,7 +21,7 @@ export const ClubProvider = ({ children }) => {
   });
 
   const updateClubInfo = (newClubInfo) => {
-    console.log("newClubInfo: ", newClubInfo);
+    //console.log("newClubInfo: ", newClubInfo);
     const updatedClubInfo = {
       id: newClubInfo.id || clubInfo.id,
       name: newClubInfo.name || clubInfo.name,

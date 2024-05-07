@@ -23,7 +23,7 @@ const SignIn = ({ navigation }) => {
     try {
       const result = await onLogin(email, password);
       if (result && !result.error) {
-        navigation.navigate("Loading");
+        navigation.navigate("ClubSearch");
       } else {
         alert(result.msg);
       }

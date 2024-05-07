@@ -6,10 +6,12 @@ import SearchBar from "../../components/SearchBar";
 import H2Title from "../../components/Texts/H2Title";
 import ClubCategory from "../../components/ClubCategory";
 import ClubSelectCard from "../../components/ClubSelectCard";
-import ClubService from "../../services/ClubService"; // Ajuste o caminho conforme necessário
+import ClubService from "../../services/ClubService";
+import { ActivityIndicator } from "react-native-paper";
 
 const ClubSearch = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -17,6 +19,7 @@ const ClubSearch = ({ navigation }) => {
         console.log("Chamando listarClubs");
         const response = await ClubService.listarClubs();
         setClubes(response.data.clubs);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar clubes:", error);
       }
@@ -137,15 +140,24 @@ const ClubSearch = ({ navigation }) => {
           />
           <View style={styles.sideSpace}>
             <H2Title text="Clubes" marginVertical={10} />
-            <FlatList
-              data={clubes}
-              numColumns={2}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <ClubSelectCard club={item} navigation={navigation} />
-              )}
-              columnWrapperStyle={styles.clubRow} // Para adicionar espaço entre as colunas
-            />
+            {loading ? (
+              <ActivityIndicator
+                animating={true}
+                color="white"
+                size="large"
+                style={styles.loading}
+              />
+            ) : (
+              <FlatList
+                data={clubes}
+                numColumns={2}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <ClubSelectCard club={item} navigation={navigation} />
+                )}
+                columnWrapperStyle={styles.clubRow} // Para adicionar espaço entre as colunas
+              />
+            )}
           </View>
         </>
       )}
@@ -173,6 +185,9 @@ const styles = StyleSheet.create({
   },
   clubRow: {
     justifyContent: "space-between", // Espaçamento entre colunas
+  },
+  loading: {
+    margin: 50,
   },
 });
 

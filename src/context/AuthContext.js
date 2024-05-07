@@ -2,7 +2,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import ClientsService from "../services/ClientsService";
+import { useUser } from "../context/UserContext";
 
+const USER = "my-user";
 const TOKEN_KEY = "my-jwt";
 const AuthContext = createContext({});
 
@@ -11,6 +13,7 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const { updateUserInfo } = useUser();
   const [authState, setAuthState] = useState({
     token: null,
     authenticated: null,
@@ -20,7 +23,9 @@ export const AuthProvider = ({ children }) => {
     const loadToken = async () => {
       const token = await SecureStore.getItemAsync(TOKEN_KEY);
       console.log("stored:", token);
-
+      const user = JSON.parse(await SecureStore.getItemAsync(USER));
+      console.log("user:", user);
+      updateUserInfo(user);
       if (token) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
@@ -44,9 +49,9 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const result = ClientsService.logarClient(email, password);
+      const result = await ClientsService.logarClient(email, password);
 
-      console.log("🚀 ~ file: AuthContext.js: ~ login ~ result:", result);
+      console.log("🚀 ~ file: AuthContext.js: ~ login ~ result:", result.data);
 
       setAuthState({
         token: result.data.access_token,
@@ -57,7 +62,24 @@ export const AuthProvider = ({ children }) => {
         "Authorization"
       ] = `Bearer ${result.data.access_token}`;
       await SecureStore.setItemAsync(TOKEN_KEY, result.data.access_token);
-      // Atualizar UserContext ao logar
+
+      await SecureStore.setItemAsync(
+        USER,
+        JSON.stringify({
+          id: result.data.id,
+          cpf: result.data.cpf,
+          name: result.data.name,
+          email: result.data.email,
+        })
+      );
+
+      await updateUserInfo({
+        id: result.data.id,
+        cpf: result.data.cpf,
+        name: result.data.name,
+        email: result.data.email,
+      });
+
       return result;
     } catch (e) {
       return { error: true, msg: e.response.data.msg };
@@ -67,6 +89,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     // Delete token from storage
     await SecureStore.deleteItemAsync(TOKEN_KEY);
+    await SecureStore.deleteItemAsync(USER);
 
     // Update HTTP Headers
     axios.defaults.headers.common["Authorization"] = "";

@@ -4,10 +4,19 @@ import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useUser } from "../../../context/UserContext";
+import { useClub } from "../../../context/ClubContext";
+import { useAuth } from "../../../context/AuthContext";
+import * as SecureStore from "expo-secure-store";
+import MembershipCard from "../../../components/membershipCard";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Profile() {
+  const { onLogout } = useAuth();
   const navigation = useNavigation();
-  const { userInfo } = useUser();
+  const { userInfo, updateUserInfo } = useUser();
+  const { clubInfo } = useClub();
+  //console.log("userInfo no PROFILE: ", userInfo);
+  console.log("clubInfo no PROFILE: ", clubInfo);
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -34,49 +43,61 @@ export default function Profile() {
           <Text style={styles.editText}>Editar Perfil</Text>
         </TouchableOpacity>
       </View>
+      <ScrollView style={styles.scrollView}>
+        <MembershipCard />
 
-      <View style={styles.membershipInfo}>
-        <Text style={styles.membershipTitle}>Seu plano neste clube</Text>
-        <Text style={styles.membershipName}>Diamante</Text>
-        <Text style={styles.price}>R$153,16</Text>
-        <Text style={styles.dateRange}>De 21/03/24 até 21/03/24</Text>
-      </View>
+        <View style={styles.tab}>
+          <TouchableOpacity>
+            <Text style={styles.tabTextActive}>Opções</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.tab}>
-        <TouchableOpacity>
-          <Text style={styles.tabTextActive}>Opções</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.optionsSection}>
+          <TouchableOpacity style={styles.optionItem}>
+            <Text style={styles.optionText}>Meus Ingressos</Text>
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color="white"
+            />
+          </TouchableOpacity>
 
-      <View style={styles.optionsSection}>
-        <TouchableOpacity style={styles.optionItem}>
-          <Text style={styles.optionText}>Meus Ingressos</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.optionItem}>
+            <Text style={styles.optionText}>Histórico de Compras</Text>
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color="white"
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.optionItem}>
-          <Text style={styles.optionText}>Histórico de Compras</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.optionItem}
+            onPress={() => navigation.navigate("ClubSearch")}
+          >
+            <Text style={styles.optionText}>Alterar Clube</Text>
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color="white"
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.optionItem}
-          onPress={() => navigation.navigate("ClubSearch")}
-        >
-          <Text style={styles.optionText}>Alterar Clube</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.optionItem}>
+            <Text style={styles.optionText}>Histórico de Clubes</Text>
+            <MaterialIcons
+              name="keyboard-arrow-right"
+              size={24}
+              color="white"
+            />
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.optionItem}>
-          <Text style={styles.optionText}>Histórico de Clubes</Text>
-          <MaterialIcons name="keyboard-arrow-right" size={24} color="white" />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.logout}>
-          <Text style={styles.optionText}>Sair</Text>
-          <MaterialIcons name="logout" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity style={styles.logout} onPress={onLogout}>
+            <Text style={styles.optionText}>Sair</Text>
+            <MaterialIcons name="logout" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -91,12 +112,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     padding: 16,
-    backgroundColor: "#0C111B",
+    backgroundColor: "#253341",
     paddingTop: "15%",
   },
   headerText: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 28,
     color: "white",
   },
   profileInfo: {
@@ -106,14 +127,16 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 28,
     color: "white",
   },
   email: {
     color: "#AAB8C2",
+    fontSize: 16,
   },
   hidden: {
     color: "#AAB8C2",
+    fontSize: 16,
   },
   editButton: {
     backgroundColor: "#253341",
@@ -128,31 +151,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  membershipInfo: {
-    padding: 16,
-    borderRadius: 10,
-    marginHorizontal: "5%",
-    backgroundColor: "#253341",
-    marginVertical: "3%",
-  },
-  membershipTitle: {
-    color: "#AAB8C2",
-  },
-  membershipName: {
-    fontWeight: "bold",
-    fontSize: 18,
-    color: "white",
-  },
-  price: {
-    color: "white",
-  },
-  dateRange: {
-    color: "#AAB8C2",
+  scrollView: {
+    width: "100%",
   },
   tab: {
     flexDirection: "row",
     justifyContent: "space-around",
-    paddingVertical: 16,
     backgroundColor: "#0C111B",
   },
   tabText: {
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   optionsSection: {
-    padding: 16,
+    paddingVertical: 15,
   },
   optionsTitle: {
     fontWeight: "bold",
@@ -177,8 +181,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#253341",
     padding: 12,
     borderRadius: 8,
-    marginVertical: 8,
-    marginHorizontal: "2%",
+    marginBottom: 14,
+    marginHorizontal: "5%",
+    height: 60,
   },
   optionText: {
     color: "white",
@@ -191,7 +196,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#83110c",
     padding: 12,
     borderRadius: 8,
-    marginVertical: 8,
-    marginHorizontal: "2%",
+    marginBottom: 14,
+    marginHorizontal: "5%",
+    height: 60,
   },
 });

@@ -24,94 +24,90 @@ import NewsCard from "../components/NewsCard";
 const Stack = createStackNavigator();
 
 const PublicNavigator = () => (
-  <UserProvider>
-    <ClubProvider>
-      <Stack.Navigator initialRouteName="MapScreen">
-        <Stack.Screen
-          name="MapScreen"
-          component={MapScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Welcome"
-          component={WelcomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ChooseSign"
-          component={ChooseSign}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ClubSearch"
-          component={ClubSearch}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Main"
-          component={Main}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Profile"
-          component={Profile}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ProfileEdit"
-          component={ProfileEdit}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="News"
-          component={News}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NewsCard"
-          component={NewsCard}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="NewsContent"
-          component={NewsContent}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Plans"
-          component={Plans}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Products"
-          component={Products}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Tickets"
-          component={Tickets}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </ClubProvider>
-  </UserProvider>
+  <Stack.Navigator initialRouteName="Welcome">
+    <Stack.Screen
+      name="MapScreen"
+      component={MapScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Welcome"
+      component={WelcomeScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ChooseSign"
+      component={ChooseSign}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="SignUp"
+      component={SignUp}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="SignIn"
+      component={SignIn}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>
 );
 
 const PrivateNavigator = () => (
-  <Stack.Navigator initialRouteName="Loading">
+  <Stack.Navigator initialRouteName="ClubSearch">
     <Stack.Screen
       name="Loading"
       component={LoadingScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ClubSearch"
+      component={ClubSearch}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Main"
+      component={Main}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Profile"
+      component={Profile}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ProfileEdit"
+      component={ProfileEdit}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="News"
+      component={News}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="NewsCard"
+      component={NewsCard}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="NewsContent"
+      component={NewsContent}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Plans"
+      component={Plans}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Products"
+      component={Products}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Tickets"
+      component={Tickets}
       options={{ headerShown: false }}
     />
     {/* Adicionar aqui mais telas privadas conforme necessário */}
@@ -130,8 +126,12 @@ export const Layout = () => {
 
 export default function Routes() {
   return (
-    <AuthProvider>
-      <Layout />
-    </AuthProvider>
+    <UserProvider>
+      <ClubProvider>
+        <AuthProvider>
+          <Layout />
+        </AuthProvider>
+      </ClubProvider>
+    </UserProvider>
   );
 }

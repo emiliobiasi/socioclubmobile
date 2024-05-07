@@ -1,7 +1,10 @@
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { format, parseISO } from "date-fns";
 
 const NewsCard = ({ news, colorScheme, navigation }) => {
+  const publishDate = parseISO(news.publish_date);
+  const formattedDate = format(publishDate, "dd/MM/yy · HH");
   const styles = StyleSheet.create({
     cardContainer: {
       flex: 1,
@@ -33,7 +36,7 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
     separator: {
       fontSize: 14,
       color: colorScheme.subtitles_color,
-      paddingHorizontal: "3%",
+      paddingHorizontal: "1%",
     },
     date: {
       fontSize: 14,
@@ -52,7 +55,7 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
           <View style={styles.authorDateContainer}>
             <Text style={styles.author}>{news.author}</Text>
             <Text style={styles.separator}>·</Text>
-            <Text style={styles.date}>{news.date}</Text>
+            <Text style={styles.date}>{formattedDate} h</Text>
           </View>
         </View>
       </View>

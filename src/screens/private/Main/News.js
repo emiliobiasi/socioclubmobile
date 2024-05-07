@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import NewsCard from "../../../components/NewsCard";
 import NewsService from "../../../services/NewsService";
+import { ActivityIndicator } from "react-native-paper";
 
 // const news = [
 //   {
@@ -10,7 +11,7 @@ import NewsService from "../../../services/NewsService";
 //     title: "Notícia do Vasco",
 //     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
 //     author: "Thiago Lima",
-//     date: "04/05/24",
+//     publish_date: "04/05/24",
 //     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
 //   },
 //   {
@@ -19,7 +20,7 @@ import NewsService from "../../../services/NewsService";
 //     title: "Notícia do São Paulo",
 //     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
 //     author: "Emílio Biasi",
-//     date: "04/05/24",
+//     publish_date: "04/05/24",
 //     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
 //   },
 //   {
@@ -28,18 +29,20 @@ import NewsService from "../../../services/NewsService";
 //     title: "Notícia do Vasco",
 //     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
 //     author: "Thiago Lima",
-//     date: "04/05/24",
+//     publish_date: "04/05/24",
 //     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
 //   },
 // ];
 
 const News = ({ clubInfo, colorScheme, navigation }) => {
+  const [loading, setLoading] = useState(true);
   const [news, setNews] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await NewsService.listarNewsByClubId(clubInfo.id);
         setNews(response.data.news);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar clubes:", error);
       }
@@ -65,22 +68,33 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
+    loading: {
+      margin: 50,
+    },
   });
-
   return (
     <View style={styles.container}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Notícias</Text>
       </View>
       <ScrollView style={styles.scrollView}>
-        {news.map((item) => (
-          <NewsCard
-            key={item.id}
-            news={item}
-            colorScheme={colorScheme}
-            navigation={navigation}
+        {loading ? (
+          <ActivityIndicator
+            animating={true}
+            color={colorScheme.titles_color}
+            size="large"
+            style={styles.loading}
           />
-        ))}
+        ) : (
+          news.map((item) => (
+            <NewsCard
+              key={item.id}
+              news={item}
+              colorScheme={colorScheme}
+              navigation={navigation}
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );

@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
   modalImageStyle: {
     height: "100%",
     width: "100%",
+    borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
-    borderTopEndRadius: 15,
   },
   modalIconImage: {
     width: 120, // Tamanho da imagem do ícone

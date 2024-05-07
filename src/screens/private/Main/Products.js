@@ -63,7 +63,10 @@ const Products = ({ colorScheme, navigation }) => {
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.searchBarView}>
-          <SearchBar placeholder="Busca de produtos..." />
+          <SearchBar
+            placeholder="Busca de produtos..."
+            colorScheme={colorScheme}
+          />
         </View>
         {products.map((item) => (
           <Text>Produto {item.id}</Text>

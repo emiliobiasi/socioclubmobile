@@ -62,7 +62,10 @@ const Tickets = ({ colorScheme, navigation }) => {
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.searchBarView}>
-          <SearchBar placeholder="Busca de ingressos..." />
+          <SearchBar
+            placeholder="Busca de ingressos..."
+            colorScheme={colorScheme}
+          />
         </View>
         {tickets.map((item) => (
           <Text>tickets {item.id}</Text>

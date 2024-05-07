@@ -14,15 +14,15 @@ import axios from "axios";
 const { width, height } = Dimensions.get("window");
 
 const ChooseSign = ({ navigation }) => {
-  useEffect(() => {
-    const testCall = async () => {
-      const result = await axios.get(
-        `${process.env.EXPO_PUBLIC_API_URL}/clients`
-      );
-      console.log("🚀 ~ file: ChooseSign.tsx:22 ~ testCall ~ result:", result);
-    };
-    testCall();
-  }, []);
+  // useEffect(() => {
+  //   const testCall = async () => {
+  //     const result = await axios.get(
+  //       `${process.env.EXPO_PUBLIC_API_URL}/clients`
+  //     );
+  //     console.log("🚀 ~ file: ChooseSign.tsx:22 ~ testCall ~ result:", result);
+  //   };
+  //   testCall();
+  // }, []);
 
   const handleSignUpPress = () => {
     navigation.navigate("SignUp");

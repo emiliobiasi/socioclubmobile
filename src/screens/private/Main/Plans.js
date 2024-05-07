@@ -62,7 +62,10 @@ const Plans = ({ colorScheme, navigation }) => {
       </View>
       <ScrollView style={styles.scrollView}>
         <View style={styles.searchBarView}>
-          <SearchBar placeholder="Busca de planos..." />
+          <SearchBar
+            placeholder="Busca de planos..."
+            colorScheme={colorScheme}
+          />
         </View>
         {plans.map((item) => (
           <Text>Plans {item.id}</Text>

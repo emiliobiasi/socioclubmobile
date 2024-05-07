@@ -7,11 +7,12 @@ export const UserProvider = ({ children }) => {
     id: "Loading...",
     cpf: "Loading...",
     name: "Loading...",
-    password: "Loading...",
     email: "Loading...",
   });
+  console.log("newUserInfo no USERCONTEXT: ", userInfo);
 
   const updateUserInfo = (newUserInfo) => {
+    console.log("newUserInfo no USERCONTEXT: ", newUserInfo);
     setUserInfo(newUserInfo);
   };
 

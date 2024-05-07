@@ -16,18 +16,18 @@ const { width, height } = Dimensions.get("window");
 const LoadingScreen = ({ navigation }) => {
   const { onLogout } = useAuth();
 
-  useEffect(() => {
-    const testCall = async () => {
-      const result = await axios.get(
-        `${process.env.EXPO_PUBLIC_API_URL}/clients`
-      );
-      console.log(
-        "🚀 ~ file: LoadingScreen.tsx:21 ~ testCall ~ result:",
-        result
-      );
-    };
-    testCall();
-  }, []);
+  // useEffect(() => {
+  //   const testCall = async () => {
+  //     const result = await axios.get(
+  //       `${process.env.EXPO_PUBLIC_API_URL}/clients`
+  //     );
+  //     console.log(
+  //       "🚀 ~ file: LoadingScreen.tsx:21 ~ testCall ~ result:",
+  //       result
+  //     );
+  //   };
+  //   testCall();
+  // }, []);
 
   const logout = async () => {
     try {

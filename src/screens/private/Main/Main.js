@@ -14,9 +14,9 @@ const { width, height } = Dimensions.get("window");
 
 const Tab = createBottomTabNavigator();
 export default function Main({ navigation }) {
-  const { clubInfo } = useClub(); // Primeiro, obtenha clubInfo
-  const { name, colorScheme } = clubInfo; // Depois desestruture name e colorScheme de clubInfo
-  console.log("clubInfo na MAIN: ", clubInfo);
+  const { clubInfo } = useClub();
+  const { name, colorScheme } = clubInfo;
+  //console.log("clubInfo na MAIN: ", clubInfo);
   return (
     <Tab.Navigator
       screenOptions={{
@@ -143,7 +143,6 @@ const styles = (colorScheme) =>
     iconImage: {
       width: "100%",
       height: "100%",
-      borderRadius: 40,
     },
     iconImageView: {
       width: 60,
