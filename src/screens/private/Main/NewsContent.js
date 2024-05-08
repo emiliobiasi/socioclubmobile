@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import H1Title from "../../../components/Texts/H1Title";
 
-const NewsContent = ({ route }) => {
+const NewsContent = ({ route, formattedDate }) => {
   const navigation = useNavigation();
   const { news, colorScheme } = route.params;
   const styles = StyleSheet.create({
@@ -78,7 +78,7 @@ const NewsContent = ({ route }) => {
         <View style={styles.authorDateContainer}>
           <Text style={styles.author}>{news.author}</Text>
           <Text style={styles.separator}>·</Text>
-          <Text style={styles.date}>{news.date}</Text>
+          <Text style={styles.date}>{formattedDate}</Text>
         </View>
         <Text style={styles.text}>{news.text}</Text>
       </View>

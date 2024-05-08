@@ -46,7 +46,7 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("NewsContent", { news, colorScheme })}
+      onPress={() => navigation.navigate("NewsContent", { news, colorScheme, formattedDate })}
     >
       <View style={styles.cardContainer}>
         <Image source={{ uri: news.image }} style={styles.image} />

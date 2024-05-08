@@ -11,13 +11,32 @@ import { Ionicons } from "@expo/vector-icons";
 import H1Title from "../../../components/Texts/H1Title";
 import Subtitle from "../../../components/Texts/Subtitle";
 import { useUser } from "../../../context/UserContext";
+import ClientsService from "../../../services/ClientsService";
+import * as SecureStore from "expo-secure-store";
+
+const USER = "my-user";
 
 export default function ProfileEdit() {
   const navigation = useNavigation();
-  const { userInfo } = useUser();
+  const { userInfo, updateUserInfo} = useUser();
   const [username, setUsername] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
-  const [cpf, setCpf] = useState(userInfo.cpf);
+  //const [cpf, setCpf] = useState(userInfo.cpf);
+
+  const updateUser = async () => {
+    const result = await ClientsService.updateClient(email, username, userInfo.cpf)
+    console.log("result: ", result)
+
+    const userUpdated = await ClientsService.listarClients(userInfo.cpf)
+    console.log("userUpdated: ", userUpdated.data.client)
+    await SecureStore.setItemAsync(
+      USER,
+      JSON.stringify(userUpdated.data.client)
+    );
+
+    console.log("userUpdated.data.client ANTES DE DAR UPDATE: ", userUpdated.data.client)
+    updateUserInfo(userUpdated.data.client)
+  };
 
   return (
     <View style={styles.container}>
@@ -30,27 +49,29 @@ export default function ProfileEdit() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.saveButton}>
+        <TouchableOpacity style={styles.saveButton} onPress={updateUser}>
           <Text style={styles.saveButtonText}>Salvar</Text>
         </TouchableOpacity>
       </View>
 
       <H1Title text="Editar Perfil" marginVertical={10} />
-      <Subtitle text="Edite os dados que achar necessário e clique em Salvar, para que seus dados sejam atualizados." />
+      <Subtitle text="Edite os apenas os campos que achar necessário e clique em Salvar, para que seus dados sejam atualizados." />
 
       <View style={styles.content}>
         <Text style={styles.label}>Username</Text>
         <TextInput
           style={styles.input}
-          value={username}
           onChangeText={setUsername}
+          placeholder="Username..."
+          placeholderTextColor="#AAB8C2"
         />
 
         <Text style={styles.label}>Email</Text>
-        <TextInput style={styles.input} value={email} onChangeText={setEmail} />
+        <TextInput style={styles.input} onChangeText={setEmail} placeholder="Email..."
+          placeholderTextColor="#AAB8C2"/>
 
-        <Text style={styles.label}>CPF</Text>
-        <TextInput style={styles.input} value={cpf} onChangeText={setCpf} />
+        {/* <Text style={styles.label}>CPF</Text>
+        <TextInput style={styles.input} value={cpf} onChangeText={setCpf} /> */}
       </View>
     </View>
   );
