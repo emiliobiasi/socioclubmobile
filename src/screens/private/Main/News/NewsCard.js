@@ -7,12 +7,16 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
   const formattedDate = format(publishDate, "dd/MM/yy · HH");
   const styles = StyleSheet.create({
     cardContainer: {
+      margin: 10,
+      borderRadius: 10,
       flex: 1,
       marginBottom: 10,
       backgroundColor: colorScheme.palette_2,
     },
     image: {
       width: "100%",
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
       height: 200,
       resizeMode: "cover",
     },
@@ -46,7 +50,9 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
 
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate("NewsContent", { news, colorScheme, formattedDate })}
+      onPress={() =>
+        navigation.navigate("NewsContent", { news, colorScheme, formattedDate })
+      }
     >
       <View style={styles.cardContainer}>
         <Image source={{ uri: news.image }} style={styles.image} />
