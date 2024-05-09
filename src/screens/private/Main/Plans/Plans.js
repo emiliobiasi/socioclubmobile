@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import SearchBar from "../../../components/SearchBar";
+import SearchBar from "../../../../components/SearchBar";
 
 const plans = [
   {

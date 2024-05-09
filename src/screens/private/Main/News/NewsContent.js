@@ -3,7 +3,7 @@ import { View, Image, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import H1Title from "../../../components/Texts/H1Title";
+import H1Title from "../../../../components/Texts/H1Title";
 
 const NewsContent = ({ route, formattedDate }) => {
   const navigation = useNavigation();

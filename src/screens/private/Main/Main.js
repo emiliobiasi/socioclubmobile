@@ -4,10 +4,10 @@ import { Image, StyleSheet, View, Dimensions } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { MaterialIcons } from "@expo/vector-icons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import News from "./News";
-import Products from "./Products";
-import Plans from "./Plans";
-import Tickets from "./Tickets";
+import News from "./News/News";
+import Products from "./Products/Products";
+import Plans from "./Plans/Plans";
+import Tickets from "./Tickets/Tickets";
 import { useClub } from "../../../context/ClubContext";
 
 const { width, height } = Dimensions.get("window");

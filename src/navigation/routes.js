@@ -14,12 +14,12 @@ import Profile from "../screens/private/Profile/Profile";
 import ProfileEdit from "../screens/private/Profile/ProfileEdit";
 import { ClubProvider } from "../context/ClubContext"; // Certifique-se que o caminho está correto
 import { UserProvider } from "../context/UserContext";
-import NewsContent from "../screens/private/Main/NewsContent";
-import News from "../screens/private/Main/News";
-import Plans from "../screens/private/Main/Plans";
-import Products from "../screens/private/Main/Products";
-import Tickets from "../screens/private/Main/Tickets";
-import NewsCard from "../components/NewsCard";
+import NewsContent from "../screens/private/Main/News/NewsContent";
+import News from "../screens/private/Main/News/News";
+import Plans from "../screens/private/Main/Plans/Plans";
+import Products from "../screens/private/Main/Products/Products";
+import Tickets from "../screens/private/Main/Tickets/Tickets";
+import NewsCard from "../screens/private/Main/News/NewsCard";
 
 const Stack = createStackNavigator();
 

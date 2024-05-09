@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import NewsCard from "../../../components/NewsCard";
-import NewsService from "../../../services/NewsService";
+import NewsCard from "./NewsCard";
+import NewsService from "../../../../services/NewsService";
 import { ActivityIndicator } from "react-native-paper";
 
 // const news = [
