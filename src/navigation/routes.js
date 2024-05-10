@@ -20,6 +20,8 @@ import Plans from "../screens/private/Main/Plans/Plans";
 import Products from "../screens/private/Main/Products/Products";
 import Tickets from "../screens/private/Main/Tickets/Tickets";
 import NewsCard from "../screens/private/Main/News/NewsCard";
+import ProductCard from "../screens/private/Main/Products/ProductCard";
+import ProductContent from "../screens/private/Main/Products/ProductContent";
 
 const Stack = createStackNavigator();
 
@@ -106,11 +108,20 @@ const PrivateNavigator = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
+      name="ProductsCard"
+      component={ProductCard}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ProductContent"
+      component={ProductContent}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
       name="Tickets"
       component={Tickets}
       options={{ headerShown: false }}
     />
-    {/* Adicionar aqui mais telas privadas conforme necessário */}
   </Stack.Navigator>
 );
 

@@ -1,11 +1,7 @@
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { format, parseISO } from "date-fns";
 
-const NewsCard = ({ news, colorScheme, navigation }) => {
-  const publishDate = parseISO(news.publish_date);
-  const formattedDate = format(publishDate, "dd/MM/yy · HH");
-  console.log("formattedDate no CARD: ", formattedDate);
+const ProductCard = ({ product, colorScheme, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,
@@ -52,17 +48,15 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate("NewsContent", { news, colorScheme, formattedDate })
+        navigation.navigate("ProductContent", { product, colorScheme })
       }
     >
       <View style={styles.cardContainer}>
-        <Image source={{ uri: news.image }} style={styles.image} />
+        <Image source={{ uri: product.image }} style={styles.image} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{news.title}</Text>
+          <Text style={styles.title}>{product.name}</Text>
           <View style={styles.authorDateContainer}>
-            <Text style={styles.author}>{news.author}</Text>
-            <Text style={styles.separator}>·</Text>
-            <Text style={styles.date}>{formattedDate} h</Text>
+            <Text style={styles.author}>{product.price}</Text>
           </View>
         </View>
       </View>
@@ -70,4 +64,4 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
   );
 };
 
-export default NewsCard;
+export default ProductCard;

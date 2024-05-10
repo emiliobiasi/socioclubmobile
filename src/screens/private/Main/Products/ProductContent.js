@@ -3,11 +3,10 @@ import { View, Image, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import H1Title from "../../../../components/Texts/H1Title";
 
-const NewsContent = ({ route }) => {
+const ProductContent = ({ route, formattedDate }) => {
   const navigation = useNavigation();
-  const { news, colorScheme, formattedDate } = route.params;
+  const { product, colorScheme } = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -72,18 +71,17 @@ const NewsContent = ({ route }) => {
           />
         </TouchableOpacity>
       </View>
-      <Image source={{ uri: news.image }} style={styles.image} />
+      <Image source={{ uri: product.image }} style={styles.image} />
       <View style={styles.contentView}>
-        <Text style={styles.title}>{news.title}</Text>
+        <Text style={styles.title}>{product.title}</Text>
         <View style={styles.authorDateContainer}>
-          <Text style={styles.author}>{news.author}</Text>
+          <Text style={styles.author}>{product.author}</Text>
           <Text style={styles.separator}>·</Text>
-          <Text style={styles.date}>{formattedDate} h</Text>
         </View>
-        <Text style={styles.text}>{news.text}</Text>
+        <Text style={styles.text}>{product.text}</Text>
       </View>
     </View>
   );
 };
 
-export default NewsContent;
+export default ProductContent;

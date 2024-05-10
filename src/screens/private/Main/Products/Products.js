@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import SearchBar from "../../../../components/SearchBar";
+import ProductsService from "../../../../services/ProductsService";
+import { ActivityIndicator } from "react-native-paper";
+import ProductCard from "./ProductCard";
 
 const products = [
   {
     id: "1",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    product_id: "33",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    name: "Caneca Personalizada do São Paulo",
+    description: "Descrição do produto Caneca Personalizada do São Paulo...",
+    price: "35.90",
+    category: "Item",
   },
   {
     id: "2",
-    news_id: "",
-    title: "Notícia do São Paulo",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Emílio Biasi",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    product_id: "33",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    name: "Caneca São Paulo",
+    description:
+      "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+    price: "35.90",
+    category: "Item",
   },
   {
     id: "3",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    product_id: "33",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    name: "Caneca São Paulo",
+    description:
+      "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+    price: "35.90",
+    category: "Item",
   },
 ];
 
 const Products = ({ colorScheme, navigation }) => {
+  const [loading, setLoading] = useState(true);
+  // const [products, setProducts] = useState([]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await ProductsService.listarProductsByClubId(
+  //         clubInfo.id
+  //       );
+  //       setNews(response.data.products);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar clubes:", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -68,9 +90,23 @@ const Products = ({ colorScheme, navigation }) => {
             colorScheme={colorScheme}
           />
         </View>
+        {/* {loading ? (
+          <ActivityIndicator
+            animating={true}
+            color={colorScheme.titles_color}
+            size="large"
+            style={styles.loading}
+          />
+        ) : ( */}
         {products.map((item) => (
-          <Text>Produto {item.id}</Text>
+          <ProductCard
+            key={item.id}
+            product={item}
+            colorScheme={colorScheme}
+            navigation={navigation}
+          />
         ))}
+        {/* // )} */}
       </ScrollView>
     </View>
   );
