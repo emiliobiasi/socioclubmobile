@@ -22,6 +22,7 @@ import Tickets from "../screens/private/Main/Tickets/Tickets";
 import NewsCard from "../screens/private/Main/News/NewsCard";
 import ProductCard from "../screens/private/Main/Products/ProductCard";
 import ProductContent from "../screens/private/Main/Products/ProductContent";
+import ShoppingCart from "../screens/private/Main/Products/ShoppingCart";
 
 const Stack = createStackNavigator();
 
@@ -115,6 +116,11 @@ const PrivateNavigator = () => (
     <Stack.Screen
       name="ProductContent"
       component={ProductContent}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ShoppingCart"
+      component={ShoppingCart}
       options={{ headerShown: false }}
     />
     <Stack.Screen

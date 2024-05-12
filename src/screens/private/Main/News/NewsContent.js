@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import H1Title from "../../../../components/Texts/H1Title";
 
@@ -72,16 +72,18 @@ const NewsContent = ({ route }) => {
           />
         </TouchableOpacity>
       </View>
-      <Image source={{ uri: news.image }} style={styles.image} />
-      <View style={styles.contentView}>
-        <Text style={styles.title}>{news.title}</Text>
-        <View style={styles.authorDateContainer}>
-          <Text style={styles.author}>{news.author}</Text>
-          <Text style={styles.separator}>·</Text>
-          <Text style={styles.date}>{formattedDate} h</Text>
+      <ScrollView style={styles.scrollView}>
+        <Image source={{ uri: news.image }} style={styles.image} />
+        <View style={styles.contentView}>
+          <Text style={styles.title}>{news.title}</Text>
+          <View style={styles.authorDateContainer}>
+            <Text style={styles.author}>{news.author}</Text>
+            <Text style={styles.separator}>·</Text>
+            <Text style={styles.date}>{formattedDate} h</Text>
+          </View>
+          <Text style={styles.text}>{news.text}</Text>
         </View>
-        <Text style={styles.text}>{news.text}</Text>
-      </View>
+      </ScrollView>
     </View>
   );
 };

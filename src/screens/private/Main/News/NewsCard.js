@@ -5,7 +5,6 @@ import { format, parseISO } from "date-fns";
 const NewsCard = ({ news, colorScheme, navigation }) => {
   const publishDate = parseISO(news.publish_date);
   const formattedDate = format(publishDate, "dd/MM/yy · HH");
-  console.log("formattedDate no CARD: ", formattedDate);
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,
@@ -39,12 +38,12 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
       color: colorScheme.subtitles_color,
     },
     separator: {
-      fontSize: 14,
+      fontSize: 16,
       color: colorScheme.subtitles_color,
       paddingHorizontal: "1%",
     },
     date: {
-      fontSize: 14,
+      fontSize: 16,
       color: colorScheme.subtitles_color,
     },
   });

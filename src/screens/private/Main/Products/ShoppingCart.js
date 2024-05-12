@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
-const ProductContent = ({ route }) => {
+const ShoppingCart = ({ route }) => {
   const navigation = useNavigation();
   const { product, colorScheme } = route.params;
   const styles = StyleSheet.create({
@@ -93,6 +93,7 @@ const ProductContent = ({ route }) => {
             color={colorScheme.titles_color}
           />
         </TouchableOpacity>
+        <Text>Carrinho</Text>
       </View>
       <ScrollView style={styles.scrollView}>
         <Image source={{ uri: product.image }} style={styles.image} />
@@ -107,19 +108,11 @@ const ProductContent = ({ route }) => {
           <Text style={styles.description}>{product.description}</Text>
         </View>
       </ScrollView>
-      <TouchableOpacity
-        style={styles.addToCartButton}
-        onPress={() =>
-          navigation.navigate("ShoppingCart", {
-            product,
-            colorScheme,
-          })
-        }
-      >
+      <TouchableOpacity style={styles.addToCartButton}>
         <Text style={styles.addToCartButtonText}>Adicionar ao Carrinho</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default ProductContent;
+export default ShoppingCart;

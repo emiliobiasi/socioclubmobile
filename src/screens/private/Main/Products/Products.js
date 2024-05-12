@@ -12,7 +12,7 @@ const products = [
     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
     name: "Caneca Personalizada do São Paulo",
     description: "Descrição do produto Caneca Personalizada do São Paulo...",
-    price: "35.90",
+    price: "135.90",
     category: "Item",
   },
   {
