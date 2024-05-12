@@ -3,8 +3,12 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { useShoppingCart } from "../../../../context/ShoppingCartContext";
+import ProductCard from "./ProductCard";
 
 const ShoppingCart = ({ route }) => {
+  const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
   const navigation = useNavigation();
   const { product, colorScheme } = route.params;
   const styles = StyleSheet.create({
@@ -14,61 +18,20 @@ const ShoppingCart = ({ route }) => {
       backgroundColor: colorScheme.palette_1,
     },
     topBar: {
-      justifyContent: "center",
-      paddingLeft: "3%",
-      padding: 16,
+      paddingHorizontal: "3%",
+      paddingBottom: "4%",
       paddingTop: "15%",
       backgroundColor: colorScheme.palette_1,
+      flexDirection: "row",
+      justifyContent: "space-between", // Distribui o espaço entre os itens
+      alignItems: "center",
     },
-    image: {
-      width: "100%",
-      height: 400,
-      resizeMode: "cover",
-    },
-    nameView: {
-      paddingHorizontal: 30,
-      paddingTop: 50,
-      paddingBottom: 70,
-      backgroundColor: colorScheme.palette_2,
-      position: "relative",
-    },
-    name: {
+    pageName: {
       fontWeight: "bold",
       fontSize: 34,
       color: colorScheme.titles_color,
-      textAlign: "left",
     },
-    priceView: {
-      flexDirection: "row",
-      position: "absolute", // Posicionamento absoluto
-      bottom: 0, // Colocado na parte inferior
-      right: 40, // Colocado à direita
-      padding: 10, // Adiciona algum espaçamento
-      backgroundColor: colorScheme.palette_1,
-      borderTopLeftRadius: 10,
-      borderTopRightRadius: 10,
-    },
-    rs: {
-      fontSize: 30,
-      color: colorScheme.titles_color,
-      paddingRight: 5,
-    },
-    price: {
-      fontSize: 30,
-      color: colorScheme.titles_color,
-      fontWeight: "bold",
-    },
-    descriptionView: {
-      paddingHorizontal: 30,
-      paddingVertical: 20,
-    },
-    description: {
-      fontSize: 18,
-      lineHeight: 24,
-      color: colorScheme.titles_color,
-      textAlign: "left",
-      fontWeight: "bold",
-    },
+
     addToCartButton: {
       backgroundColor: colorScheme.buttons_color,
       padding: 15,
@@ -93,23 +56,29 @@ const ShoppingCart = ({ route }) => {
             color={colorScheme.titles_color}
           />
         </TouchableOpacity>
-        <Text>Carrinho</Text>
+        <Text style={styles.pageName}>Carrinho</Text>
+        <FontAwesome5
+          name="shopping-cart"
+          size={24}
+          color={colorScheme.titles_color}
+        />
       </View>
       <ScrollView style={styles.scrollView}>
-        <Image source={{ uri: product.image }} style={styles.image} />
-        <View style={styles.nameView}>
-          <Text style={styles.name}>{product.name}</Text>
-          <View style={styles.priceView}>
-            <Text style={styles.rs}>R$</Text>
-            <Text style={styles.price}>{product.price}</Text>
-          </View>
-        </View>
-        <View style={styles.descriptionView}>
-          <Text style={styles.description}>{product.description}</Text>
-        </View>
+        {shoppingCartInfo == [] ? (
+          <Text>Carrinho Vazio</Text>
+        ) : (
+          shoppingCartInfo.map((item) => (
+            <ProductCard
+              key={item.id}
+              product={item}
+              colorScheme={colorScheme}
+              navigation={navigation}
+            />
+          ))
+        )}
       </ScrollView>
       <TouchableOpacity style={styles.addToCartButton}>
-        <Text style={styles.addToCartButtonText}>Adicionar ao Carrinho</Text>
+        <Text style={styles.addToCartButtonText}>Finalizar Compra</Text>
       </TouchableOpacity>
     </View>
   );

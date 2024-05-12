@@ -3,10 +3,21 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { useShoppingCart } from "../../../../context/ShoppingCartContext";
 
 const ProductContent = ({ route }) => {
   const navigation = useNavigation();
   const { product, colorScheme } = route.params;
+  const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
+
+  const handleShoppingCartButtonPress = () => {
+    updateShoppingCartInfo(product);
+    navigation.navigate("ShoppingCart", {
+      product,
+      colorScheme,
+    });
+  };
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -109,12 +120,7 @@ const ProductContent = ({ route }) => {
       </ScrollView>
       <TouchableOpacity
         style={styles.addToCartButton}
-        onPress={() =>
-          navigation.navigate("ShoppingCart", {
-            product,
-            colorScheme,
-          })
-        }
+        onPress={handleShoppingCartButtonPress}
       >
         <Text style={styles.addToCartButtonText}>Adicionar ao Carrinho</Text>
       </TouchableOpacity>

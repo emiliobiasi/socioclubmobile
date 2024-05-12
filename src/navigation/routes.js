@@ -23,6 +23,7 @@ import NewsCard from "../screens/private/Main/News/NewsCard";
 import ProductCard from "../screens/private/Main/Products/ProductCard";
 import ProductContent from "../screens/private/Main/Products/ProductContent";
 import ShoppingCart from "../screens/private/Main/Products/ShoppingCart";
+import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 
 const Stack = createStackNavigator();
 
@@ -146,7 +147,9 @@ export default function Routes() {
     <UserProvider>
       <ClubProvider>
         <AuthProvider>
-          <Layout />
+          <ShoppingCartProvider>
+            <Layout />
+          </ShoppingCartProvider>
         </AuthProvider>
       </ClubProvider>
     </UserProvider>
