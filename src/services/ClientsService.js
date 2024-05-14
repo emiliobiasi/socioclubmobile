@@ -34,17 +34,20 @@ const logarClient = async (email, password) => {
 
 const updateClient = async (email, username, cpf) => {
   try {
-    const password = ""
-    let newName = ""
-    let newEmail = ""
-    username ? newName = username : newName = ""
-    email ? newEmail = email : newEmail = ""
+    const password = "";
+    let newName = "";
+    let newEmail = "";
+    username ? (newName = username) : (newName = "");
+    email ? (newEmail = email) : (newEmail = "");
     const body = {
       email: newEmail,
       name: newName,
-      password: password
-    }
-    return await axios.put(process.env.EXPO_PUBLIC_API_URL + `/update/${cpf}`, body);
+      password: password,
+    };
+    return await axios.put(
+      process.env.EXPO_PUBLIC_API_URL + `/update/${cpf}`,
+      body
+    );
   } catch (e) {
     console.log(e);
   }
@@ -55,7 +58,7 @@ const ClientsService = {
   listarClients,
   registrarClient,
   logarClient,
-  updateClient
+  updateClient,
 };
 
 export default ClientsService;
