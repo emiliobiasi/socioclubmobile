@@ -4,22 +4,60 @@ const ShoppingCartContext = createContext();
 
 export const ShoppingCartProvider = ({ children }) => {
   const [shoppingCartInfo, setShoppingCartInfo] = useState([]);
-  console.log("newShoppingCartInfo no ShoppingCartCONTEXT: ", shoppingCartInfo);
 
   const updateShoppingCartInfo = (newProduct) => {
-    // Concatenando o novo produto ao array existente
+    // Adiciona um novo produto ao carrinho de compras
     setShoppingCartInfo((prevShoppingCartInfo) =>
       prevShoppingCartInfo.concat(newProduct)
     );
   };
 
+  const replaceProduct = (newProduct) => {
+    // Verifica se há um produto existente com o mesmo product_id
+    const existingProductIndex = shoppingCartInfo.findIndex(
+      (item) => item.product_id === newProduct.product_id
+    );
+
+    if (existingProductIndex !== -1) {
+      // Se um produto com o mesmo product_id for encontrado,
+      // substitui o item na lista pelo novo produto
+      const updatedShoppingCartInfo = [...shoppingCartInfo];
+      updatedShoppingCartInfo[existingProductIndex] = newProduct;
+      setShoppingCartInfo(updatedShoppingCartInfo);
+    } else {
+      // Se não houver produto com o mesmo product_id,
+      // simplesmente adiciona o novo produto ao carrinho de compras
+      setShoppingCartInfo((prevShoppingCartInfo) =>
+        prevShoppingCartInfo.concat(newProduct)
+      );
+    }
+  };
+
+  const removeProduct = (productIdToRemove) => {
+    // Encontra o índice do produto a ser removido
+    const productIndexToRemove = shoppingCartInfo.findIndex(
+      (item) => item.product_id === productIdToRemove
+    );
+
+    if (productIndexToRemove !== -1) {
+      // Se o produto existir na lista, remove-o
+      const updatedShoppingCartInfo = [...shoppingCartInfo];
+      updatedShoppingCartInfo.splice(productIndexToRemove, 1);
+      setShoppingCartInfo(updatedShoppingCartInfo);
+    }
+  };
+
   return (
     <ShoppingCartContext.Provider
-      value={{ shoppingCartInfo, updateShoppingCartInfo }}
+      value={{
+        shoppingCartInfo,
+        updateShoppingCartInfo,
+        replaceProduct,
+        removeProduct,
+      }}
     >
       {children}
     </ShoppingCartContext.Provider>
   );
 };
-
 export const useShoppingCart = () => useContext(ShoppingCartContext);

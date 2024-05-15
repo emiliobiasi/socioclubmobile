@@ -4,6 +4,7 @@ import SearchBar from "../../../../components/SearchBar";
 import ProductsService from "../../../../services/ProductsService";
 import { ActivityIndicator } from "react-native-paper";
 import ProductCard from "./ProductCard";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const products = [
   {
@@ -17,7 +18,7 @@ const products = [
   },
   {
     id: "2",
-    product_id: "33",
+    product_id: "34",
     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
     name: "Caneca São Paulo",
     description:
@@ -27,7 +28,7 @@ const products = [
   },
   {
     id: "3",
-    product_id: "33",
+    product_id: "35",
     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
     name: "Caneca São Paulo",
     description:
@@ -55,12 +56,17 @@ const Products = ({ colorScheme, navigation }) => {
   //   fetchData();
   // }, []);
 
+  const handleShoppingCartButtonPress = () => {
+    navigation.navigate("ShoppingCart", { colorScheme });
+  };
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: "center",
       backgroundColor: colorScheme.palette_1,
     },
+    shoppingCartButton: {},
     scrollView: {
       width: "100%",
     },
@@ -83,13 +89,19 @@ const Products = ({ colorScheme, navigation }) => {
       <View style={styles.titleView}>
         <Text style={styles.title}>Produtos</Text>
       </View>
+      <View style={styles.searchBarView}>
+        <SearchBar
+          placeholder="Busca de produtos..."
+          colorScheme={colorScheme}
+        />
+      </View>
+      <TouchableOpacity
+        style={styles.addToCartButton}
+        onPress={handleShoppingCartButtonPress}
+      >
+        <Text style={styles.shoppingCartButton}>Ver Carrinho</Text>
+      </TouchableOpacity>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.searchBarView}>
-          <SearchBar
-            placeholder="Busca de produtos..."
-            colorScheme={colorScheme}
-          />
-        </View>
         {/* {loading ? (
           <ActivityIndicator
             animating={true}

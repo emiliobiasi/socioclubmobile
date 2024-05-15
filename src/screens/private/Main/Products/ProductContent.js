@@ -11,11 +11,22 @@ const ProductContent = ({ route }) => {
   const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
 
   const handleShoppingCartButtonPress = () => {
-    updateShoppingCartInfo(product);
-    navigation.navigate("ShoppingCart", {
-      product,
-      colorScheme,
-    });
+    // ja existe produto(product_id) na lista?
+    const existingProduct = shoppingCartInfo.find(
+      (item) => item.product_id === product.product_id
+    );
+
+    if (existingProduct) {
+      // se ja existe
+      alert("Este produto já está no carrinho!");
+    } else {
+      // se não tem add o produto
+      const productWithQuantity = { ...product, quantity: 1 };
+      updateShoppingCartInfo(productWithQuantity);
+      navigation.navigate("ShoppingCart", {
+        colorScheme,
+      });
+    }
   };
 
   const styles = StyleSheet.create({

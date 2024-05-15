@@ -6,11 +6,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useShoppingCart } from "../../../../context/ShoppingCartContext";
 import ProductCard from "./ProductCard";
+import ShoppingCartCard from "./ShoppingCartCard";
 
 const ShoppingCart = ({ route }) => {
   const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
   const navigation = useNavigation();
-  const { product, colorScheme } = route.params;
+  const { colorScheme } = route.params;
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -46,6 +47,7 @@ const ShoppingCart = ({ route }) => {
       fontWeight: "bold",
     },
   });
+  let uniqueKey = 0;
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -68,8 +70,8 @@ const ShoppingCart = ({ route }) => {
           <Text>Carrinho Vazio</Text>
         ) : (
           shoppingCartInfo.map((item) => (
-            <ProductCard
-              key={item.id}
+            <ShoppingCartCard
+              key={uniqueKey++}
               product={item}
               colorScheme={colorScheme}
               navigation={navigation}
