@@ -5,6 +5,7 @@ import ProductsService from "../../../../services/ProductsService";
 import { ActivityIndicator } from "react-native-paper";
 import ProductCard from "./ProductCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useClub } from "../../../../context/ClubContext";
 
 const products = [
   {
@@ -40,21 +41,23 @@ const products = [
 
 const Products = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
-  // const [products, setProducts] = useState([]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await ProductsService.listarProductsByClubId(
-  //         clubInfo.id
-  //       );
-  //       setNews(response.data.products);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Erro ao buscar clubes:", error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
+  const [products, setProducts] = useState([]);
+  const { clubInfo } = useClub();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await ProductsService.listarProductsByClubId(
+          clubInfo.id
+        );
+        setProducts(response.data.products);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar clubes:", error);
+      }
+    }
+    fetchData();
+  }, []);
 
   const handleShoppingCartButtonPress = () => {
     navigation.navigate("ShoppingCart", { colorScheme });
@@ -102,23 +105,23 @@ const Products = ({ colorScheme, navigation }) => {
         <Text style={styles.shoppingCartButton}>Ver Carrinho</Text>
       </TouchableOpacity>
       <ScrollView style={styles.scrollView}>
-        {/* {loading ? (
+        {loading ? (
           <ActivityIndicator
             animating={true}
             color={colorScheme.titles_color}
             size="large"
             style={styles.loading}
           />
-        ) : ( */}
-        {products.map((item) => (
-          <ProductCard
-            key={item.product_id}
-            product={item}
-            colorScheme={colorScheme}
-            navigation={navigation}
-          />
-        ))}
-        {/* // )} */}
+        ) : (
+          products.map((item) => (
+            <ProductCard
+              key={item.product_id}
+              product={item}
+              colorScheme={colorScheme}
+              navigation={navigation}
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );
