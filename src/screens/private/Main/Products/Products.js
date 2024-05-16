@@ -112,7 +112,7 @@ const Products = ({ colorScheme, navigation }) => {
         ) : ( */}
         {products.map((item) => (
           <ProductCard
-            key={item.id}
+            key={item.product_id}
             product={item}
             colorScheme={colorScheme}
             navigation={navigation}
