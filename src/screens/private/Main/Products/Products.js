@@ -6,6 +6,7 @@ import { ActivityIndicator } from "react-native-paper";
 import ProductCard from "./ProductCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../../../../context/ClubContext";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const products = [
   {
@@ -85,6 +86,25 @@ const Products = ({ colorScheme, navigation }) => {
     searchBarView: {
       margin: 10,
     },
+    selectorSection: {
+      flexDirection: "row",
+    },
+    addToCartButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      backgroundColor: colorScheme.palette_2,
+      margin: 10,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+    },
+    addToCartButtonText: {
+      marginRight: 5,
+      fontSize: 20,
+      fontWeight: "bold",
+      color: colorScheme.titles_color,
+    },
   });
 
   return (
@@ -98,12 +118,22 @@ const Products = ({ colorScheme, navigation }) => {
           colorScheme={colorScheme}
         />
       </View>
-      <TouchableOpacity
-        style={styles.addToCartButton}
-        onPress={handleShoppingCartButtonPress}
-      >
-        <Text style={styles.shoppingCartButton}>Ver Carrinho</Text>
-      </TouchableOpacity>
+      <View style={styles.selectorSection}>
+        <TouchableOpacity
+          style={styles.addToCartButton}
+          onPress={handleShoppingCartButtonPress}
+        >
+          <Text style={styles.addToCartButtonText}>Ver Carrinho</Text>
+          <FontAwesome5
+            name="shopping-cart"
+            size={24}
+            color={colorScheme.titles_color}
+          />
+        </TouchableOpacity>
+        <View style={styles.categories}>
+          <Text>Categories</Text>
+        </View>
+      </View>
       <ScrollView style={styles.scrollView}>
         {loading ? (
           <ActivityIndicator

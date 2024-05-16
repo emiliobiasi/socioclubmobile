@@ -4,7 +4,6 @@ const ShoppingCartContext = createContext();
 
 export const ShoppingCartProvider = ({ children }) => {
   const [shoppingCartInfo, setShoppingCartInfo] = useState([]);
-
   const updateShoppingCartInfo = (newProduct) => {
     // Adiciona um novo produto ao carrinho de compras
     setShoppingCartInfo((prevShoppingCartInfo) =>

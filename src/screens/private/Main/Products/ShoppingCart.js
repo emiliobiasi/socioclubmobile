@@ -32,7 +32,6 @@ const ShoppingCart = ({ route }) => {
       fontSize: 34,
       color: colorScheme.titles_color,
     },
-
     addToCartButton: {
       backgroundColor: colorScheme.buttons_color,
       padding: 15,
