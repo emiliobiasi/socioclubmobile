@@ -8,37 +8,37 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../../../../context/ClubContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const products = [
-  {
-    id: "1",
-    product_id: "33",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    name: "Caneca Personalizada do São Paulo",
-    description: "Descrição do produto Caneca Personalizada do São Paulo...",
-    price: "135.90",
-    category: "Item",
-  },
-  {
-    id: "2",
-    product_id: "34",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    name: "Caneca São Paulo",
-    description:
-      "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    price: "35.90",
-    category: "Item",
-  },
-  {
-    id: "3",
-    product_id: "35",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    name: "Caneca São Paulo",
-    description:
-      "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    price: "35.90",
-    category: "Item",
-  },
-];
+// const products = [
+//   {
+//     id: "1",
+//     product_id: "33",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     name: "Caneca Personalizada do São Paulo",
+//     description: "Descrição do produto Caneca Personalizada do São Paulo...",
+//     price: "135.90",
+//     category: "Item",
+//   },
+//   {
+//     id: "2",
+//     product_id: "34",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     name: "Caneca São Paulo",
+//     description:
+//       "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+//     price: "35.90",
+//     category: "Item",
+//   },
+//   {
+//     id: "3",
+//     product_id: "35",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     name: "Caneca São Paulo",
+//     description:
+//       "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+//     price: "35.90",
+//     category: "Item",
+//   },
+// ];
 
 const Products = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -54,7 +54,7 @@ const Products = ({ colorScheme, navigation }) => {
         setProducts(response.data.products);
         setLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar clubes:", error);
+        console.error("Erro ao buscar produtos:", error);
       }
     }
     fetchData();
@@ -105,6 +105,18 @@ const Products = ({ colorScheme, navigation }) => {
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
+    categoriesButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      backgroundColor: colorScheme.palette_2,
+      margin: 10,
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    loading: {
+      margin: 100,
+    },
   });
 
   return (
@@ -130,7 +142,7 @@ const Products = ({ colorScheme, navigation }) => {
             color={colorScheme.titles_color}
           />
         </TouchableOpacity>
-        <View style={styles.categories}>
+        <View style={styles.categoriesButton}>
           <Text>Categories</Text>
         </View>
       </View>
@@ -145,7 +157,7 @@ const Products = ({ colorScheme, navigation }) => {
         ) : (
           products.map((item) => (
             <ProductCard
-              key={item.product_id}
+              key={item.id}
               product={item}
               colorScheme={colorScheme}
               navigation={navigation}

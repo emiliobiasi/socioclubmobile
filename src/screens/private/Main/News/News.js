@@ -70,7 +70,7 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
       color: colorScheme.titles_color,
     },
     loading: {
-      margin: 50,
+      margin: 100,
     },
   });
   return (

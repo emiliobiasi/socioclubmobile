@@ -13,7 +13,7 @@ const ProductContent = ({ route }) => {
   const handleShoppingCartButtonPress = () => {
     // ja existe produto(product_id) na lista?
     const existingProduct = shoppingCartInfo.find(
-      (item) => item.product_id === product.product_id
+      (item) => item.id === product.id
     );
 
     if (existingProduct) {

@@ -107,7 +107,7 @@ const ShoppingCartCard = ({ product, colorScheme, navigation }) => {
 
   const handleRemoveButton = () => {
     // Chama a função removeProduct para remover o produto
-    removeProduct(product.product_id);
+    removeProduct(product.id);
   };
 
   return (

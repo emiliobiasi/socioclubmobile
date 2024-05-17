@@ -1,38 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import SearchBar from "../../../../components/SearchBar";
+import { useClub } from "../../../../context/ClubContext";
+import PlansService from "../../../../services/PlansService";
 
 const plans = [
   {
     id: "1",
-    news_id: "",
-    title: "Notícia do Vasco",
+    name: "Básico 1",
+    description: "Descrição do plano Básico 1",
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    price: "150.40",
+    discount: "30.00",
+    priority: "1",
+    fk_Club_id: "1",
   },
   {
     id: "2",
-    news_id: "",
-    title: "Notícia do São Paulo",
+    name: "Básico 2",
+    description: "Descrição do plano Básico 2",
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Emílio Biasi",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    price: "150.40",
+    discount: "30.00",
+    priority: "1",
+    fk_Club_id: "1",
   },
   {
     id: "3",
-    news_id: "",
-    title: "Notícia do Vasco",
+    name: "Básico 3",
+    description: "Descrição do plano Básico 3",
     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    price: "150.40",
+    discount: "30.00",
+    priority: "1",
+    fk_Club_id: "1",
   },
 ];
 
 const Plans = ({ colorScheme, navigation }) => {
+  const [loading, setLoading] = useStat(true);
+  const [plans, setPlans] = useState([]);
+  const { clubInfo } = useClub();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await PlansService.listarPlansByClubId(clubInfo.id);
+        setPlans(response.data.plans);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar planos:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -51,9 +73,6 @@ const Plans = ({ colorScheme, navigation }) => {
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
-    searchBarView: {
-      margin: 10,
-    },
   });
   return (
     <View style={styles.container}>
@@ -61,12 +80,6 @@ const Plans = ({ colorScheme, navigation }) => {
         <Text style={styles.title}>Planos</Text>
       </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.searchBarView}>
-          <SearchBar
-            placeholder="Busca de planos..."
-            colorScheme={colorScheme}
-          />
-        </View>
         {plans.map((item) => (
           <Text>Plans {item.id}</Text>
         ))}

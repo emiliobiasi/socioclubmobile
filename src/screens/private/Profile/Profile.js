@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -9,14 +9,50 @@ import { useAuth } from "../../../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
 import MembershipCard from "../../../components/membershipCard";
 import { ScrollView } from "react-native-gesture-handler";
+import { useShoppingCart } from "../../../context/ShoppingCartContext";
 
 export default function Profile() {
   const { onLogout } = useAuth();
   const navigation = useNavigation();
   const { userInfo, updateUserInfo } = useUser();
   const { clubInfo } = useClub();
-  //console.log("userInfo no PROFILE: ", userInfo);
-  console.log("clubInfo no PROFILE: ", clubInfo);
+  const {
+    shoppingCartInfo,
+    updateShoppingCartInfo,
+    replaceProduct,
+    removeProduct,
+    removeAllProducts,
+  } = useShoppingCart();
+  // console.log("userInfo no PROFILE: ", userInfo);
+  // console.log("clubInfo no PROFILE: ", clubInfo);
+
+  const handleClubSearchButton = () => {
+    if (shoppingCartInfo.length !== 0) {
+      // Se o carrinho não estiver vazio, exiba um alerta
+      Alert.alert(
+        "Atenção",
+        "Ao alterar o clube, seus itens no carrinho serão esvaziados. Tem certeza que deseja continuar?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Continuar",
+            onPress: () => {
+              removeAllProducts();
+              // Navegue para a tela de busca do clube
+              navigation.navigate("ClubSearch");
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      navigation.navigate("ClubSearch");
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -73,7 +109,7 @@ export default function Profile() {
 
           <TouchableOpacity
             style={styles.optionItem}
-            onPress={() => navigation.navigate("ClubSearch")}
+            onPress={handleClubSearchButton}
           >
             <Text style={styles.optionText}>Alterar Clube</Text>
             <MaterialIcons

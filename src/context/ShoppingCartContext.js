@@ -14,7 +14,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const replaceProduct = (newProduct) => {
     // Verifica se há um produto existente com o mesmo product_id
     const existingProductIndex = shoppingCartInfo.findIndex(
-      (item) => item.product_id === newProduct.product_id
+      (item) => item.id === newProduct.id
     );
 
     if (existingProductIndex !== -1) {
@@ -35,7 +35,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const removeProduct = (productIdToRemove) => {
     // Encontra o índice do produto a ser removido
     const productIndexToRemove = shoppingCartInfo.findIndex(
-      (item) => item.product_id === productIdToRemove
+      (item) => item.id === productIdToRemove
     );
 
     if (productIndexToRemove !== -1) {
@@ -46,6 +46,10 @@ export const ShoppingCartProvider = ({ children }) => {
     }
   };
 
+  const removeAllProducts = () => {
+    setShoppingCartInfo([]);
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -53,6 +57,7 @@ export const ShoppingCartProvider = ({ children }) => {
         updateShoppingCartInfo,
         replaceProduct,
         removeProduct,
+        removeAllProducts,
       }}
     >
       {children}

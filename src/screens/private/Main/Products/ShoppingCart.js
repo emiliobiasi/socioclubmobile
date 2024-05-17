@@ -45,6 +45,12 @@ const ShoppingCart = ({ route }) => {
       fontSize: 18,
       fontWeight: "bold",
     },
+    emptyCartText: {
+      fontSize: 34,
+      color: colorScheme.titles_color,
+      alignSelf: "center",
+      marginTop: "70%",
+    },
   });
   let uniqueKey = 0;
   return (
@@ -65,8 +71,8 @@ const ShoppingCart = ({ route }) => {
         />
       </View>
       <ScrollView style={styles.scrollView}>
-        {shoppingCartInfo == [] ? (
-          <Text>Carrinho Vazio</Text>
+        {shoppingCartInfo.length == 0 ? (
+          <Text style={styles.emptyCartText}>Carrinho vazio...</Text>
         ) : (
           shoppingCartInfo.map((item) => (
             <ShoppingCartCard
