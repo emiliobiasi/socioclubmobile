@@ -89,6 +89,10 @@ const Products = ({ colorScheme, navigation }) => {
     selectorSection: {
       flexDirection: "row",
     },
+    categoryText: {
+      fontWeight: "bold",
+      color: colorScheme.titles_color,
+    },
     addToCartButton: {
       paddingVertical: 10,
       paddingHorizontal: 15,
@@ -143,7 +147,7 @@ const Products = ({ colorScheme, navigation }) => {
           />
         </TouchableOpacity>
         <View style={styles.categoriesButton}>
-          <Text>Categories</Text>
+          <Text style={styles.categoryText}>Categories</Text>
         </View>
       </View>
       <ScrollView style={styles.scrollView}>

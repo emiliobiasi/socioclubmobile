@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import SearchBar from "../../../../components/SearchBar";
 import { useClub } from "../../../../context/ClubContext";
 import PlansService from "../../../../services/PlansService";
 import PlanCard from "./PlanCard";
+import { ActivityIndicator } from "react-native-paper";
 
 // const plans = [
 //   {
@@ -39,9 +40,10 @@ import PlanCard from "./PlanCard";
 // ];
 
 const Plans = ({ colorScheme, navigation }) => {
-  const [loading, setLoading] = useStat(true);
+  const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState([]);
   const { clubInfo } = useClub();
+  console.log("plans: ", plans);
 
   useEffect(() => {
     async function fetchData() {
@@ -73,6 +75,9 @@ const Plans = ({ colorScheme, navigation }) => {
       fontSize: 36,
       fontWeight: "bold",
       color: colorScheme.titles_color,
+    },
+    loading: {
+      margin: 100,
     },
   });
   return (

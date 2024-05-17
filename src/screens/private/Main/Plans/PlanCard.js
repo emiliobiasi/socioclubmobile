@@ -5,33 +5,41 @@ import { Entypo } from "@expo/vector-icons";
 const PlanCard = ({ plan, colorScheme, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
-      marginTop: 0,
       margin: 10,
       borderRadius: 10,
       flex: 1,
       marginBottom: 10,
       backgroundColor: colorScheme.palette_2,
+    },
+    topContainer: {
       flexDirection: "row",
     },
     imageView: {
-      width: "40%",
+      width: "35%",
+      margin: 20,
     },
     image: {
       width: "100%",
-      borderTopLeftRadius: 10,
-      borderBottomLeftRadius: 10,
-      height: 200,
+      borderRadius: 10,
+      height: 140,
       resizeMode: "cover",
     },
-    textContainer: {
-      flex: 1,
-      padding: 10,
-      justifyContent: "space-between", // Alinha os elementos verticalmente
-      alignItems: "center", // Alinha os elementos horizontalmente
+    namePriceContainer: {
+      display: "flex",
+      flexDirection: "column", // Define a direção do eixo principal como coluna
+      justifyContent: "space-between",
+      alignItems: "flex-start", // Alinha os itens horizontalmente à esquerda
+      paddingVertical: 20,
+    },
+    planNameContainer: {},
+    planText: {
+      fontWeight: "bold",
+      fontSize: 16,
+      color: colorScheme.titles_color,
     },
     name: {
       fontWeight: "bold",
-      fontSize: 22,
+      fontSize: 26,
       color: colorScheme.titles_color,
       paddingVertical: "2%",
       textAlign: "center",
@@ -40,13 +48,15 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
       fontSize: 16,
       color: colorScheme.subtitles_color,
       paddingHorizontal: 5,
+      alignSelf: "center",
+      margin: 10,
     },
     priceContainer: {
-      flexDirection: "row",
       marginBottom: "3%",
       // borderWidth: 1,
       // borderRadius: 30,
       paddingVertical: 3,
+      flexDirection: "row",
     },
     pricetag: {
       paddingTop: 25,
@@ -68,27 +78,26 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
       onPress={() => navigation.navigate("PlanContent", { plan, colorScheme })}
     >
       <View style={styles.cardContainer}>
-        <View style={styles.imageView}>
-          <Image source={{ uri: plan.image }} style={styles.image} />
-        </View>
-        <View style={styles.namePriceContainer}>
-          <Text style={styles.name} numberOfLines={3}>
-            {plan.name}
-          </Text>
-          <View style={styles.priceContainer}>
-            <Entypo
-              name="price-tag"
-              size={30}
-              color={colorScheme.titles_color}
-              style={styles.pricetag}
-            />
-            <Text style={styles.rs}>R$ </Text>
-            <Text style={styles.price}>{plan.price}</Text>
+        <View style={styles.topContainer}>
+          <View style={styles.imageView}>
+            <Image source={{ uri: plan.image }} style={styles.image} />
+          </View>
+          <View style={styles.namePriceContainer}>
+            <Text style={styles.planText}>Plano</Text>
+            <Text style={styles.name} numberOfLines={1}>
+              {plan.name}
+            </Text>
+            <View style={styles.priceContainer}>
+              <Text style={styles.rs}>R$ </Text>
+              <Text style={styles.price}>{plan.price}</Text>
+            </View>
           </View>
         </View>
-        <Text style={styles.description} numberOfLines={2}>
-          {plan.description}
-        </Text>
+        <View style={styles.bottomContainer}>
+          <Text style={styles.description} numberOfLines={3}>
+            {plan.description}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
