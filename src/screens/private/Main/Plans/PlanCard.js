@@ -65,20 +65,15 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
 
   return (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate("PlanContent", { plan, colorScheme })
-      }
+      onPress={() => navigation.navigate("PlanContent", { plan, colorScheme })}
     >
       <View style={styles.cardContainer}>
         <View style={styles.imageView}>
-          <Image source={{ uri: product.image }} style={styles.image} />
+          <Image source={{ uri: plan.image }} style={styles.image} />
         </View>
-        <View style={styles.textContainer}>
+        <View style={styles.namePriceContainer}>
           <Text style={styles.name} numberOfLines={3}>
-            {product.name}
-          </Text>
-          <Text style={styles.description} numberOfLines={2}>
-            {product.description}
+            {plan.name}
           </Text>
           <View style={styles.priceContainer}>
             <Entypo
@@ -88,9 +83,12 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
               style={styles.pricetag}
             />
             <Text style={styles.rs}>R$ </Text>
-            <Text style={styles.price}>{product.price}</Text>
+            <Text style={styles.price}>{plan.price}</Text>
           </View>
         </View>
+        <Text style={styles.description} numberOfLines={2}>
+          {plan.description}
+        </Text>
       </View>
     </TouchableOpacity>
   );

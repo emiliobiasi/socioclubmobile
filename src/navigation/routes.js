@@ -24,6 +24,7 @@ import ProductCard from "../screens/private/Main/Products/ProductCard";
 import ProductContent from "../screens/private/Main/Products/ProductContent";
 import ShoppingCart from "../screens/private/Main/Products/ShoppingCart";
 import { ShoppingCartProvider } from "../context/ShoppingCartContext";
+import PlanContent from "../screens/private/Main/Plans/PlanContent";
 
 const Stack = createStackNavigator();
 
@@ -102,6 +103,11 @@ const PrivateNavigator = () => (
     <Stack.Screen
       name="Plans"
       component={Plans}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="PlanContent"
+      component={PlanContent}
       options={{ headerShown: false }}
     />
     <Stack.Screen

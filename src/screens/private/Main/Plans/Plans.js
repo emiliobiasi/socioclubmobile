@@ -3,39 +3,40 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import SearchBar from "../../../../components/SearchBar";
 import { useClub } from "../../../../context/ClubContext";
 import PlansService from "../../../../services/PlansService";
+import PlanCard from "./PlanCard";
 
-const plans = [
-  {
-    id: "1",
-    name: "Básico 1",
-    description: "Descrição do plano Básico 1",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    price: "150.40",
-    discount: "30.00",
-    priority: "1",
-    fk_Club_id: "1",
-  },
-  {
-    id: "2",
-    name: "Básico 2",
-    description: "Descrição do plano Básico 2",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    price: "150.40",
-    discount: "30.00",
-    priority: "1",
-    fk_Club_id: "1",
-  },
-  {
-    id: "3",
-    name: "Básico 3",
-    description: "Descrição do plano Básico 3",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    price: "150.40",
-    discount: "30.00",
-    priority: "1",
-    fk_Club_id: "1",
-  },
-];
+// const plans = [
+//   {
+//     id: "1",
+//     name: "Básico 1",
+//     description: "Descrição do plano Básico 1",
+//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+//     price: "150.40",
+//     discount: "30.00",
+//     priority: "1",
+//     fk_Club_id: "1",
+//   },
+//   {
+//     id: "2",
+//     name: "Básico 2",
+//     description: "Descrição do plano Básico 2",
+//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+//     price: "150.40",
+//     discount: "30.00",
+//     priority: "1",
+//     fk_Club_id: "1",
+//   },
+//   {
+//     id: "3",
+//     name: "Básico 3",
+//     description: "Descrição do plano Básico 3",
+//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
+//     price: "150.40",
+//     discount: "30.00",
+//     priority: "1",
+//     fk_Club_id: "1",
+//   },
+// ];
 
 const Plans = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useStat(true);
@@ -80,9 +81,23 @@ const Plans = ({ colorScheme, navigation }) => {
         <Text style={styles.title}>Planos</Text>
       </View>
       <ScrollView style={styles.scrollView}>
-        {plans.map((item) => (
-          <Text>Plans {item.id}</Text>
-        ))}
+        {loading ? (
+          <ActivityIndicator
+            animating={true}
+            color={colorScheme.titles_color}
+            size="large"
+            style={styles.loading}
+          />
+        ) : (
+          plans.map((item) => (
+            <PlanCard
+              key={item.id}
+              plan={item}
+              colorScheme={colorScheme}
+              navigation={navigation}
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );
