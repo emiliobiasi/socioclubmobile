@@ -32,6 +32,7 @@ const TicketCard = ({ event, colorScheme, navigation }) => {
     },
     textContainer: {
       padding: 10,
+      alignItems: "center",
     },
     title: {
       fontWeight: "bold",
@@ -39,44 +40,56 @@ const TicketCard = ({ event, colorScheme, navigation }) => {
       color: colorScheme.titles_color,
       paddingVertical: "2%",
     },
-    authorDateContainer: {
+    dateTimeContainer: {
       flexDirection: "row",
       marginBottom: "3%",
-    },
-    author: {
-      fontSize: 16,
-      color: colorScheme.subtitles_color,
-    },
-    separator: {
-      fontSize: 16,
-      color: colorScheme.subtitles_color,
-      paddingHorizontal: "1%",
     },
     date: {
       fontSize: 16,
       color: colorScheme.subtitles_color,
+      fontWeight: "bold",
+    },
+    separator: {
+      fontSize: 16,
+      color: colorScheme.subtitles_color,
+      paddingHorizontal: "2%",
+      fontWeight: "bold",
+    },
+    time: {
+      fontSize: 16,
+      color: colorScheme.subtitles_color,
+      fontWeight: "bold",
     },
   });
 
+  // Separando a data e o tempo do eventDate
+  const eventDateTimeArray = event.eventDate.split(" ");
+  const eventDate = eventDateTimeArray[0];
+  const eventTime = eventDateTimeArray[1];
+  // Formatando a data e o tempo
+  const formattedDate = format(parseISO(eventDate), "dd/MM/yy");
+  // Formatando o tempo
+  const parsedTime = parseISO(`1970-01-01T${eventTime}`);
+  const formattedTime = format(parsedTime, "HH:mm");
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("TicketContent", {
           event,
           colorScheme,
+          formattedDate,
+          formattedTime,
         })
       }
     >
       <View style={styles.cardContainer}>
         <Image source={{ uri: event.image }} style={styles.image} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{event.event_name}</Text>
-          <View style={styles.authorDateContainer}>
-            <Text style={styles.author}>{event.full_price}</Text>
-            <Text style={styles.author}>{event.event_date}</Text>
-
+          <Text style={styles.title}>{event.eventName}</Text>
+          <View style={styles.dateTimeContainer}>
+            <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.separator}>·</Text>
-            {/* <Text style={styles.date}>{formattedDate} h</Text> */}
+            <Text style={styles.time}>{formattedTime}h</Text>
           </View>
         </View>
       </View>

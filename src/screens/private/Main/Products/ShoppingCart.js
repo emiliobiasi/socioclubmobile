@@ -45,11 +45,19 @@ const ShoppingCart = ({ route }) => {
       fontSize: 18,
       fontWeight: "bold",
     },
-    emptyCartText: {
+    emptyCartTextContainer: {
       fontSize: 34,
       color: colorScheme.titles_color,
       alignSelf: "center",
+      alignItems: "center",
       marginTop: "70%",
+    },
+    emptyCartText: {
+      fontSize: 34,
+      color: colorScheme.titles_color,
+      textAlign: "center",
+      fontWeight: "bold",
+      paddingBottom: 5,
     },
   });
   let uniqueKey = 0;
@@ -72,7 +80,15 @@ const ShoppingCart = ({ route }) => {
       </View>
       <ScrollView style={styles.scrollView}>
         {shoppingCartInfo.length == 0 ? (
-          <Text style={styles.emptyCartText}>Carrinho vazio...</Text>
+          <View style={styles.emptyCartTextContainer}>
+            <Text style={styles.emptyCartText}>Carrinho</Text>
+            <Text style={styles.emptyCartText}>vazio...</Text>
+            <Ionicons
+              name="cart-outline"
+              size={48}
+              color={colorScheme.titles_color}
+            />
+          </View>
         ) : (
           shoppingCartInfo.map((item) => (
             <ShoppingCartCard
@@ -84,9 +100,13 @@ const ShoppingCart = ({ route }) => {
           ))
         )}
       </ScrollView>
-      <TouchableOpacity style={styles.addToCartButton}>
-        <Text style={styles.addToCartButtonText}>Finalizar Compra</Text>
-      </TouchableOpacity>
+      {shoppingCartInfo.length == 0 ? (
+        ""
+      ) : (
+        <TouchableOpacity style={styles.addToCartButton}>
+          <Text style={styles.addToCartButtonText}>Finalizar Compra</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

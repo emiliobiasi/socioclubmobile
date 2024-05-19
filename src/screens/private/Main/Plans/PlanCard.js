@@ -50,6 +50,7 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
       paddingHorizontal: 5,
       alignSelf: "center",
       margin: 10,
+      paddingBottom: 10,
     },
     priceContainer: {
       marginBottom: "3%",

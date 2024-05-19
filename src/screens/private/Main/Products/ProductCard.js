@@ -26,6 +26,7 @@ const ProductCard = ({ product, colorScheme, navigation }) => {
     textContainer: {
       flex: 1,
       padding: 10,
+      paddingVertical: 20,
       justifyContent: "space-between", // Alinha os elementos verticalmente
       alignItems: "center", // Alinha os elementos horizontalmente
     },

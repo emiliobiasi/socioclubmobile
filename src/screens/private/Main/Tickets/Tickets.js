@@ -5,6 +5,7 @@ import TicketsService from "../../../../services/TicketsService";
 import EventsService from "../../../../services/EventsService";
 import { ActivityIndicator } from "react-native-paper";
 import TicketCard from "./TicketCard";
+import { useClub } from "../../../../context/ClubContext";
 
 // CREATE TABLE Event (
 //   id SERIAL PRIMARY KEY ,
@@ -24,59 +25,63 @@ import TicketCard from "./TicketCard";
 //  fk_Client_id INTEGER
 //  );
 
-const events = [
-  {
-    id: "1",
-    event_name: "São Paulo x Cruzeiro",
-    description: "Amistoso no Estadio Morumbi...",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    full_price: "75.90",
-    event_date: "10/10/2024",
-    tickets_away: "1",
-    tickets_home: "1",
-    fk_Club_id: "1",
-  },
-  {
-    id: "2",
-    event_name: "São Paulo x Cruzeiro",
-    description: "Amistoso no Estadio Morumbi...",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    full_price: "75.90",
-    event_date: "10/10/2024",
-    tickets_away: "1",
-    tickets_home: "1",
-    fk_Club_id: "1",
-  },
-  {
-    id: "3",
-    event_name: "São Paulo x Cruzeiro",
-    description: "Amistoso no Estadio Morumbi...",
-    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-    full_price: "75.90",
-    event_date: "10/10/2024",
-    tickets_away: "1",
-    tickets_home: "1",
-    fk_Club_id: "1",
-  },
-];
+// const events = [
+//   {
+//     id: "1",
+//     event_name: "SÃO PAULO FC X CRUZEIRO – BRASILEIRÃO BETANO 2024",
+//     description: "Amistoso no Estadio Morumbi...",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     full_price: "75.90",
+//     event_date: "10/10/2024",
+//     tickets_away: "1",
+//     tickets_home: "1",
+//     fk_Club_id: "1",
+//   },
+//   {
+//     id: "2",
+//     event_name: "São Paulo x Cruzeiro",
+//     description: "Amistoso no Estadio Morumbi...",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     full_price: "75.90",
+//     event_date: "10/10/2024",
+//     tickets_away: "1",
+//     tickets_home: "1",
+//     fk_Club_id: "1",
+//   },
+//   {
+//     id: "3",
+//     event_name: "São Paulo x Cruzeiro",
+//     description: "Amistoso no Estadio Morumbi...",
+//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+//     full_price: "75.90",
+//     event_date: "10/10/2024",
+//     tickets_away: "1",
+//     tickets_home: "1",
+//     fk_Club_id: "1",
+//   },
+// ];
 
-const Tickets = ({ clubInfo, colorScheme, navigation }) => {
+const Tickets = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
-  // const [events, setEvents] = useState([]);
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const response = await EventsService.listarEventsByClubId(clubInfo.id);
-  //       setEvents(response.data.events);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error("Erro ao buscar eventos:", error);
-  //     }
-  //   }
+  const [events, setEvents] = useState([]);
+  const { clubInfo } = useClub();
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await EventsService.listarEventsByClubId(clubInfo.id);
+        console.log("events: ", response.data);
 
-  //   fetchData();
-  // }, []);
+        setEvents(response.data.events);
+        setLoading(false);
+      } catch (error) {
+        console.error("Erro ao buscar eventos:", error);
+      }
+    }
 
+    fetchData();
+  }, []);
+
+  console.log("events: ", events);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -105,15 +110,14 @@ const Tickets = ({ clubInfo, colorScheme, navigation }) => {
         <Text style={styles.title}>Ingressos</Text>
       </View>
       <ScrollView style={styles.scrollView}>
-        {
-          // loading ? (
-          //   <ActivityIndicator
-          //     animating={true}
-          //     color={colorScheme.titles_color}
-          //     size="large"
-          //     style={styles.loading}
-          //   />
-          // ) : (
+        {loading ? (
+          <ActivityIndicator
+            animating={true}
+            color={colorScheme.titles_color}
+            size="large"
+            style={styles.loading}
+          />
+        ) : (
           events.map((item) => (
             <TicketCard
               key={item.id}
@@ -122,8 +126,7 @@ const Tickets = ({ clubInfo, colorScheme, navigation }) => {
               navigation={navigation}
             />
           ))
-          // )
-        }
+        )}
       </ScrollView>
     </View>
   );

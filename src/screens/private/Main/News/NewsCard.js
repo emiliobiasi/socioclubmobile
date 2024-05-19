@@ -41,6 +41,7 @@ const NewsCard = ({ news, colorScheme, navigation }) => {
       fontSize: 16,
       color: colorScheme.subtitles_color,
       paddingHorizontal: "1%",
+      fontWeight: "bold",
     },
     date: {
       fontSize: 16,

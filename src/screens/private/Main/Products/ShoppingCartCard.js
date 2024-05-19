@@ -140,17 +140,17 @@ const ShoppingCartCard = ({ product, colorScheme, navigation }) => {
           <View style={styles.qtdCotainer}>
             <Text style={styles.qtd}>Quantidade:</Text>
             <Entypo
-              name="squared-plus"
-              size={36}
-              color={colorScheme.titles_color}
-              onPress={handlePlusButton}
-            />
-            <Text style={styles.qtdNum}>{qtdNum}</Text>
-            <Entypo
               name="squared-minus"
               size={36}
               color={colorScheme.titles_color}
               onPress={handleMinusButton}
+            />
+            <Text style={styles.qtdNum}>{qtdNum}</Text>
+            <Entypo
+              name="squared-plus"
+              size={36}
+              color={colorScheme.titles_color}
+              onPress={handlePlusButton}
             />
           </View>
         </View>
