@@ -1,38 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import SearchBar from "../../../../components/SearchBar";
+import NewsCard from "../News/NewsCard";
+import TicketsService from "../../../../services/TicketsService";
+import EventsService from "../../../../services/EventsService";
+import { ActivityIndicator } from "react-native-paper";
+import TicketCard from "./TicketCard";
 
-const tickets = [
+// CREATE TABLE Event (
+//   id SERIAL PRIMARY KEY ,
+//   event_name VARCHAR,
+//   description VARCHAR,
+//   image VARCHAR,
+//   full_price INTEGER,
+//   event_date TIMESTAMP,
+//   tickets_away INTEGER,
+//   tickets_home INTEGER,
+//   fk_Club_id INTEGER
+// );
+
+// CREATE TABLE Ticket (
+//  qr_code VARCHAR PRIMARY KEY,
+//  fk_Event_id INTEGER,
+//  fk_Client_id INTEGER
+//  );
+
+const events = [
   {
     id: "1",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    event_name: "São Paulo x Cruzeiro",
+    description: "Amistoso no Estadio Morumbi...",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    full_price: "75.90",
+    event_date: "10/10/2024",
+    tickets_away: "1",
+    tickets_home: "1",
+    fk_Club_id: "1",
   },
   {
     id: "2",
-    news_id: "",
-    title: "Notícia do São Paulo",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Emílio Biasi",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    event_name: "São Paulo x Cruzeiro",
+    description: "Amistoso no Estadio Morumbi...",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    full_price: "75.90",
+    event_date: "10/10/2024",
+    tickets_away: "1",
+    tickets_home: "1",
+    fk_Club_id: "1",
   },
   {
     id: "3",
-    news_id: "",
-    title: "Notícia do Vasco",
-    image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-    author: "Thiago Lima",
-    date: "04/05/24",
-    text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
+    event_name: "São Paulo x Cruzeiro",
+    description: "Amistoso no Estadio Morumbi...",
+    image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
+    full_price: "75.90",
+    event_date: "10/10/2024",
+    tickets_away: "1",
+    tickets_home: "1",
+    fk_Club_id: "1",
   },
 ];
 
-const Tickets = ({ colorScheme, navigation }) => {
+const Tickets = ({ clubInfo, colorScheme, navigation }) => {
+  const [loading, setLoading] = useState(true);
+  // const [events, setEvents] = useState([]);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await EventsService.listarEventsByClubId(clubInfo.id);
+  //       setEvents(response.data.events);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar eventos:", error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -51,8 +95,8 @@ const Tickets = ({ colorScheme, navigation }) => {
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
-    searchBarView: {
-      margin: 10,
+    loading: {
+      margin: 100,
     },
   });
   return (
@@ -61,15 +105,25 @@ const Tickets = ({ colorScheme, navigation }) => {
         <Text style={styles.title}>Ingressos</Text>
       </View>
       <ScrollView style={styles.scrollView}>
-        <View style={styles.searchBarView}>
-          <SearchBar
-            placeholder="Busca de ingressos..."
-            colorScheme={colorScheme}
-          />
-        </View>
-        {tickets.map((item) => (
-          <Text>tickets {item.id}</Text>
-        ))}
+        {
+          // loading ? (
+          //   <ActivityIndicator
+          //     animating={true}
+          //     color={colorScheme.titles_color}
+          //     size="large"
+          //     style={styles.loading}
+          //   />
+          // ) : (
+          events.map((item) => (
+            <TicketCard
+              key={item.id}
+              event={item}
+              colorScheme={colorScheme}
+              navigation={navigation}
+            />
+          ))
+          // )
+        }
       </ScrollView>
     </View>
   );
