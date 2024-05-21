@@ -27,6 +27,7 @@ import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 import PlanContent from "../screens/private/Main/Plans/PlanContent";
 import TicketContent from "../screens/private/Main/Tickets/TicketContent";
 import ClubHistory from "../screens/private/ClubHistory";
+import { FollowingProvider } from "../context/FollowingContext";
 
 const Stack = createStackNavigator();
 
@@ -166,7 +167,9 @@ export default function Routes() {
       <ClubProvider>
         <AuthProvider>
           <ShoppingCartProvider>
-            <Layout />
+            <FollowingProvider>
+              <Layout />
+            </FollowingProvider>
           </ShoppingCartProvider>
         </AuthProvider>
       </ClubProvider>

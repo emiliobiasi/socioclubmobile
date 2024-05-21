@@ -7,6 +7,7 @@ import ProductCard from "./ProductCard";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../../../../context/ClubContext";
 import { FontAwesome5 } from "@expo/vector-icons";
+import FollowButton from "../../../../components/FollowButton";
 
 // const products = [
 //   {
@@ -76,7 +77,9 @@ const Products = ({ colorScheme, navigation }) => {
     },
     titleView: {
       padding: "4%",
+      flexDirection: "row",
       backgroundColor: colorScheme.palette_2,
+      justifyContent: "space-between",
     },
     title: {
       fontSize: 36,
@@ -129,6 +132,7 @@ const Products = ({ colorScheme, navigation }) => {
     <View style={styles.container}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Produtos</Text>
+        <FollowButton initialState={false} colorScheme={colorScheme} />
       </View>
       <View style={styles.searchBarView}>
         <SearchBar

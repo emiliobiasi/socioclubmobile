@@ -6,6 +6,7 @@ import EventsService from "../../../../services/EventsService";
 import { ActivityIndicator } from "react-native-paper";
 import TicketCard from "./TicketCard";
 import { useClub } from "../../../../context/ClubContext";
+import FollowButton from "../../../../components/FollowButton";
 
 // CREATE TABLE Event (
 //   id SERIAL PRIMARY KEY ,
@@ -93,7 +94,9 @@ const Tickets = ({ colorScheme, navigation }) => {
     },
     titleView: {
       padding: "4%",
+      flexDirection: "row",
       backgroundColor: colorScheme.palette_2,
+      justifyContent: "space-between",
     },
     title: {
       fontSize: 36,
@@ -108,6 +111,7 @@ const Tickets = ({ colorScheme, navigation }) => {
     <View style={styles.container}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Ingressos</Text>
+        <FollowButton initialState={false} colorScheme={colorScheme} />
       </View>
       <ScrollView style={styles.scrollView}>
         {loading ? (

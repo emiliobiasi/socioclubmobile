@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import NewsCard from "./NewsCard";
 import NewsService from "../../../../services/NewsService";
 import { ActivityIndicator } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Entypo } from "@expo/vector-icons";
+import FollowButton from "../../../../components/FollowButton";
 
 // const news = [
 //   {
@@ -62,13 +65,16 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
     },
     titleView: {
       padding: "4%",
+      flexDirection: "row",
       backgroundColor: colorScheme.palette_2,
+      justifyContent: "space-between",
     },
     title: {
       fontSize: 36,
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
+
     loading: {
       margin: 100,
     },
@@ -77,6 +83,7 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
     <View style={styles.container}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Notícias</Text>
+        <FollowButton initialState={false} colorScheme={colorScheme} />
       </View>
       <ScrollView style={styles.scrollView}>
         {loading ? (

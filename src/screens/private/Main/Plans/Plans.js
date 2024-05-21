@@ -5,6 +5,7 @@ import { useClub } from "../../../../context/ClubContext";
 import PlansService from "../../../../services/PlansService";
 import PlanCard from "./PlanCard";
 import { ActivityIndicator } from "react-native-paper";
+import FollowButton from "../../../../components/FollowButton";
 
 // const plans = [
 //   {
@@ -69,7 +70,9 @@ const Plans = ({ colorScheme, navigation }) => {
     },
     titleView: {
       padding: "4%",
+      flexDirection: "row",
       backgroundColor: colorScheme.palette_2,
+      justifyContent: "space-between",
     },
     title: {
       fontSize: 36,
@@ -84,6 +87,7 @@ const Plans = ({ colorScheme, navigation }) => {
     <View style={styles.container}>
       <View style={styles.titleView}>
         <Text style={styles.title}>Planos</Text>
+        <FollowButton initialState={false} colorScheme={colorScheme} />
       </View>
       <ScrollView style={styles.scrollView}>
         {loading ? (
