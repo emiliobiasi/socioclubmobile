@@ -39,6 +39,7 @@ const TicketCard = ({ event, colorScheme, navigation }) => {
       fontSize: 22,
       color: colorScheme.titles_color,
       paddingVertical: "2%",
+      textAlign: "center",
     },
     dateTimeContainer: {
       flexDirection: "row",

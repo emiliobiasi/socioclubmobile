@@ -26,8 +26,8 @@ import ShoppingCart from "../screens/private/Main/Products/ShoppingCart";
 import { ShoppingCartProvider } from "../context/ShoppingCartContext";
 import PlanContent from "../screens/private/Main/Plans/PlanContent";
 import TicketContent from "../screens/private/Main/Tickets/TicketContent";
-import ClubHistory from "../screens/private/ClubHistory";
 import { FollowingProvider } from "../context/FollowingContext";
+import MyClubs from "../screens/private/MyClubs";
 
 const Stack = createStackNavigator();
 
@@ -89,8 +89,8 @@ const PrivateNavigator = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="ClubHistory"
-      component={ClubHistory}
+      name="MyClubs"
+      component={MyClubs}
       options={{ headerShown: false }}
     />
     <Stack.Screen

@@ -128,9 +128,9 @@ export default function Profile() {
 
           <TouchableOpacity
             style={styles.optionItem}
-            onPress={() => navigation.navigate("ClubHistory")}
+            onPress={() => navigation.navigate("MyClubs")}
           >
-            <Text style={styles.optionText}>Histórico de Clubes</Text>
+            <Text style={styles.optionText}>Meus Clubes</Text>
             <MaterialIcons
               name="keyboard-arrow-right"
               size={24}

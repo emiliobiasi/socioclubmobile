@@ -22,7 +22,7 @@ const ShoppingCart = ({ route }) => {
       paddingHorizontal: "3%",
       paddingBottom: "4%",
       paddingTop: "15%",
-      backgroundColor: colorScheme.palette_1,
+      backgroundColor: colorScheme.palette_2,
       flexDirection: "row",
       justifyContent: "space-between", // Distribui o espaço entre os itens
       alignItems: "center",
@@ -74,7 +74,7 @@ const ShoppingCart = ({ route }) => {
         <Text style={styles.pageName}>Carrinho</Text>
         <FontAwesome5
           name="shopping-cart"
-          size={24}
+          size={32}
           color={colorScheme.titles_color}
         />
       </View>

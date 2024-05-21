@@ -12,7 +12,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const ClubHistory = ({ navigation }) => {
+const MyClubs = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -128,11 +128,14 @@ const ClubHistory = ({ navigation }) => {
                 color="white"
               />
             </TouchableOpacity>
-            <Text style={styles.headerText}>Histórico</Text>
+            <Text style={styles.headerText}>Meus Clubes</Text>
             <MaterialIcons name="account-circle" size={30} color="white" />
           </View>
           <View style={styles.sideSpace}>
-            <H2Title text="Clubes" marginVertical={10} />
+            <Subtitle
+              text="Aqui estão os clubes que você está seguindo"
+              marginVertical={20}
+            />
             {loading ? (
               <ActivityIndicator
                 animating={true}
@@ -177,6 +180,7 @@ const styles = StyleSheet.create({
   },
   sideSpace: {
     marginHorizontal: 20,
+    paddingTop: 10,
   },
   searchBar: {
     marginBottom: 10,
@@ -196,4 +200,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClubHistory;
+export default MyClubs;
