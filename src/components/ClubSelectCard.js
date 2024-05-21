@@ -10,19 +10,31 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useClub } from "../context/ClubContext"; // Ajuste o caminho conforme necessário
+import { useClub } from "../context/ClubContext";
+import ClientsService from "../services/ClientsService";
+import { useUser } from "../context/UserContext";
 
 const { width, height } = Dimensions.get("window");
 
 const ClubSelectCard = ({ club, navigation }) => {
-  // Estado para controlar a visibilidade do modal
+  const { userInfo, updateUserInfo } = useUser();
   const { updateClubInfo } = useClub();
   const [modalVisible, setModalVisible] = useState(false);
+  console.log("clube no modal: ", club);
+  console.log("userInfo no modal: ", userInfo);
 
-  const openModal = () => setModalVisible(true); // Função para abrir o modal
-  const closeModal = () => setModalVisible(false); // Função para fechar o modal
+  const openModal = () => setModalVisible(true);
+  const closeModal = () => setModalVisible(false);
   const navigateToMain = () => {
-    updateClubInfo(club); // Atualiza o contexto com o clube selecionado
+    // async function fetchData() {
+    //   try {
+    //     await ClientsService.vicularClientClube(userInfo.id, club.id);
+    //   } catch (error) {
+    //     console.error("Erro ao vincular Client ao Club:", error);
+    //   }
+    // }
+    // fetchData();
+    updateClubInfo(club);
     setModalVisible(false);
     navigation.navigate("Main");
   };

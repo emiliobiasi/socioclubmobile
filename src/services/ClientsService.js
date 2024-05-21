@@ -1,5 +1,18 @@
 import axios from "axios";
 
+const vicularClientClube = (client_id, club_id) => {
+  return axios.post(
+    process.env.EXPO_PUBLIC_API_URL + `/freeAssociate`,
+    {
+      client_id,
+      club_id,
+    },
+    {
+      timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+    }
+  );
+};
+
 const listarClients = (cpf) => {
   return axios.get(
     process.env.EXPO_PUBLIC_API_URL + `/findClientByCpf/${cpf}`,
@@ -76,6 +89,7 @@ const updateClient = async (email, username, cpf) => {
 };
 
 const ClientsService = {
+  vicularClientClube,
   listarClientByCpf,
   listarClients,
   registrarClient,

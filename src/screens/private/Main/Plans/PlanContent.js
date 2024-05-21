@@ -71,7 +71,7 @@ const PlanContent = ({ route }) => {
       fontSize: 18,
       lineHeight: 24,
       color: colorScheme.titles_color,
-      textAlign: "left",
+      textAlign: "justify",
       fontWeight: "bold",
     },
     addToCartButton: {

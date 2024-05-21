@@ -51,6 +51,7 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
       alignSelf: "center",
       margin: 10,
       paddingBottom: 10,
+      textAlign: "justify",
     },
     priceContainer: {
       marginBottom: "3%",
@@ -95,7 +96,7 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
           </View>
         </View>
         <View style={styles.bottomContainer}>
-          <Text style={styles.description} numberOfLines={3}>
+          <Text style={styles.description} numberOfLines={2}>
             {plan.description}
           </Text>
         </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Text } from "react-native";
 import H1Title from "../../components/Texts/H1Title";
 import Subtitle from "../../components/Texts/Subtitle";
 import SearchBar from "../../components/SearchBar";
@@ -8,9 +8,11 @@ import ClubCategory from "../../components/ClubCategory";
 import ClubSelectCard from "../../components/ClubSelectCard";
 import ClubService from "../../services/ClubService";
 import { ActivityIndicator } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
-
-const ClubSearch = ({ navigation }) => {
+const ClubHistory = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -118,27 +120,17 @@ const ClubSearch = ({ navigation }) => {
       style={styles.mainFlatList} // Define o estilo para ocupar toda a tela
       renderItem={() => (
         <>
-          <View style={styles.sideSpace}>
-            <H1Title text="Escolha seu Clube" marginVertical={10} />
-            <Subtitle
-              text="Busque seus clubes, conheça novos grupos e acesse a área de sócio"
-              marginVertical={20}
-            />
-            <View style={styles.searchBar}>
-              <SearchBar placeholder="Busca de clubes..." />
-            </View>
-            <H2Title text="Categorias" marginVertical={10} />
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Ionicons
+                name="chevron-back-circle-outline"
+                size={30}
+                color="white"
+              />
+            </TouchableOpacity>
+            <Text style={styles.headerText}>Histórico</Text>
+            <MaterialIcons name="account-circle" size={30} color="white" />
           </View>
-          <FlatList
-            data={categorias}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <ClubCategory imageSource={item.imageSource} title={item.title} />
-            )}
-            contentContainerStyle={styles.categoryContent} // Para ajustar espaço interno
-          />
           <View style={styles.sideSpace}>
             <H2Title text="Clubes" marginVertical={10} />
             {loading ? (
@@ -169,7 +161,19 @@ const ClubSearch = ({ navigation }) => {
 const styles = StyleSheet.create({
   contentContainer: {
     padding: 0, // Mantém o espaçamento interno
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 16,
+    backgroundColor: "#253341",
     paddingTop: "15%",
+  },
+  headerText: {
+    fontWeight: "bold",
+    fontSize: 28,
+    color: "white",
   },
   sideSpace: {
     marginHorizontal: 20,
@@ -192,4 +196,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ClubSearch;
+export default ClubHistory;

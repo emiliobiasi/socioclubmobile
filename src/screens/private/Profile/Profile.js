@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -119,7 +126,10 @@ export default function Profile() {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionItem}>
+          <TouchableOpacity
+            style={styles.optionItem}
+            onPress={() => navigation.navigate("ClubHistory")}
+          >
             <Text style={styles.optionText}>Histórico de Clubes</Text>
             <MaterialIcons
               name="keyboard-arrow-right"
