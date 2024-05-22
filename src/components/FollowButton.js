@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { useFollowing } from "../context/FollowingContext";
+import { useClub } from "../context/ClubContext";
+import { useUser } from "../context/UserContext";
+import FollowService from "../services/FollowService";
 
 const FollowButton = ({ colorScheme }) => {
-  const { followingInfo } = useFollowing();
-  const [state, setState] = useState(followingInfo);
+  const { followingInfo, updateFollowingInfo } = useFollowing();
+  const { clubInfo, updateClubInfo } = useClub();
+  const { userInfo } = useUser();
+  const [state, setState] = useState(false);
+
+  useEffect(() => {
+    if (
+      clubInfo?.id &&
+      followingInfo?.some((club) => club.id === clubInfo.id)
+    ) {
+      setState(true);
+    }
+  }, [clubInfo, followingInfo]);
 
   const styles = StyleSheet.create({
     followButton: {
@@ -25,9 +39,22 @@ const FollowButton = ({ colorScheme }) => {
       textAlign: "center",
     },
   });
-
-  const handleFollowButton = () => {
-    setState(!state);
+  const handleFollowButton = async () => {
+    try {
+      if (
+        clubInfo?.id &&
+        followingInfo?.some((club) => club.id === clubInfo.id)
+      ) {
+        await FollowService.unfollowClub(userInfo.id, String(clubInfo.id));
+      } else {
+        await FollowService.followClub(userInfo.id, String(clubInfo.id));
+      }
+    } catch (error) {
+      console.error(
+        "An error occurred while following/unfollowing the club:",
+        error
+      );
+    }
   };
 
   return (

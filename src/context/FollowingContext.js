@@ -4,7 +4,8 @@ const FollowingContext = createContext();
 
 export const FollowingProvider = ({ children }) => {
   const [followingInfo, setFollowingInfo] = useState([]);
-  const [following, setFollowing] = useState(false);
+  
+  console.log("followingInfo no followingInfoCONTEXT: ", followingInfo)
 
   const updateFollowingInfo = (newFollowingInfo) => {
     console.log("newFollowingInfo no FollowingCONTEXT: ", newFollowingInfo);
@@ -16,9 +17,7 @@ export const FollowingProvider = ({ children }) => {
   };
 
   return (
-    <FollowingContext.Provider
-      value={{ followingInfo, updateFollowingInfo, following, updateFollowing }}
-    >
+    <FollowingContext.Provider value={{ followingInfo, updateFollowingInfo }}>
       {children}
     </FollowingContext.Provider>
   );

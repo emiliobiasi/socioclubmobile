@@ -8,11 +8,15 @@ import ClubCategory from "../../components/ClubCategory";
 import ClubSelectCard from "../../components/ClubSelectCard";
 import ClubService from "../../services/ClubService";
 import { ActivityIndicator } from "react-native-paper";
-
+import FollowService from "../../services/FollowService";
+import { useUser } from "../../context/UserContext";
+import { useFollowing } from "../../context/FollowingContext";
 
 const ClubSearch = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { userInfo, updateUserInfo } = useUser();
+  const { followingInfo, updateFollowingInfo } = useFollowing();
 
   useEffect(() => {
     async function fetchData() {
@@ -26,7 +30,22 @@ const ClubSearch = ({ navigation }) => {
       }
     }
 
+    async function getFollows() {
+      try {
+        console.log("Chamando listarClubs");
+        console.log("userInfo.id: ", userInfo.id);
+        const response = await FollowService.listarFollowsByClientId(
+          userInfo.id
+        );
+        console.log("response.data: ", response.data);
+        updateFollowingInfo(response.data.clubs);
+      } catch (error) {
+        console.error("Erro ao buscar follows:", error);
+      }
+    }
+
     fetchData();
+    getFollows();
   }, []);
   // const clubes1 = [
   //   {

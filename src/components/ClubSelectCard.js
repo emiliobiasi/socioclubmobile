@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../context/ClubContext";
-import ClientsService from "../services/ClientsService";
 import { useUser } from "../context/UserContext";
 
 const { width, height } = Dimensions.get("window");
@@ -20,32 +19,14 @@ const ClubSelectCard = ({ club, navigation }) => {
   const { userInfo, updateUserInfo } = useUser();
   const { updateClubInfo } = useClub();
   const [modalVisible, setModalVisible] = useState(false);
-  console.log("clube no modal: ", club);
-  console.log("userInfo no modal: ", userInfo);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
   const navigateToMain = () => {
-    // async function fetchData() {
-    //   try {
-    //     await ClientsService.vicularClientClube(userInfo.id, club.id);
-    //   } catch (error) {
-    //     console.error("Erro ao vincular Client ao Club:", error);
-    //   }
-    // }
-    // fetchData();
     updateClubInfo(club);
     setModalVisible(false);
     navigation.navigate("Main");
   };
-  let binary = "";
-  const binaryString = new Uint8Array(club.icon);
-  const len = binaryString.byteLength;
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(binaryString[i]);
-  }
-  // Criar a URL de dados para uso no componente Image
-  const imageSource = `data:image/jpeg;base64,${binary}`;
   return (
     <View>
       <TouchableOpacity style={styles.card} onPress={openModal}>
