@@ -20,6 +20,8 @@ export const ClubProvider = ({ children }) => {
     },
   });
 
+  console.log("club atual:", clubInfo);
+
   const updateClubInfo = (newClubInfo) => {
     //console.log("newClubInfo: ", newClubInfo);
     const updatedClubInfo = {

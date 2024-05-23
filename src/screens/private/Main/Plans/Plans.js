@@ -44,7 +44,6 @@ const Plans = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [plans, setPlans] = useState([]);
   const { clubInfo } = useClub();
-  console.log("plans: ", plans);
 
   useEffect(() => {
     async function fetchData() {

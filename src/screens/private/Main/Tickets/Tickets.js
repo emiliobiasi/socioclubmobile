@@ -70,8 +70,6 @@ const Tickets = ({ colorScheme, navigation }) => {
     async function fetchData() {
       try {
         const response = await EventsService.listarEventsByClubId(clubInfo.id);
-        console.log("events: ", response.data);
-
         setEvents(response.data.events);
         setLoading(false);
       } catch (error) {
@@ -82,7 +80,6 @@ const Tickets = ({ colorScheme, navigation }) => {
     fetchData();
   }, []);
 
-  console.log("events: ", events);
   const styles = StyleSheet.create({
     container: {
       flex: 1,

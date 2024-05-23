@@ -14,9 +14,9 @@ import { useUser } from "../../../context/UserContext";
 import { useClub } from "../../../context/ClubContext";
 import { useAuth } from "../../../context/AuthContext";
 import * as SecureStore from "expo-secure-store";
-import MembershipCard from "../../../components/MembershipCard";
 import { ScrollView } from "react-native-gesture-handler";
 import { useShoppingCart } from "../../../context/ShoppingCartContext";
+import MembershipCard from "../../../components/membershipCard";
 
 export default function Profile() {
   const { onLogout } = useAuth();

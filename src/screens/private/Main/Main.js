@@ -18,7 +18,7 @@ export default function Main({ navigation }) {
   const { clubInfo } = useClub();
   const { following } = useFollowing();
   const { name, colorScheme } = clubInfo;
-  //console.log("clubInfo na MAIN: ", clubInfo);
+  
   return (
     <Tab.Navigator
       screenOptions={{

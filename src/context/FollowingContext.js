@@ -1,20 +1,19 @@
 import React, { createContext, useState, useContext } from "react";
+import { useClub } from "./ClubContext";
 
 const FollowingContext = createContext();
 
 export const FollowingProvider = ({ children }) => {
   const [followingInfo, setFollowingInfo] = useState([]);
   const [following, setFollowing] = useState(false);
-
-  console.log("followingInfo no followingInfoCONTEXT: ", followingInfo);
+  const { clubInfo } = useClub();
 
   const updateFollowingInfo = (newFollowingInfo) => {
-    console.log("newFollowingInfo no FollowingCONTEXT: ", newFollowingInfo);
     setFollowingInfo(newFollowingInfo);
   };
 
-  const updateFollowing = () => {
-    following == true ? setFollowing(false) : setFollowing(true);
+  const updateFollowing = (bool) => {
+    setFollowing(bool);
   };
 
   return (

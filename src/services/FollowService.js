@@ -10,8 +10,7 @@ const listarFollowsByClientId = (client_id) => {
 };
 
 const followClub = (client_id, club_id) => {
-  console.log("client_id (follow): ", client_id);
-  console.log("club_id (follow): ", club_id);
+
   return axios.post(
     process.env.EXPO_PUBLIC_API_URL + `/followClub`,
     {
@@ -19,23 +18,17 @@ const followClub = (client_id, club_id) => {
       club_id,
     },
     {
-      timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 10000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };
 
 const unfollowClub = (client_id, club_id) => {
-  console.log("client_id (unfollow): ", client_id);
-  console.log("club_id (unfollow): ", club_id);
-
   return axios.delete(
     process.env.EXPO_PUBLIC_API_URL + `/unfollowClub`,
     {
-      client_id,
-      club_id,
-    },
-    {
-      timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+      data: { client_id, club_id },
+      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
     }
   );
 };

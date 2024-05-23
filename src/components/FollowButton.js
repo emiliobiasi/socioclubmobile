@@ -8,17 +8,17 @@ import { useUser } from "../context/UserContext";
 import FollowService from "../services/FollowService";
 
 const FollowButton = ({ colorScheme }) => {
-  const { followingInfo, updateFollowingInfo } = useFollowing();
+  const { followingInfo, updateFollowingInfo, following, updateFollowing } =
+    useFollowing();
   const { clubInfo, updateClubInfo } = useClub();
   const { userInfo } = useUser();
-  const [state, setState] = useState(false);
 
   useEffect(() => {
     if (
       clubInfo?.id &&
       followingInfo?.some((club) => club.id === clubInfo.id)
     ) {
-      setState(true);
+      updateFollowing(true);
     }
   }, [clubInfo, followingInfo]);
 
@@ -27,38 +27,52 @@ const FollowButton = ({ colorScheme }) => {
       padding: 10,
       borderRadius: 8,
       borderWidth: 2,
-      borderColor: state ? colorScheme.palette_2 : colorScheme.titles_color,
-      backgroundColor: state ? colorScheme.titles_color : "transparent",
+      borderColor: following ? colorScheme.palette_2 : colorScheme.titles_color,
+      backgroundColor: following ? colorScheme.titles_color : "transparent",
       alignItems: "center",
       flexDirection: "row",
       justifyContent: "space-between",
     },
     followText: {
-      color: state ? colorScheme.palette_2 : colorScheme.titles_color,
+      color: following ? colorScheme.palette_2 : colorScheme.titles_color,
       fontWeight: "bold",
       textAlign: "center",
     },
   });
+
+  async function getFollows() {
+    try {
+      const response = await FollowService.listarFollowsByClientId(
+        userInfo.id
+      );
+      updateFollowingInfo(response.data.clubs);
+      
+    } catch (error) {
+      console.error("Erro ao buscar follows:", error);
+    }
+  }
+
   const handleFollowButton = async () => {
     async function follow() {
       try {
         await FollowService.followClub(userInfo.id, clubInfo.id);
-        setState(true)
+        updateFollowing(true);
+        getFollows();
       } catch (error) {
-        console.error("Erro ao buscar planos:", error);
+        console.error("Erro ao dar follow:", error);
       }
     }
     async function unfollow() {
       try {
         await FollowService.unfollowClub(userInfo.id, clubInfo.id);
+        updateFollowing(false);
+        getFollows();
       } catch (error) {
         console.error("Erro ao dar unfollow:", error);
       }
     }
-    if (
-      clubInfo?.id &&
-      followingInfo?.some((club) => club.id === clubInfo.id)
-    ) {
+
+    if (following) {
       unfollow();
     } else {
       follow();
@@ -67,7 +81,7 @@ const FollowButton = ({ colorScheme }) => {
 
   return (
     <TouchableOpacity style={styles.followButton} onPress={handleFollowButton}>
-      {state ? (
+      {following ? (
         <>
           <Text style={styles.followText}>Seguindo</Text>
           <Feather name="check" size={16} color={colorScheme.palette_2} />

@@ -11,106 +11,32 @@ import { ActivityIndicator } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import FollowService from "../../services/FollowService";
+import { useUser } from "../../context/UserContext";
+import { useFollowing } from "../../context/FollowingContext";
 
 const MyClubs = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { userInfo, updateUserInfo } = useUser();
+  const { followingInfo, updateFollowingInfo } = useFollowing();
 
   useEffect(() => {
-    async function fetchData() {
+    async function getFollows() {
       try {
-        console.log("Chamando listarClubs");
-        const response = await ClubService.listarClubs();
+        const response = await FollowService.listarFollowsByClientId(
+          userInfo.id
+        );
+        updateFollowingInfo(response.data.clubs);
         setClubes(response.data.clubs);
         setLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar clubes:", error);
+        console.error("Erro ao buscar follows:", error);
       }
     }
 
-    fetchData();
+    getFollows();
   }, []);
-  // const clubes1 = [
-  //   {
-  //     id: "",
-  //     club_id: "",
-  //     name: "Vasco",
-  //     icon: require("../../../assets/images/vascoicon.png"),
-  //     background: require("../../../assets/images/vascobandeira.png"),
-  //     description: "Descrição do Clube do Vasco",
-  //     category: "",
-  //     colorScheme: {
-  //       titles_color: "#FFFFFF",
-  //       subtitles_color: "#FFFFFF",
-  //       buttons_color: "#000000",
-  //       palette_1: "#FF0000",
-  //       palette_2: "#FF0000",
-  //       palette_3: "#FF0000",
-  //     },
-  //   },
-  //   {
-  //     id: "2",
-  //     club_id: "",
-  //     name: "São Paulo",
-  //     icon: require("../../../assets/images/saopauloicon.png"),
-  //     background: require("../../../assets/images/saopaulobandeira.jpeg"),
-  //     description: "Descrição do Clube São Paulo",
-  //     category: "",
-  //     colorScheme: {
-  //       titles_color: "#000000",
-  //       subtitles_color: "#000000",
-  //       buttons_color: "#FFFFFF",
-  //       palette_1: "#ee4242",
-  //       palette_2: "#fd7b7b",
-  //       palette_3: "#ee0e0e",
-  //     },
-  //   },
-  //   {
-  //     id: "3",
-  //     club_id: "",
-  //     name: "Clube da Luta",
-  //     icon: require("../../../assets/images/vascoicon.png"),
-  //     background: require("../../../assets/images/vascobandeira.png"),
-  //     description: "Descrição do Clube da Luta",
-  //     category: "",
-  //     colorScheme: {
-  //       titles_color: "#FFFFFF",
-  //       subtitles_color: "#AAB8C2",
-  //       buttons_color: "#1D9BF0",
-  //       palette_1: "#15202B",
-  //       palette_2: "#253341",
-  //       palette_3: "#0C111B",
-  //     },
-  //   },
-  // ];
-
-  const categorias = [
-    {
-      id: "1",
-      imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Art",
-    },
-    {
-      id: "2",
-      imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Collectibles",
-    },
-    {
-      id: "3",
-      imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
-    },
-    {
-      id: "4",
-      imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
-    },
-    {
-      id: "5",
-      imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
-    },
-  ];
 
   return (
     <FlatList
