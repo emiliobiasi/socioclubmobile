@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { View, Image, Text, StyleSheet } from "react-native";
+import { View, Image, Text, StyleSheet, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import H1Title from "../../../../components/Texts/H1Title";
 import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import BuyService from "../../../../services/BuyService";
+import { useUser } from "../../../../context/UserContext";
 
 const TicketContent = ({ route }) => {
   const navigation = useNavigation();
   const { event, colorScheme, formattedDate, formattedTime } = route.params;
   const [qtdNum, setQtdNum] = useState(1);
+  const { userInfo, updateUserInfo } = useUser();
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -125,6 +128,21 @@ const TicketContent = ({ route }) => {
     },
   });
 
+  const handleBuyTicketButton = () => {
+    async function buyTicket() {
+      try {
+        const response = await BuyService.buy(userInfo.id, event.id);
+        alert(
+          "Ingresso comprado com sucesso! Acesse 'Meus Ingressos' para vizualiza-los."
+        );
+      } catch (error) {
+        console.error("Erro ao buscar eventos:", error);
+      }
+    }
+
+    buyTicket();
+  };
+
   const handlePlusButton = () => {
     setQtdNum((prevQtdNum) => prevQtdNum + 1);
   };
@@ -178,7 +196,10 @@ const TicketContent = ({ route }) => {
           />
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.buyTicketsButton}>
+      <TouchableOpacity
+        style={styles.buyTicketsButton}
+        onPress={handleBuyTicketButton}
+      >
         <Text style={styles.buyTicketsButtonText}>Comprar Ingressos</Text>
       </TouchableOpacity>
     </View>

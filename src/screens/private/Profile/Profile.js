@@ -96,7 +96,10 @@ export default function Profile() {
         </View>
 
         <View style={styles.optionsSection}>
-          <TouchableOpacity style={styles.optionItem}>
+          <TouchableOpacity
+            style={styles.optionItem}
+            onPress={() => navigation.navigate("MyTickets")}
+          >
             <Text style={styles.optionText}>Meus Ingressos</Text>
             <MaterialIcons
               name="keyboard-arrow-right"
