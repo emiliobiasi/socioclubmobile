@@ -40,20 +40,28 @@ const FollowButton = ({ colorScheme }) => {
     },
   });
   const handleFollowButton = async () => {
-    try {
-      if (
-        clubInfo?.id &&
-        followingInfo?.some((club) => club.id === clubInfo.id)
-      ) {
-        await FollowService.unfollowClub(userInfo.id, String(clubInfo.id));
-      } else {
-        await FollowService.followClub(userInfo.id, String(clubInfo.id));
+    async function follow() {
+      try {
+        await FollowService.followClub(userInfo.id, clubInfo.id);
+        setState(true)
+      } catch (error) {
+        console.error("Erro ao buscar planos:", error);
       }
-    } catch (error) {
-      console.error(
-        "An error occurred while following/unfollowing the club:",
-        error
-      );
+    }
+    async function unfollow() {
+      try {
+        await FollowService.unfollowClub(userInfo.id, clubInfo.id);
+      } catch (error) {
+        console.error("Erro ao dar unfollow:", error);
+      }
+    }
+    if (
+      clubInfo?.id &&
+      followingInfo?.some((club) => club.id === clubInfo.id)
+    ) {
+      unfollow();
+    } else {
+      follow();
     }
   };
 

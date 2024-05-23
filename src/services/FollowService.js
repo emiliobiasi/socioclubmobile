@@ -10,6 +10,8 @@ const listarFollowsByClientId = (client_id) => {
 };
 
 const followClub = (client_id, club_id) => {
+  console.log("client_id (follow): ", client_id);
+  console.log("club_id (follow): ", club_id);
   return axios.post(
     process.env.EXPO_PUBLIC_API_URL + `/followClub`,
     {
@@ -23,6 +25,9 @@ const followClub = (client_id, club_id) => {
 };
 
 const unfollowClub = (client_id, club_id) => {
+  console.log("client_id (unfollow): ", client_id);
+  console.log("club_id (unfollow): ", club_id);
+
   return axios.delete(
     process.env.EXPO_PUBLIC_API_URL + `/unfollowClub`,
     {

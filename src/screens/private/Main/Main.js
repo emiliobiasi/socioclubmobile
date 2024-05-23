@@ -9,12 +9,14 @@ import Products from "./Products/Products";
 import Plans from "./Plans/Plans";
 import Tickets from "./Tickets/Tickets";
 import { useClub } from "../../../context/ClubContext";
+import { useFollowing } from "../../../context/FollowingContext";
 
 const { width, height } = Dimensions.get("window");
 
 const Tab = createBottomTabNavigator();
 export default function Main({ navigation }) {
   const { clubInfo } = useClub();
+  const { following } = useFollowing();
   const { name, colorScheme } = clubInfo;
   //console.log("clubInfo na MAIN: ", clubInfo);
   return (
