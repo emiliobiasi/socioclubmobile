@@ -108,7 +108,10 @@ export default function Profile() {
             />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.optionItem}>
+          <TouchableOpacity
+            style={styles.optionItem}
+            onPress={() => navigation.navigate("PurchaseHistory")}
+          >
             <Text style={styles.optionText}>Histórico de Compras</Text>
             <MaterialIcons
               name="keyboard-arrow-right"

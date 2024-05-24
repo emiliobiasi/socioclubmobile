@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, Text } from "react-native";
-import Subtitle from "../../../../components/Texts/Subtitle";
-import ClubSelectCard from "../../../../components/ClubSelectCard";
+import Subtitle from "../../components/Texts/Subtitle";
+import ClubSelectCard from "../../components/ClubSelectCard";
 import { ActivityIndicator } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import FollowService from "../../../../services/FollowService";
-import { useUser } from "../../../../context/UserContext";
-import { useFollowing } from "../../../../context/FollowingContext";
+import FollowService from "../../services/FollowService";
+import { useUser } from "../../context/UserContext";
+import { useFollowing } from "../../context/FollowingContext";
 
 const MyTickets = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
