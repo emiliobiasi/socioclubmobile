@@ -14,14 +14,14 @@ import { format, parseISO } from "date-fns";
 //   fk_Club_id INTEGER
 // );
 
-const TicketBoughtCard = ({ event, colorScheme, navigation }) => {
+const TicketBoughtCard = ({ event, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,
       borderRadius: 10,
       flex: 1,
       marginBottom: 10,
-      backgroundColor: colorScheme.palette_2,
+      backgroundColor: "#253341",
     },
     image: {
       width: "100%",
@@ -37,7 +37,7 @@ const TicketBoughtCard = ({ event, colorScheme, navigation }) => {
     title: {
       fontWeight: "bold",
       fontSize: 22,
-      color: colorScheme.titles_color,
+      color: "#FFFFFF",
       paddingVertical: "2%",
       textAlign: "center",
     },
@@ -47,18 +47,18 @@ const TicketBoughtCard = ({ event, colorScheme, navigation }) => {
     },
     date: {
       fontSize: 16,
-      color: colorScheme.subtitles_color,
+      color: "#AAB8C2",
       fontWeight: "bold",
     },
     separator: {
       fontSize: 16,
-      color: colorScheme.subtitles_color,
+      color: "#AAB8C2",
       paddingHorizontal: "2%",
       fontWeight: "bold",
     },
     time: {
       fontSize: 16,
-      color: colorScheme.subtitles_color,
+      color: "#AAB8C2",
       fontWeight: "bold",
     },
   });

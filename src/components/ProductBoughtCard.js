@@ -2,18 +2,6 @@ import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 
-// CREATE TABLE Event (
-//   id SERIAL PRIMARY KEY ,
-//   event_name VARCHAR,
-//   description VARCHAR,
-//   image VARCHAR,
-//   full_price INTEGER,
-//   event_date TIMESTAMP,
-//   tickets_away INTEGER,
-//   tickets_home INTEGER,
-//   fk_Club_id INTEGER
-// );
-
 const ProductBoughtCard = ({ product, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
@@ -48,18 +36,22 @@ const ProductBoughtCard = ({ product, navigation }) => {
       color: "#ffffff",
       paddingVertical: "2%",
       textAlign: "center",
+      flexShrink: 1,
+      flexWrap: "wrap",
     },
     description: {
       fontSize: 16,
       color: "#ffffff",
       paddingHorizontal: 5,
+      flexShrink: 1,
+      flexWrap: "wrap",
+      textAlign: "justify",
     },
     priceContainer: {
       flexDirection: "row",
       marginBottom: "3%",
-      // borderWidth: 1,
-      // borderRadius: 30,
       paddingVertical: 3,
+      alignItems: "center",
     },
     pricetag: {
       paddingTop: 25,

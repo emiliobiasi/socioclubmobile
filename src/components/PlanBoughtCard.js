@@ -1,14 +1,27 @@
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Entypo } from "@expo/vector-icons";
 
-const PlanCard = ({ plan, colorScheme, navigation }) => {
+// CREATE TABLE Event (
+//   id SERIAL PRIMARY KEY ,
+//   event_name VARCHAR,
+//   description VARCHAR,
+//   image VARCHAR,
+//   full_price INTEGER,
+//   event_date TIMESTAMP,
+//   tickets_away INTEGER,
+//   tickets_home INTEGER,
+//   fk_Club_id INTEGER
+// );
+
+const PlanBoughtCard = ({ plan, navigation }) => {
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,
       borderRadius: 10,
       flex: 1,
       marginBottom: 10,
-      backgroundColor: colorScheme.palette_2,
+      backgroundColor: "#253341",
     },
     topContainer: {
       flexDirection: "row",
@@ -24,33 +37,28 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
       resizeMode: "cover",
     },
     namePriceContainer: {
-      flex: 1,
-      flexDirection: "column",
+      display: "flex",
+      flexDirection: "column", // Define a direção do eixo principal como coluna
       justifyContent: "space-between",
-      alignItems: "flex-start",
+      alignItems: "flex-start", // Alinha os itens horizontalmente à esquerda
       paddingVertical: 20,
-      paddingHorizontal: 10,
     },
-    planNameContainer: {
-      flexShrink: 1,
-    },
+    planNameContainer: {},
     planText: {
       fontWeight: "bold",
       fontSize: 16,
-      color: colorScheme.titles_color,
+      color: "#FFFFFF",
     },
     name: {
       fontWeight: "bold",
       fontSize: 26,
-      color: colorScheme.titles_color,
+      color: "#FFFFFF",
       paddingVertical: "2%",
       textAlign: "center",
-      flexShrink: 1,
-      flexWrap: "wrap",
     },
     description: {
       fontSize: 16,
-      color: colorScheme.subtitles_color,
+      color: "#FFFFFF",
       paddingHorizontal: 5,
       alignSelf: "center",
       margin: 10,
@@ -59,9 +67,10 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
     },
     priceContainer: {
       marginBottom: "3%",
+      // borderWidth: 1,
+      // borderRadius: 30,
       paddingVertical: 3,
       flexDirection: "row",
-      alignItems: "center",
     },
     pricetag: {
       paddingTop: 25,
@@ -69,19 +78,17 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
     },
     rs: {
       fontSize: 20,
-      color: colorScheme.titles_color,
+      color: "#FFFFFF",
     },
     price: {
       fontSize: 30,
-      color: colorScheme.titles_color,
+      color: "#FFFFFF",
       fontWeight: "bold",
     },
   });
 
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate("PlanContent", { plan, colorScheme })}
-    >
+    <TouchableOpacity>
       <View style={styles.cardContainer}>
         <View style={styles.topContainer}>
           <View style={styles.imageView}>
@@ -89,11 +96,9 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
           </View>
           <View style={styles.namePriceContainer}>
             <Text style={styles.planText}>Plano</Text>
-            <View style={styles.planNameContainer}>
-              <Text style={styles.name} numberOfLines={1}>
-                {plan.name}
-              </Text>
-            </View>
+            <Text style={styles.name} numberOfLines={1}>
+              {plan.name}
+            </Text>
             <View style={styles.priceContainer}>
               <Text style={styles.rs}>R$ </Text>
               <Text style={styles.price}>{plan.price}</Text>
@@ -110,4 +115,4 @@ const PlanCard = ({ plan, colorScheme, navigation }) => {
   );
 };
 
-export default PlanCard;
+export default PlanBoughtCard;
