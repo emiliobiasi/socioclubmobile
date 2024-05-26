@@ -11,9 +11,10 @@ import { ActivityIndicator } from "react-native-paper";
 import { useUser } from "../../context/UserContext";
 import BuyService from "../../services/BuyService";
 import ProductBoughtCard from "../../components/ProductBoughtCard";
-import PlanBoughtCard from "../../components/PlanBoughtCard"; 
-import TicketBoughtCard from "../../components/TicketBoughtCard"; 
+import PlanBoughtCard from "../../components/PlanBoughtCard";
+import TicketBoughtCard from "../../components/TicketBoughtCard";
 import Subtitle from "../../components/Texts/Subtitle";
+import ClientsService from "../../services/ClientsService";
 
 const PurchaseHistory = ({ navigation }) => {
   const [purchaseHistory, setPurchaseHistory] = useState([]);
@@ -39,8 +40,10 @@ const PurchaseHistory = ({ navigation }) => {
           setPurchaseHistory(response.data.tickets);
           break;
         case "plan":
-          response = await BuyService.listarPlansByClientId(userInfo.id);
-          setPurchaseHistory(response.data.plans);
+          response = await ClientsService.listarTodosPlanosAssociados(
+            userInfo.id
+          );
+          setPurchaseHistory(response.data.message);
           break;
         default:
           break;

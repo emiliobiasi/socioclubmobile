@@ -1,5 +1,17 @@
 import axios from "axios";
 
+const listarTodosPlanosAssociados = (client_id) => {
+  return axios.get(
+    process.env.EXPO_PUBLIC_API_URL + `/getAllAssociate/${client_id}`,
+    {
+      client_id,
+    },
+    {
+      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+    }
+  );
+};
+
 const listarPlanosAssociadosAtualmente = (client_id) => {
   return axios.get(
     process.env.EXPO_PUBLIC_API_URL + `/getCurrentAssociate/${client_id}`,
@@ -114,6 +126,7 @@ const updateClient = async (email, username, cpf) => {
 };
 
 const ClientsService = {
+  listarTodosPlanosAssociados,
   listarPlanosAssociadosAtualmente,
   associarPlano,
   vicularClientClube,
