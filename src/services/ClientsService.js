@@ -1,5 +1,30 @@
 import axios from "axios";
 
+const listarPlanosAssociadosAtualmente = (client_id) => {
+  return axios.get(
+    process.env.EXPO_PUBLIC_API_URL + `/getCurrentAssociate/${client_id}`,
+    {
+      client_id,
+    },
+    {
+      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+    }
+  );
+};
+
+const associarPlano = (client_id, plan_id) => {
+  return axios.post(
+    process.env.EXPO_PUBLIC_API_URL + `/associate`,
+    {
+      client_id,
+      plan_id,
+    },
+    {
+      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+    }
+  );
+};
+
 const vicularClientClube = (client_id, club_id) => {
   return axios.post(
     process.env.EXPO_PUBLIC_API_URL + `/freeAssociate`,
@@ -89,6 +114,8 @@ const updateClient = async (email, username, cpf) => {
 };
 
 const ClientsService = {
+  listarPlanosAssociadosAtualmente,
+  associarPlano,
   vicularClientClube,
   listarClientByCpf,
   listarClients,

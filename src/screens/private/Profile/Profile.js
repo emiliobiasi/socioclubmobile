@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  Image,
   Alert,
+  ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -13,29 +13,37 @@ import { Ionicons } from "@expo/vector-icons";
 import { useUser } from "../../../context/UserContext";
 import { useClub } from "../../../context/ClubContext";
 import { useAuth } from "../../../context/AuthContext";
-import * as SecureStore from "expo-secure-store";
-import { ScrollView } from "react-native-gesture-handler";
 import { useShoppingCart } from "../../../context/ShoppingCartContext";
 import MembershipCard from "../../../components/membershipCard";
+import ClientsService from "../../../services/ClientsService";
 
 export default function Profile() {
   const { onLogout } = useAuth();
   const navigation = useNavigation();
-  const { userInfo, updateUserInfo } = useUser();
+  const { userInfo } = useUser();
   const { clubInfo } = useClub();
-  const {
-    shoppingCartInfo,
-    updateShoppingCartInfo,
-    replaceProduct,
-    removeProduct,
-    removeAllProducts,
-  } = useShoppingCart();
-  // console.log("userInfo no PROFILE: ", userInfo);
-  // console.log("clubInfo no PROFILE: ", clubInfo);
+  const { shoppingCartInfo, removeAllProducts } = useShoppingCart();
+  const [associatedPlans, setAssociatedPlans] = useState([]);
+
+  useEffect(() => {
+    async function getAssociatedPlans() {
+      try {
+        const response = await ClientsService.listarPlanosAssociadosAtualmente(
+          userInfo.id
+        );
+        setAssociatedPlans(response.data.message);
+      } catch (error) {
+        console.error("Erro ao buscar planos associados:", error);
+      }
+    }
+
+    getAssociatedPlans();
+  }, []);
+
+  console.log("associatedPlans: ", associatedPlans);
 
   const handleClubSearchButton = () => {
     if (shoppingCartInfo.length !== 0) {
-      // Se o carrinho não estiver vazio, exiba um alerta
       Alert.alert(
         "Atenção",
         "Ao alterar o clube, seus itens no carrinho serão esvaziados. Tem certeza que deseja continuar?",
@@ -48,7 +56,6 @@ export default function Profile() {
             text: "Continuar",
             onPress: () => {
               removeAllProducts();
-              // Navegue para a tela de busca do clube
               navigation.navigate("ClubSearch");
             },
           },
@@ -87,7 +94,18 @@ export default function Profile() {
         </TouchableOpacity>
       </View>
       <ScrollView style={styles.scrollView}>
-        <MembershipCard />
+        <ScrollView
+          style={styles.sideScrollView}
+          contentContainerStyle={styles.contentContainer}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          {associatedPlans.map((item, index) => (
+            <View key={index} style={styles.cardContainer}>
+              <MembershipCard plan={item} />
+            </View>
+          ))}
+        </ScrollView>
 
         <View style={styles.tab}>
           <TouchableOpacity>
@@ -124,7 +142,7 @@ export default function Profile() {
             style={styles.optionItem}
             onPress={handleClubSearchButton}
           >
-            <Text style={styles.optionText}>Alterar Clube</Text>
+            <Text style={styles.optionText}>Buscar Clube</Text>
             <MaterialIcons
               name="keyboard-arrow-right"
               size={24}
@@ -203,6 +221,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+  sideScrollView: {
+    paddingVertical: 10,
+  },
+  contentContainer: {
+    paddingHorizontal: 20,
+  },
   scrollView: {
     width: "100%",
   },
@@ -251,5 +275,8 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     marginHorizontal: "5%",
     height: 60,
+  },
+  cardContainer: {
+    marginRight: 20, // Espaçamento entre os cards
   },
 });

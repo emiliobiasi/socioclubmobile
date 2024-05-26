@@ -3,14 +3,34 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import ClientsService from "../../../../services/ClientsService";
+import { useUser } from "../../../../context/UserContext";
 
 const PlanContent = ({ route }) => {
   const navigation = useNavigation();
   const { plan, colorScheme } = route.params;
+  const { userInfo, updateUserInfo } = useUser();
 
   const handleBuyPlanButton = () => {
     // lógica para comprar plano / vincular sócio
+    async function associatePlan() {
+      try {
+        const response = await ClientsService.associarPlano(
+          userInfo.id,
+          plan.id
+        );
+        alert(
+          "Plano comprado com sucesso! O plano do seu perfil foi atualizado."
+        );
+      } catch (error) {
+        console.error("Erro ao associar plano:", error);
+      }
+    }
+
+    associatePlan();
   };
+
+  const handleBuyTicketButton = () => {};
 
   const styles = StyleSheet.create({
     container: {
