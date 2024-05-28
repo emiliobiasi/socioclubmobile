@@ -7,11 +7,14 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useShoppingCart } from "../../../../context/ShoppingCartContext";
 import ProductCard from "./ProductCard";
 import ShoppingCartCard from "./ShoppingCartCard";
+import BuyService from "../../../../services/BuyService";
+import { useUser } from "../../../../context/UserContext";
 
 const ShoppingCart = ({ route }) => {
   const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
+  const { userInfo, updateUserInfo } = useUser();
   const navigation = useNavigation();
-  const { colorScheme } = route.params;
+  const { colorScheme } = route.params; // Adding userInfo from route.params
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -61,6 +64,22 @@ const ShoppingCart = ({ route }) => {
     },
   });
   let uniqueKey = 0;
+
+  const handleBuyCartButton = () => {
+    // lógica para comprar produtos do carrinho
+    async function buyItems() {
+      try {
+        for (const product of shoppingCartInfo) {
+          await BuyService.buy(userInfo.id, product.id);
+        }
+        alert("Produtos comprados com sucesso!");
+      } catch (error) {
+        console.error("Erro ao comprar produtos:", error);
+      }
+    }
+    buyItems();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>
@@ -79,7 +98,7 @@ const ShoppingCart = ({ route }) => {
         />
       </View>
       <ScrollView style={styles.scrollView}>
-        {shoppingCartInfo.length == 0 ? (
+        {shoppingCartInfo.length === 0 ? (
           <View style={styles.emptyCartTextContainer}>
             <Text style={styles.emptyCartText}>Carrinho</Text>
             <Text style={styles.emptyCartText}>vazio...</Text>
@@ -100,10 +119,13 @@ const ShoppingCart = ({ route }) => {
           ))
         )}
       </ScrollView>
-      {shoppingCartInfo.length == 0 ? (
+      {shoppingCartInfo.length === 0 ? (
         ""
       ) : (
-        <TouchableOpacity style={styles.addToCartButton}>
+        <TouchableOpacity
+          style={styles.addToCartButton}
+          onPress={handleBuyCartButton}
+        >
           <Text style={styles.addToCartButtonText}>Finalizar Compra</Text>
         </TouchableOpacity>
       )}

@@ -9,28 +9,29 @@ import { MaterialIcons } from "@expo/vector-icons";
 import FollowService from "../../services/FollowService";
 import { useUser } from "../../context/UserContext";
 import { useFollowing } from "../../context/FollowingContext";
+import TicketsService from "../../services/TicketsService";
 
 const MyTickets = ({ navigation }) => {
-  const [clubes, setClubes] = useState([]);
+  const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
   const { userInfo, updateUserInfo } = useUser();
   const { followingInfo, updateFollowingInfo } = useFollowing();
 
   useEffect(() => {
-    async function getFollows() {
+    async function getMyTickets() {
       try {
-        const response = await FollowService.listarFollowsByClientId(
+        const response = await TicketsService.listarTicketsByClientId(
           userInfo.id
         );
-        updateFollowingInfo(response.data.clubs);
-        setClubes(response.data.clubs);
+        console.log(response.data);
+        // setTickets(response.data);
         setLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar follows:", error);
+        console.error("Erro ao buscar ticekts:", error);
       }
     }
 
-    getFollows();
+    getMyTickets();
   }, []);
 
   return (
@@ -66,7 +67,7 @@ const MyTickets = ({ navigation }) => {
               />
             ) : (
               <FlatList
-                data={clubes}
+                data={tickets}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (

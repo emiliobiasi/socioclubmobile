@@ -8,12 +8,16 @@ import { Entypo } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import BuyService from "../../../../services/BuyService";
 import { useUser } from "../../../../context/UserContext";
+import TicketsService from "../../../../services/TicketsService";
+import { useClub } from "../../../../context/ClubContext";
 
 const TicketContent = ({ route }) => {
   const navigation = useNavigation();
   const { event, colorScheme, formattedDate, formattedTime } = route.params;
   const [qtdNum, setQtdNum] = useState(1);
   const { userInfo, updateUserInfo } = useUser();
+  const { clubInfo, updateClibInfo } = useClub();
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -132,6 +136,7 @@ const TicketContent = ({ route }) => {
     async function buyTicket() {
       try {
         const response = await BuyService.buy(userInfo.id, event.id);
+        await TicketsService.createTicket(event.id, clubInfo.id, userInfo.id);
         alert(
           "Ingresso comprado com sucesso! Acesse 'Meus Ingressos' para vizualiza-los."
         );

@@ -8,6 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../../../../context/ClubContext";
 import { FontAwesome5 } from "@expo/vector-icons";
 import FollowButton from "../../../../components/FollowButton";
+import { Entypo } from "@expo/vector-icons";
 
 // const products = [
 //   {
@@ -91,6 +92,7 @@ const Products = ({ colorScheme, navigation }) => {
     },
     selectorSection: {
       flexDirection: "row",
+      justifyContent: "space-between",
     },
     categoryText: {
       fontWeight: "bold",
@@ -122,6 +124,7 @@ const Products = ({ colorScheme, navigation }) => {
       borderRadius: 10,
       justifyContent: "center",
       alignItems: "center",
+      flexDirection: "row",
     },
     loading: {
       margin: 100,
@@ -141,6 +144,14 @@ const Products = ({ colorScheme, navigation }) => {
         />
       </View>
       <View style={styles.selectorSection}>
+        <View style={styles.categoriesButton}>
+          <Text style={styles.categoryText}>Categories</Text>
+          <Entypo
+            name="chevron-down"
+            size={24}
+            color={colorScheme.titles_color}
+          />
+        </View>
         <TouchableOpacity
           style={styles.addToCartButton}
           onPress={handleShoppingCartButtonPress}
@@ -152,9 +163,6 @@ const Products = ({ colorScheme, navigation }) => {
             color={colorScheme.titles_color}
           />
         </TouchableOpacity>
-        <View style={styles.categoriesButton}>
-          <Text style={styles.categoryText}>Categories</Text>
-        </View>
       </View>
       <ScrollView style={styles.scrollView}>
         {loading ? (

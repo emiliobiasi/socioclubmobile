@@ -16,6 +16,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useShoppingCart } from "../../../context/ShoppingCartContext";
 import MembershipCard from "../../../components/membershipCard";
 import ClientsService from "../../../services/ClientsService";
+import Subtitle from "../../../components/Texts/Subtitle";
 
 export default function Profile() {
   const { onLogout } = useAuth();
@@ -24,6 +25,7 @@ export default function Profile() {
   const { clubInfo } = useClub();
   const { shoppingCartInfo, removeAllProducts } = useShoppingCart();
   const [associatedPlans, setAssociatedPlans] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getAssociatedPlans() {
@@ -34,13 +36,15 @@ export default function Profile() {
         setAssociatedPlans(response.data.message);
       } catch (error) {
         console.error("Erro ao buscar planos associados:", error);
+      } finally {
+        setLoading(false); // Dados foram carregados
       }
     }
 
     getAssociatedPlans();
   }, []);
 
-  console.log("associatedPlans: ", associatedPlans);
+  // console.log("associatedPlans: ", associatedPlans);
 
   const handleClubSearchButton = () => {
     if (shoppingCartInfo.length !== 0) {
@@ -93,6 +97,9 @@ export default function Profile() {
           <Text style={styles.editText}>Editar Perfil</Text>
         </TouchableOpacity>
       </View>
+      {!loading && associatedPlans.length > 0 && (
+        <Subtitle text={"Arraste para o lado para ver seus planos >>>"} />
+      )}
       <ScrollView style={styles.scrollView}>
         <ScrollView
           style={styles.sideScrollView}
@@ -194,6 +201,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "10%",
     paddingVertical: "5%",
     backgroundColor: "#253341",
+    marginBottom: 10,
   },
   name: {
     fontWeight: "bold",

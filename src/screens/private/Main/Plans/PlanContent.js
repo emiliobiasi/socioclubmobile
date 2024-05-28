@@ -26,11 +26,10 @@ const PlanContent = ({ route }) => {
         console.error("Erro ao associar plano:", error);
       }
     }
-
     associatePlan();
   };
 
-  const handleBuyTicketButton = () => {};
+  
 
   const styles = StyleSheet.create({
     container: {

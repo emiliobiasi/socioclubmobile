@@ -15,6 +15,7 @@ import PlanBoughtCard from "../../components/PlanBoughtCard";
 import TicketBoughtCard from "../../components/TicketBoughtCard";
 import Subtitle from "../../components/Texts/Subtitle";
 import ClientsService from "../../services/ClientsService";
+import TicketsService from "../../services/TicketsService";
 
 const PurchaseHistory = ({ navigation }) => {
   const [purchaseHistory, setPurchaseHistory] = useState([]);
@@ -36,8 +37,8 @@ const PurchaseHistory = ({ navigation }) => {
           setPurchaseHistory(response.data.products);
           break;
         case "ticket":
-          response = await BuyService.listarTicketsByClientId(userInfo.id);
-          setPurchaseHistory(response.data.tickets);
+          response = await TicketsService.listarTicketsByClientId(userInfo.id);
+          setPurchaseHistory(response.data.message);
           break;
         case "plan":
           response = await ClientsService.listarTodosPlanosAssociados(
