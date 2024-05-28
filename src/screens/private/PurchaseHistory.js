@@ -38,6 +38,7 @@ const PurchaseHistory = ({ navigation }) => {
           break;
         case "ticket":
           response = await TicketsService.listarTicketsByClientId(userInfo.id);
+          console.log("response.data.message: ", response.data.message);
           setPurchaseHistory(response.data.message);
           break;
         case "plan":
@@ -153,15 +154,13 @@ const PurchaseHistory = ({ navigation }) => {
                     <ProductBoughtCard
                       key={`${item.id}-${index}`}
                       product={item}
-                      navigation={navigation}
                     />
                   );
                 } else if (selected === "ticket") {
                   return (
                     <TicketBoughtCard
                       key={`${item.id}-${index}`}
-                      ticket={item}
-                      navigation={navigation}
+                      event={item}
                     />
                   );
                 } else if (selected === "plan") {

@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { format, parseISO } from "date-fns";
+import { useNavigation } from "@react-navigation/native";
 
 // CREATE TABLE Event (
 //   id SERIAL PRIMARY KEY ,
@@ -14,7 +15,8 @@ import { format, parseISO } from "date-fns";
 //   fk_Club_id INTEGER
 // );
 
-const TicketBoughtCard = ({ event }) => {
+const MyTicketCard = ({ ticket }) => {
+  const navigation = useNavigation();
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,
@@ -62,22 +64,31 @@ const TicketBoughtCard = ({ event }) => {
       fontWeight: "bold",
     },
   });
+  console.log("ticket: ", ticket);
 
-  // Separando a data e o tempo do eventDate
-  const eventDateTimeArray = event.eventDate.split(" ");
-  const eventDate = eventDateTimeArray[0];
-  const eventTime = eventDateTimeArray[1];
+  // Separando a data e o tempo do ticketDate
+  const ticketDateTimeArray = ticket.eventDate.split(" ");
+  const ticketDate = ticketDateTimeArray[0];
+  const ticketTime = ticketDateTimeArray[1];
   // Formatando a data e o tempo
-  const formattedDate = format(parseISO(eventDate), "dd/MM/yy");
+  const formattedDate = format(parseISO(ticketDate), "dd/MM/yy");
   // Formatando o tempo
-  const parsedTime = parseISO(`1970-01-01T${eventTime}`);
+  const parsedTime = parseISO(`1970-01-01T${ticketTime}`);
   const formattedTime = format(parsedTime, "HH:mm");
+
+  const handleTicketCard = () => {
+    navigation.navigate("MyTicketContent", {
+      ticket,
+      formattedDate,
+      formattedTime,
+    });
+  };
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={handleTicketCard}>
       <View style={styles.cardContainer}>
-        <Image source={{ uri: event.image }} style={styles.image} />
+        <Image source={{ uri: ticket.image }} style={styles.image} />
         <View style={styles.textContainer}>
-          <Text style={styles.title}>{event.eventName}</Text>
+          <Text style={styles.title}>{ticket.eventName}</Text>
           <View style={styles.dateTimeContainer}>
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.separator}>·</Text>
@@ -89,4 +100,4 @@ const TicketBoughtCard = ({ event }) => {
   );
 };
 
-export default TicketBoughtCard;
+export default MyTicketCard;

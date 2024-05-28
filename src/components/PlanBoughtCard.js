@@ -14,7 +14,7 @@ import { Entypo } from "@expo/vector-icons";
 //   fk_Club_id INTEGER
 // );
 
-const PlanBoughtCard = ({ plan, navigation }) => {
+const PlanBoughtCard = ({ plan }) => {
   const styles = StyleSheet.create({
     cardContainer: {
       margin: 10,

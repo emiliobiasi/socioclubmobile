@@ -10,6 +10,7 @@ import FollowService from "../../services/FollowService";
 import { useUser } from "../../context/UserContext";
 import { useFollowing } from "../../context/FollowingContext";
 import TicketsService from "../../services/TicketsService";
+import MyTicketCard from "../../components/MyTicketCard";
 
 const MyTickets = ({ navigation }) => {
   const [tickets, setTickets] = useState([]);
@@ -20,11 +21,11 @@ const MyTickets = ({ navigation }) => {
   useEffect(() => {
     async function getMyTickets() {
       try {
-        const response = await TicketsService.listarTicketsByClientId(
+        const response = await TicketsService.listarValidTicketsByClientId(
           userInfo.id
         );
-        console.log(response.data);
-        // setTickets(response.data);
+        console.log("valid tickets: ", response.data.message);
+        setTickets(response.data.message);
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar ticekts:", error);
@@ -54,10 +55,10 @@ const MyTickets = ({ navigation }) => {
             <MaterialIcons name="account-circle" size={30} color="white" />
           </View>
           <View style={styles.sideSpace}>
-            <Subtitle
+            {/* <Subtitle
               text="Aqui estão todos os seus ingressos comprados."
               marginVertical={20}
-            />
+            /> */}
             {loading ? (
               <ActivityIndicator
                 animating={true}
@@ -66,15 +67,9 @@ const MyTickets = ({ navigation }) => {
                 style={styles.loading}
               />
             ) : (
-              <FlatList
-                data={tickets}
-                numColumns={2}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <ClubSelectCard club={item} navigation={navigation} />
-                )}
-                columnWrapperStyle={styles.clubRow} // Para adicionar espaço entre as colunas
-              />
+              tickets.map((item, index) => (
+                <MyTicketCard key={index} ticket={item} />
+              ))
             )}
           </View>
         </>
@@ -101,7 +96,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   sideSpace: {
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     paddingTop: 10,
   },
   searchBar: {

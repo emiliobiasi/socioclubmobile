@@ -54,6 +54,8 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
     fetchData();
   }, []);
 
+  console.log(news)
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,

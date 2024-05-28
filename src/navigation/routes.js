@@ -30,6 +30,7 @@ import { FollowingProvider } from "../context/FollowingContext";
 import MyClubs from "../screens/private/MyClubs";
 import MyTickets from "../screens/private/MyTickets";
 import PurchaseHistory from "../screens/private/PurchaseHistory";
+import MyTicketContent from "../components/MyTicketContent";
 
 const Stack = createStackNavigator();
 
@@ -158,6 +159,11 @@ const PrivateNavigator = () => (
     <Stack.Screen
       name="MyTickets"
       component={MyTickets}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="MyTicketContent"
+      component={MyTicketContent}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
