@@ -8,7 +8,7 @@ const listarNews = () => {
 
 const listarNewsByClubId = (id) => {
   return axios.get(`${process.env.EXPO_PUBLIC_API_URL}/getNewsByClubId/${id}`, {
-    timeout: 10000, // Tempo limite de 5 segundos (em milissegundos)
+    timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
   });
 };
 

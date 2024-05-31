@@ -56,7 +56,7 @@ const Plans = ({ colorScheme, navigation }) => {
       }
     }
     fetchData();
-  }, []);
+  }, [clubInfo]);
 
   const styles = StyleSheet.create({
     container: {

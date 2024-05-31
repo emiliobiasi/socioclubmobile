@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
   },
   categoryContent: {
     paddingHorizontal: 0, // Espaço interno para a área de scroll horizontal
+    paddingLeft: 10
   },
   clubRow: {
     justifyContent: "space-between", // Espaçamento entre colunas

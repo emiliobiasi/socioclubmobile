@@ -19,6 +19,8 @@ const FollowButton = ({ colorScheme }) => {
       followingInfo?.some((club) => club.id === clubInfo.id)
     ) {
       updateFollowing(true);
+    } else {
+      updateFollowing(false);
     }
   }, [clubInfo, followingInfo]);
 
@@ -42,11 +44,8 @@ const FollowButton = ({ colorScheme }) => {
 
   async function getFollows() {
     try {
-      const response = await FollowService.listarFollowsByClientId(
-        userInfo.id
-      );
+      const response = await FollowService.listarFollowsByClientId(userInfo.id);
       updateFollowingInfo(response.data.clubs);
-      
     } catch (error) {
       console.error("Erro ao buscar follows:", error);
     }

@@ -10,7 +10,7 @@ const listarPlansByClubId = (id) => {
   return axios.get(
     `${process.env.EXPO_PUBLIC_API_URL}/getPlansByClubId/${id}`,
     {
-      timeout: 10000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };

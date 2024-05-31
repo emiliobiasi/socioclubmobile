@@ -7,7 +7,7 @@ const listarTodosPlanosAssociados = (client_id) => {
       client_id,
     },
     {
-      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 10 segundos (em milissegundos)
     }
   );
 };
@@ -19,7 +19,7 @@ const listarPlanosAssociadosAtualmente = (client_id) => {
       client_id,
     },
     {
-      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 10 segundos (em milissegundos)
     }
   );
 };
@@ -32,7 +32,7 @@ const associarPlano = (client_id, plan_id) => {
       plan_id,
     },
     {
-      timeout: 10000, // Tempo limite de 10 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 10 segundos (em milissegundos)
     }
   );
 };
@@ -45,7 +45,7 @@ const vicularClientClube = (client_id, club_id) => {
       club_id,
     },
     {
-      timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };
@@ -54,14 +54,14 @@ const listarClients = (cpf) => {
   return axios.get(
     process.env.EXPO_PUBLIC_API_URL + `/findClientByCpf/${cpf}`,
     {
-      timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };
 
 const listarClientByCpf = () => {
   return axios.get(process.env.EXPO_PUBLIC_API_URL + "/clients", {
-    timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+    timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
   });
 };
 
@@ -76,7 +76,7 @@ const registrarClient = async (cpf, name, email, password) => {
         password,
       },
       {
-        timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+        timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
       }
     );
   } catch (e) {
@@ -93,7 +93,7 @@ const logarClient = async (email, password) => {
         password,
       },
       {
-        timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+        timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
       }
     );
   } catch (e) {
@@ -117,7 +117,7 @@ const updateClient = async (email, username, cpf) => {
       process.env.EXPO_PUBLIC_API_URL + `/update/${cpf}`,
       body,
       {
-        timeout: 5000, // Tempo limite de 5 segundos (em milissegundos)
+        timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
       }
     );
   } catch (e) {

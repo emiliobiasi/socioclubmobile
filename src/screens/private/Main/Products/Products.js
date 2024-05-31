@@ -60,7 +60,7 @@ const Products = ({ colorScheme, navigation }) => {
       }
     }
     fetchData();
-  }, []);
+  }, [clubInfo]);
 
   const handleShoppingCartButtonPress = () => {
     navigation.navigate("ShoppingCart", { colorScheme });

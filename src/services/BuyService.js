@@ -4,7 +4,7 @@ const listarBuyByClientId = (client_id) => {
   return axios.get(
     `${process.env.EXPO_PUBLIC_API_URL}/getBoughtProductsByClientId/${client_id}`,
     {
-      timeout: 10000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };
@@ -17,7 +17,7 @@ const buy = (client_id, product_id) => {
       product_id,
     },
     {
-      timeout: 10000, // Tempo limite de 5 segundos (em milissegundos)
+      timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
   );
 };

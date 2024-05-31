@@ -12,19 +12,27 @@ import {
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../context/ClubContext";
 import { useUser } from "../context/UserContext";
+import { useFollowing } from "../context/FollowingContext";
 
 const { width, height } = Dimensions.get("window");
 
 const ClubSelectCard = ({ club, navigation }) => {
   const { userInfo, updateUserInfo } = useUser();
-  const { updateClubInfo } = useClub();
+  const { clubInfo, updateClubInfo } = useClub();
+  const { followingInfo, updateFollowing } = useFollowing();
   const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
-  const navigateToMain = () => {
+  const navigateToMain = async () => {
     updateClubInfo(club);
     setModalVisible(false);
+    if (
+      clubInfo?.id &&
+      followingInfo?.some((club) => club.id === clubInfo.id)
+    ) {
+      await updateFollowing(true);
+    }
     navigation.navigate("Main");
   };
   return (

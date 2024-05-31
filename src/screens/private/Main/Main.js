@@ -10,6 +10,7 @@ import Plans from "./Plans/Plans";
 import Tickets from "./Tickets/Tickets";
 import { useClub } from "../../../context/ClubContext";
 import { useFollowing } from "../../../context/FollowingContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -143,8 +144,11 @@ const styles = (colorScheme) =>
       borderTopWidth: 0,
     },
     iconImage: {
-      width: "100%",
-      height: "100%",
+      width: 60, // Tamanho da imagem do ícone
+      height: 60, // Tamanho da imagem do ícone
+      borderRadius: 40, // Tornar a imagem redonda
+      borderWidth: 2, // Borda ao redor do ícone
+      borderColor: "#fff", // Cor da borda
     },
     iconImageView: {
       width: 60,
