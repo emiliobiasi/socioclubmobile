@@ -38,7 +38,6 @@ const PurchaseHistory = ({ navigation }) => {
           break;
         case "ticket":
           response = await TicketsService.listarTicketsByClientId(userInfo.id);
-          console.log("response.data.message: ", response.data.message);
           setPurchaseHistory(response.data.message);
           break;
         case "plan":
@@ -147,6 +146,16 @@ const PurchaseHistory = ({ navigation }) => {
                 size="large"
                 style={styles.loading}
               />
+            ) : purchaseHistory.length === 0 ? (
+              <Text style={styles.emptyMessage}>
+                Você ainda não realizou compras de{" "}
+                {selected === "product"
+                  ? "produtos"
+                  : selected === "ticket"
+                  ? "ingressos"
+                  : "planos"}
+                .
+              </Text>
             ) : (
               purchaseHistory.map((item, index) => {
                 if (selected === "product") {
@@ -234,6 +243,12 @@ const styles = StyleSheet.create({
   },
   loading: {
     margin: 50,
+  },
+  emptyMessage: {
+    color: "#AAB8C2",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 200,
   },
 });
 

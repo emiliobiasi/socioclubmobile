@@ -1,44 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import SearchBar from "../../../../components/SearchBar";
-import { useClub } from "../../../../context/ClubContext";
 import PlansService from "../../../../services/PlansService";
 import PlanCard from "./PlanCard";
 import { ActivityIndicator } from "react-native-paper";
 import FollowButton from "../../../../components/FollowButton";
-
-// const plans = [
-//   {
-//     id: "1",
-//     name: "Básico 1",
-//     description: "Descrição do plano Básico 1",
-//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-//     price: "150.40",
-//     discount: "30.00",
-//     priority: "1",
-//     fk_Club_id: "1",
-//   },
-//   {
-//     id: "2",
-//     name: "Básico 2",
-//     description: "Descrição do plano Básico 2",
-//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-//     price: "150.40",
-//     discount: "30.00",
-//     priority: "1",
-//     fk_Club_id: "1",
-//   },
-//   {
-//     id: "3",
-//     name: "Básico 3",
-//     description: "Descrição do plano Básico 3",
-//     image: "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-//     price: "150.40",
-//     discount: "30.00",
-//     priority: "1",
-//     fk_Club_id: "1",
-//   },
-// ];
+import { useClub } from "../../../../context/ClubContext";
 
 const Plans = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -81,7 +47,14 @@ const Plans = ({ colorScheme, navigation }) => {
     loading: {
       margin: 100,
     },
+    emptyMessage: {
+      color: colorScheme.titles_color,
+      fontSize: 18,
+      textAlign: "center",
+      marginTop: 200,
+    },
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.titleView}>
@@ -96,6 +69,10 @@ const Plans = ({ colorScheme, navigation }) => {
             size="large"
             style={styles.loading}
           />
+        ) : plans.length === 0 ? (
+          <Text style={styles.emptyMessage}>
+            O clube não possui planos até o momento.
+          </Text>
         ) : (
           plans.map((item) => (
             <PlanCard

@@ -9,7 +9,7 @@ import {
 
 const { width, height } = Dimensions.get("window");
 
-const ClubCategory = ({ imageSource, title }) => {
+const ClubCategory = ({ title }) => {
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>

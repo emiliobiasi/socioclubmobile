@@ -10,38 +10,6 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import FollowButton from "../../../../components/FollowButton";
 import { Entypo } from "@expo/vector-icons";
 
-// const products = [
-//   {
-//     id: "1",
-//     product_id: "33",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     name: "Caneca Personalizada do São Paulo",
-//     description: "Descrição do produto Caneca Personalizada do São Paulo...",
-//     price: "135.90",
-//     category: "Item",
-//   },
-//   {
-//     id: "2",
-//     product_id: "34",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     name: "Caneca São Paulo",
-//     description:
-//       "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-//     price: "35.90",
-//     category: "Item",
-//   },
-//   {
-//     id: "3",
-//     product_id: "35",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     name: "Caneca São Paulo",
-//     description:
-//       "https://storage.googleapis.com/socioclub/club/sao-paulo/logo.png",
-//     price: "35.90",
-//     category: "Item",
-//   },
-// ];
-
 const Products = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -129,6 +97,12 @@ const Products = ({ colorScheme, navigation }) => {
     loading: {
       margin: 100,
     },
+    emptyMessage: {
+      color: colorScheme.titles_color,
+      fontSize: 18,
+      textAlign: "center",
+      marginTop: 200,
+    },
   });
 
   return (
@@ -172,6 +146,10 @@ const Products = ({ colorScheme, navigation }) => {
             size="large"
             style={styles.loading}
           />
+        ) : products.length === 0 ? (
+          <Text style={styles.emptyMessage}>
+            O clube não possui produtos até o momento.
+          </Text>
         ) : (
           products.map((item) => (
             <ProductCard

@@ -32,6 +32,7 @@ const MyClubs = ({ navigation }) => {
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar follows:", error);
+        setLoading(false);
       }
     }
 
@@ -69,6 +70,10 @@ const MyClubs = ({ navigation }) => {
                 size="large"
                 style={styles.loading}
               />
+            ) : clubes.length === 0 ? (
+              <Text style={styles.noClubsText}>
+                Você ainda não segue nenhum clube
+              </Text>
             ) : (
               <FlatList
                 data={clubes}
@@ -123,6 +128,12 @@ const styles = StyleSheet.create({
   },
   loading: {
     margin: 50,
+  },
+  noClubsText: {
+    color: "white",
+    textAlign: "center",
+    marginTop: 200,
+    fontSize: 18,
   },
 });
 

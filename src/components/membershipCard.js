@@ -1,9 +1,11 @@
 import React from "react";
 import { View, Image, Text, StyleSheet } from "react-native";
 import { useClub } from "../context/ClubContext";
+import { format } from "date-fns";
 
 const MembershipCard = ({ plan }) => {
   const { clubInfo } = useClub();
+  const formattedEndDate = format(new Date(plan.end_date), "dd/MM/yyyy");
   const styles = StyleSheet.create({
     membershipCard: {
       flexDirection: "row", // Para alinhar os itens horizontalmente
@@ -89,7 +91,7 @@ const MembershipCard = ({ plan }) => {
           </Text>
         </View>
 
-        <Text style={styles.dateRange}>Até dia: {plan.end_date}</Text>
+        <Text style={styles.dateRange}>Até dia: {formattedEndDate}</Text>
       </View>
     </View>
   );

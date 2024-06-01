@@ -11,9 +11,11 @@ import { ActivityIndicator } from "react-native-paper";
 import FollowService from "../../services/FollowService";
 import { useUser } from "../../context/UserContext";
 import { useFollowing } from "../../context/FollowingContext";
+import ClubCategoryService from "../../services/ClubCategoryService";
 
 const ClubSearch = ({ navigation }) => {
   const [clubes, setClubes] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const { userInfo, updateUserInfo } = useUser();
   const { followingInfo, updateFollowingInfo } = useFollowing();
@@ -22,6 +24,7 @@ const ClubSearch = ({ navigation }) => {
     async function fetchData() {
       try {
         const response = await ClubService.listarClubs();
+        const res = await ClubCategoryService.listarClubsCategories();
         setClubes(response.data.clubs);
         setLoading(false);
       } catch (error) {
@@ -44,31 +47,31 @@ const ClubSearch = ({ navigation }) => {
     getFollows();
   }, []);
 
-  const categorias = [
+  const categories = [
     {
       id: "1",
       imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Art",
+      title: "Futebol",
     },
     {
       id: "2",
       imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Collectibles",
+      title: "Livros",
     },
     {
       id: "3",
       imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
+      title: "Academia",
     },
     {
       id: "4",
       imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
+      title: "Educação",
     },
     {
       id: "5",
       imageSource: require("../../../assets/images/socioclublogodark.png"),
-      title: "Domains",
+      title: "Música",
     },
   ];
 
@@ -92,13 +95,11 @@ const ClubSearch = ({ navigation }) => {
             <H2Title text="Categorias" marginVertical={10} />
           </View>
           <FlatList
-            data={categorias}
+            data={categories}
             horizontal
             showsHorizontalScrollIndicator={false}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <ClubCategory imageSource={item.imageSource} title={item.title} />
-            )}
+            renderItem={({ item }) => <ClubCategory title={item.title} />}
             contentContainerStyle={styles.categoryContent} // Para ajustar espaço interno
           />
           <View style={styles.sideSpace}>
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
   },
   categoryContent: {
     paddingHorizontal: 0, // Espaço interno para a área de scroll horizontal
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   clubRow: {
     justifyContent: "space-between", // Espaçamento entre colunas

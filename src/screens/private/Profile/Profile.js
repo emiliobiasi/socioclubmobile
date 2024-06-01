@@ -87,7 +87,7 @@ export default function Profile() {
 
       <View style={styles.profileInfo}>
         <Text style={styles.name}>{userInfo.name}</Text>
-        <Text style={styles.email}>{userInfo.email}</Text>
+        <Text style={styles.email}>E-mail: {userInfo.email}</Text>
         <Text style={styles.hidden}>Senha: ******</Text>
         <Text style={styles.hidden}>CPF: {userInfo.cpf}</Text>
         <TouchableOpacity
@@ -207,20 +207,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 28,
     color: "white",
+    marginBottom: 20,
   },
   email: {
     color: "#AAB8C2",
-    fontSize: 16,
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
   hidden: {
     color: "#AAB8C2",
-    fontSize: 16,
+    fontSize: 14,
+    marginBottom: 5,
+    fontWeight: "bold",
   },
   editButton: {
     backgroundColor: "#253341",
     padding: 10,
     borderRadius: 8,
-    marginTop: 16,
+    marginTop: 20,
     borderWidth: 2,
     borderColor: "#fff",
   },

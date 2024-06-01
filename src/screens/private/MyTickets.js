@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, FlatList, Text } from "react-native";
-import Subtitle from "../../components/Texts/Subtitle";
-import ClubSelectCard from "../../components/ClubSelectCard";
 import { ActivityIndicator } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,8 +13,8 @@ import MyTicketCard from "../../components/MyTicketCard";
 const MyTickets = ({ navigation }) => {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { userInfo, updateUserInfo } = useUser();
-  const { followingInfo, updateFollowingInfo } = useFollowing();
+  const { userInfo } = useUser();
+  const { updateFollowingInfo } = useFollowing();
 
   useEffect(() => {
     async function getMyTickets() {
@@ -29,6 +27,7 @@ const MyTickets = ({ navigation }) => {
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar ticekts:", error);
+        setLoading(false);
       }
     }
 
@@ -55,10 +54,6 @@ const MyTickets = ({ navigation }) => {
             <MaterialIcons name="account-circle" size={30} color="white" />
           </View>
           <View style={styles.sideSpace}>
-            {/* <Subtitle
-              text="Aqui estão todos os seus ingressos comprados."
-              marginVertical={20}
-            /> */}
             {loading ? (
               <ActivityIndicator
                 animating={true}
@@ -66,6 +61,11 @@ const MyTickets = ({ navigation }) => {
                 size="large"
                 style={styles.loading}
               />
+            ) : tickets.length === 0 ? (
+              <Text style={styles.noTicketsText}>
+                Você ainda não comprou nenhum ingresso. Realize a compra na
+                seção "Ingressos" do menu e visualize-os aqui!
+              </Text>
             ) : (
               tickets.map((item, index) => (
                 <MyTicketCard key={index} ticket={item} />
@@ -114,6 +114,13 @@ const styles = StyleSheet.create({
   },
   loading: {
     margin: 50,
+  },
+  noTicketsText: {
+    color: "white",
+    textAlign: "center",
+    marginTop: 200,
+    fontSize: 18,
+    paddingHorizontal: 20, // Adicionado para melhor apresentação do texto
   },
 });
 

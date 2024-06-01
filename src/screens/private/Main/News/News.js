@@ -3,43 +3,12 @@ import { View, Text, StyleSheet, ScrollView } from "react-native";
 import NewsCard from "./NewsCard";
 import NewsService from "../../../../services/NewsService";
 import { ActivityIndicator } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Entypo } from "@expo/vector-icons";
 import FollowButton from "../../../../components/FollowButton";
-
-// const news = [
-//   {
-//     id: "1",
-//     news_id: "",
-//     title: "Notícia do Vasco",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     author: "Thiago Lima",
-//     publish_date: "04/05/24",
-//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-//   },
-//   {
-//     id: "2",
-//     news_id: "",
-//     title: "Notícia do São Paulo",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     author: "Emílio Biasi",
-//     publish_date: "04/05/24",
-//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-//   },
-//   {
-//     id: "3",
-//     news_id: "",
-//     title: "Notícia do Vasco",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     author: "Thiago Lima",
-//     publish_date: "04/05/24",
-//     text: "Conteúdo da Notícia do vasco da gama flinstons... Loren I",
-//   },
-// ];
 
 const News = ({ clubInfo, colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -47,14 +16,12 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
         setNews(response.data.news);
         setLoading(false);
       } catch (error) {
-        console.error("Erro ao buscar clubes:", error);
+        console.error("Erro ao buscar notícias:", error);
       }
     }
 
     fetchData();
   }, [clubInfo]);
-
-  // console.log(news)
 
   const styles = StyleSheet.create({
     container: {
@@ -76,11 +43,17 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
       fontWeight: "bold",
       color: colorScheme.titles_color,
     },
-
     loading: {
       margin: 100,
     },
+    emptyMessage: {
+      color: colorScheme.titles_color,
+      fontSize: 18,
+      textAlign: "center",
+      marginTop: 200,
+    },
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.titleView}>
@@ -95,6 +68,10 @@ const News = ({ clubInfo, colorScheme, navigation }) => {
             size="large"
             style={styles.loading}
           />
+        ) : news.length === 0 ? (
+          <Text style={styles.emptyMessage}>
+            O clube não possui notícias até o momento.
+          </Text>
         ) : (
           news.map((item) => (
             <NewsCard

@@ -8,64 +8,11 @@ import TicketCard from "./TicketCard";
 import { useClub } from "../../../../context/ClubContext";
 import FollowButton from "../../../../components/FollowButton";
 
-// CREATE TABLE Event (
-//   id SERIAL PRIMARY KEY ,
-//   event_name VARCHAR,
-//   description VARCHAR,
-//   image VARCHAR,
-//   full_price INTEGER,
-//   event_date TIMESTAMP,
-//   tickets_away INTEGER,
-//   tickets_home INTEGER,
-//   fk_Club_id INTEGER
-// );
-
-// CREATE TABLE Ticket (
-//  qr_code VARCHAR PRIMARY KEY,
-//  fk_Event_id INTEGER,
-//  fk_Client_id INTEGER
-//  );
-
-// const events = [
-//   {
-//     id: "1",
-//     event_name: "SÃO PAULO FC X CRUZEIRO – BRASILEIRÃO BETANO 2024",
-//     description: "Amistoso no Estadio Morumbi...",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     full_price: "75.90",
-//     event_date: "10/10/2024",
-//     tickets_away: "1",
-//     tickets_home: "1",
-//     fk_Club_id: "1",
-//   },
-//   {
-//     id: "2",
-//     event_name: "São Paulo x Cruzeiro",
-//     description: "Amistoso no Estadio Morumbi...",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     full_price: "75.90",
-//     event_date: "10/10/2024",
-//     tickets_away: "1",
-//     tickets_home: "1",
-//     fk_Club_id: "1",
-//   },
-//   {
-//     id: "3",
-//     event_name: "São Paulo x Cruzeiro",
-//     description: "Amistoso no Estadio Morumbi...",
-//     image: "https://storage.googleapis.com/socioclub/news/sao-paulo/1.jpg",
-//     full_price: "75.90",
-//     event_date: "10/10/2024",
-//     tickets_away: "1",
-//     tickets_home: "1",
-//     fk_Club_id: "1",
-//   },
-// ];
-
 const Tickets = ({ colorScheme, navigation }) => {
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
   const { clubInfo } = useClub();
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -74,6 +21,7 @@ const Tickets = ({ colorScheme, navigation }) => {
         setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
+        setLoading(false);
       }
     }
 
@@ -103,7 +51,14 @@ const Tickets = ({ colorScheme, navigation }) => {
     loading: {
       margin: 100,
     },
+    noEventsText: {
+      color: colorScheme.titles_color,
+      textAlign: "center",
+      marginTop: 200,
+      fontSize: 18,
+    },
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.titleView}>
@@ -118,6 +73,10 @@ const Tickets = ({ colorScheme, navigation }) => {
             size="large"
             style={styles.loading}
           />
+        ) : events.length === 0 ? (
+          <Text style={styles.noEventsText}>
+            O clube não possui eventos ou jogos até o momento
+          </Text>
         ) : (
           events.map((item) => (
             <TicketCard

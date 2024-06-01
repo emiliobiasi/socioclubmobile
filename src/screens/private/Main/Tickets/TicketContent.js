@@ -112,7 +112,7 @@ const TicketContent = ({ route }) => {
       alignSelf: "center",
     },
     qtdNum: {
-      fontSize: 50,
+      fontSize: 30,
       color: colorScheme.titles_color,
       paddingHorizontal: 20,
       paddingBottom: 20,
@@ -188,14 +188,14 @@ const TicketContent = ({ route }) => {
         <View style={styles.qtdCotainer}>
           <Entypo
             name="squared-minus"
-            size={46}
+            size={38}
             color={colorScheme.titles_color}
             onPress={handleMinusButton}
           />
           <Text style={styles.qtdNum}>{qtdNum}</Text>
           <Entypo
             name="squared-plus"
-            size={46}
+            size={38}
             color={colorScheme.titles_color}
             onPress={handlePlusButton}
           />

@@ -8,11 +8,13 @@ import {
   Modal,
   Dimensions,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useClub } from "../context/ClubContext";
 import { useUser } from "../context/UserContext";
 import { useFollowing } from "../context/FollowingContext";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const { width, height } = Dimensions.get("window");
 
@@ -21,19 +23,49 @@ const ClubSelectCard = ({ club, navigation }) => {
   const { clubInfo, updateClubInfo } = useClub();
   const { followingInfo, updateFollowing } = useFollowing();
   const [modalVisible, setModalVisible] = useState(false);
+  const { shoppingCartInfo, removeAllProducts } = useShoppingCart();
 
   const openModal = () => setModalVisible(true);
   const closeModal = () => setModalVisible(false);
   const navigateToMain = async () => {
-    updateClubInfo(club);
     setModalVisible(false);
-    if (
-      clubInfo?.id &&
-      followingInfo?.some((club) => club.id === clubInfo.id)
-    ) {
-      await updateFollowing(true);
+
+    if (shoppingCartInfo.length > 0) {
+      Alert.alert(
+        "Atenção",
+        "Ao alterar o clube, seus itens no carrinho serão esvaziados. Tem certeza que deseja continuar?",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Continuar",
+            onPress: async () => {
+              await removeAllProducts();
+              updateClubInfo(club);
+              if (
+                clubInfo?.id &&
+                followingInfo?.some((club) => club.id === clubInfo.id)
+              ) {
+                await updateFollowing(true);
+              }
+              navigation.navigate("Main");
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      updateClubInfo(club);
+      if (
+        clubInfo?.id &&
+        followingInfo?.some((club) => club.id === clubInfo.id)
+      ) {
+        await updateFollowing(true);
+      }
+      navigation.navigate("Main");
     }
-    navigation.navigate("Main");
   };
   return (
     <View>
