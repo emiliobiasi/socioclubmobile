@@ -1,20 +1,25 @@
+// src/components/ShoppingCart.js
+
 import React from "react";
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useShoppingCart } from "../../../../context/ShoppingCartContext";
-import ProductCard from "./ProductCard";
 import ShoppingCartCard from "./ShoppingCartCard";
-import BuyService from "../../../../services/BuyService";
 import { useUser } from "../../../../context/UserContext";
+import { Linking } from "react-native";
+import StripeService from "../../../../services/StripeService";
+import { useClub } from "../../../../context/ClubContext";
 
 const ShoppingCart = ({ route }) => {
   const { shoppingCartInfo, updateShoppingCartInfo } = useShoppingCart();
-  const { userInfo, updateUserInfo } = useUser();
+  const { userInfo } = useUser();
   const navigation = useNavigation();
-  const { colorScheme } = route.params; // Adding userInfo from route.params
+  const { colorScheme } = route.params;
+  const { clubInfo, updateClubInfo } = useClub();
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -27,7 +32,7 @@ const ShoppingCart = ({ route }) => {
       paddingTop: "15%",
       backgroundColor: colorScheme.palette_2,
       flexDirection: "row",
-      justifyContent: "space-between", // Distribui o espaço entre os itens
+      justifyContent: "space-between",
       alignItems: "center",
     },
     pageName: {
@@ -35,7 +40,7 @@ const ShoppingCart = ({ route }) => {
       fontSize: 34,
       color: colorScheme.titles_color,
     },
-    addToCartButton: {
+    buyButton: {
       backgroundColor: colorScheme.buttons_color,
       padding: 15,
       borderRadius: 10,
@@ -43,7 +48,7 @@ const ShoppingCart = ({ route }) => {
       marginBottom: 40,
       marginHorizontal: 20,
     },
-    addToCartButtonText: {
+    buyButtonText: {
       color: colorScheme.titles_color,
       fontSize: 18,
       fontWeight: "bold",
@@ -63,20 +68,40 @@ const ShoppingCart = ({ route }) => {
       paddingBottom: 5,
     },
   });
+
   let uniqueKey = 0;
 
   const handleBuyCartButton = () => {
-    // lógica para comprar produtos do carrinho
     async function buyItems() {
+      console.log("shoppingCartInfo: ", shoppingCartInfo);
       try {
-        for (const product of shoppingCartInfo) {
-          await BuyService.buy(userInfo.id, product.id);
+        console.log("clubInfo.stripe_id: ", clubInfo.stripe_id);
+        // Construir a lista de itens para o checkout
+        const items = shoppingCartInfo.map((product) => ({
+          price_id: product.price_id, // Assegure-se de que cada produto possui 'price_id'
+          quantity: product.quantity || 1, // Assegure-se de que cada produto possui 'quantity'
+        }));
+
+        // Chamar o backend para criar a sessão de checkout
+        const response = await StripeService.createCheckoutLink(
+          items,
+          userInfo.id,
+          clubInfo.stripe_id
+        );
+        const checkoutUrl = response.data.checkout_url;
+
+        if (checkoutUrl) {
+          // Redirecionar o usuário para o Stripe Checkout
+          Linking.openURL(checkoutUrl);
+        } else {
+          Alert.alert("Erro", "Não foi possível criar o link de checkout.");
         }
-        alert("Produtos comprados com sucesso!");
       } catch (error) {
-        console.error("Erro ao comprar produtos:", error);
+        console.error("Erro ao criar o link de checkout:", error);
+        Alert.alert("Erro", "Ocorreu um erro ao processar sua compra.");
       }
     }
+
     buyItems();
   };
 
@@ -111,7 +136,7 @@ const ShoppingCart = ({ route }) => {
         ) : (
           shoppingCartInfo.map((item) => (
             <ShoppingCartCard
-              key={uniqueKey++}
+              key={item.id} // Use um identificador único do item
               product={item}
               colorScheme={colorScheme}
               navigation={navigation}
@@ -119,14 +144,12 @@ const ShoppingCart = ({ route }) => {
           ))
         )}
       </ScrollView>
-      {shoppingCartInfo.length === 0 ? (
-        ""
-      ) : (
+      {shoppingCartInfo.length === 0 ? null : (
         <TouchableOpacity
-          style={styles.addToCartButton}
+          style={styles.buyButton}
           onPress={handleBuyCartButton}
         >
-          <Text style={styles.addToCartButtonText}>Finalizar Compra</Text>
+          <Text style={styles.buyButtonText}>Finalizar Compra</Text>
         </TouchableOpacity>
       )}
     </View>

@@ -34,6 +34,8 @@ const Products = ({ colorScheme, navigation }) => {
     navigation.navigate("ShoppingCart", { colorScheme });
   };
 
+  console.log("Products: ", products);
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -151,7 +153,7 @@ const Products = ({ colorScheme, navigation }) => {
             O clube não possui produtos até o momento.
           </Text>
         ) : (
-          products.map((item) => (
+          products.map((item, index) => (
             <ProductCard
               key={item.id}
               product={item}

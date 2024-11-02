@@ -8,7 +8,7 @@ const listarProducts = () => {
 
 const listarProductsByClubId = (id) => {
   return axios.get(
-    `${process.env.EXPO_PUBLIC_API_URL}/getProductsByClubId/${id}`,
+    `${process.env.EXPO_PUBLIC_API_URL}/getStripeProductsByClubId/${id}`,
     {
       timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }

@@ -18,6 +18,7 @@ export const ClubProvider = ({ children }) => {
       palette_2: "#253341",
       palette_3: "#0C111B",
     },
+    stripe_id: "",
   });
 
   console.log("club atual:", clubInfo);
@@ -42,6 +43,7 @@ export const ClubProvider = ({ children }) => {
         palette_2: newClubInfo.palette_2 || clubInfo.colorScheme.palette_2,
         palette_3: newClubInfo.palette_3 || clubInfo.colorScheme.palette_3,
       },
+      stripe_id: newClubInfo.stripe_id || clubInfo.stripe_id,
     };
 
     setClubInfo(updatedClubInfo);
