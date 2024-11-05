@@ -8,7 +8,7 @@ const listarPlans = () => {
 
 const listarPlansByClubId = (id) => {
   return axios.get(
-    `${process.env.EXPO_PUBLIC_API_URL}/plans/${id}`,
+    `${process.env.EXPO_PUBLIC_API_URL}/getStripePlansByClubId/${id}`,
     {
       timeout: 20000, // Tempo limite de 5 segundos (em milissegundos)
     }
