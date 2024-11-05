@@ -86,7 +86,8 @@ const ShoppingCart = ({ route }) => {
         const response = await StripeService.createCheckoutLink(
           items,
           userInfo.id,
-          clubInfo.stripe_id
+          clubInfo.stripe_id,
+          "payment"
         );
         const checkoutUrl = response.data.checkout_url;
 

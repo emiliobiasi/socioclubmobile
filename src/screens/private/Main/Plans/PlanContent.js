@@ -1,35 +1,59 @@
 import React from "react";
-import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
-import ClientsService from "../../../../services/ClientsService";
 import { useUser } from "../../../../context/UserContext";
+import StripeService from "../../../../services/StripeService";
+import { Linking } from "react-native";
+import { useClub } from "../../../../context/ClubContext";
 
 const PlanContent = ({ route }) => {
   const navigation = useNavigation();
   const { plan, colorScheme } = route.params;
-  const { userInfo, updateUserInfo } = useUser();
+  const { userInfo } = useUser();
+  const { clubInfo, updateClubInfo } = useClub();
 
   const handleBuyPlanButton = () => {
     // lógica para comprar plano / vincular sócio
-    async function associatePlan() {
+    async function initiateCheckout() {
       try {
-        const response = await ClientsService.associarPlano(
+        const items = [
+          {
+            price_id: plan.price_id, // Assegure-se de que 'plan' possui 'price_id'
+            quantity: 1,
+          },
+        ];
+
+        const response = await StripeService.createCheckoutLink(
+          items,
           userInfo.id,
-          plan.id
+          clubInfo.stripe_id,
+          "subscription"
         );
-        alert(
-          "Plano comprado com sucesso! O plano do seu perfil foi atualizado."
-        );
+        const checkoutUrl = response.data.checkout_url;
+
+        if (checkoutUrl) {
+          // Redirecionar o usuário para o Stripe Checkout
+          Linking.openURL(checkoutUrl);
+        } else {
+          Alert.alert("Erro", "Não foi possível criar o link de checkout.");
+        }
       } catch (error) {
-        console.error("Erro ao associar plano:", error);
+        console.error("Erro ao criar o link de checkout:", error);
+        Alert.alert("Erro", "Ocorreu um erro ao processar sua compra.");
       }
     }
-    associatePlan();
-  };
 
-  
+    initiateCheckout();
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -64,10 +88,10 @@ const PlanContent = ({ route }) => {
     },
     priceView: {
       flexDirection: "row",
-      position: "absolute", // Posicionamento absoluto
-      bottom: 0, // Colocado na parte inferior
-      right: 40, // Colocado à direita
-      padding: 10, // Adiciona algum espaçamento
+      position: "absolute",
+      bottom: 0,
+      right: 40,
+      padding: 10,
       backgroundColor: colorScheme.palette_1,
       borderTopLeftRadius: 10,
       borderTopRightRadius: 10,
@@ -107,6 +131,7 @@ const PlanContent = ({ route }) => {
       fontWeight: "bold",
     },
   });
+
   return (
     <View style={styles.container}>
       <View style={styles.topBar}>

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const createCheckoutLink = (items, client_id, stripe_id) => {
+const createCheckoutLink = (items, client_id, stripe_id, mode) => {
   console.log("items: ", items);
   console.log("client_id: ", client_id);
   return axios.post(
@@ -11,6 +11,7 @@ const createCheckoutLink = (items, client_id, stripe_id) => {
       client_id,
       items, // 'items' é uma lista de { price_id, quantity }
       stripe_id,
+      mode,
     },
     {
       timeout: 20000, // Tempo limite de 20 segundos
