@@ -89,8 +89,8 @@ const TicketCard = ({ event, colorScheme, navigation }) => {
           <Text style={styles.title}>{event.eventName}</Text>
           <View style={styles.dateTimeContainer}>
             <Text style={styles.date}>{formattedDate}</Text>
-            <Text style={styles.separator}>·</Text>
-            <Text style={styles.time}>{formattedTime}h</Text>
+            {/* <Text style={styles.separator}>·</Text>
+            <Text style={styles.time}>{formattedTime}h</Text> */}
           </View>
         </View>
       </View>

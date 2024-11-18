@@ -174,8 +174,8 @@ const TicketContent = ({ route }) => {
           <Text style={styles.title}>{event.eventName}</Text>
           <View style={styles.dateTimeContainer}>
             <Text style={styles.date}>{formattedDate}</Text>
-            <Text style={styles.separator}>·</Text>
-            <Text style={styles.time}>{formattedTime}h</Text>
+            {/* <Text style={styles.separator}>·</Text>
+            <Text style={styles.time}>{formattedTime}h</Text> */}
           </View>
           <Text style={styles.text}>{event.description}</Text>
         </View>
